@@ -464,7 +464,7 @@
             }
         }
 
-        /* Warning Modal Styling */
+        /* Warning Modal Styling - mai subtil */
         .warning-overlay {
             position: fixed;
             inset: 0;
@@ -724,6 +724,35 @@
         .secret-message-close:hover {
             background: rgba(255, 255, 255, 0.2);
             color: white;
+        }
+
+        /* Countdown Animation */
+        .countdown-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .countdown-text {
+            font-size: 1.5rem;
+            color: #D4AF37;
+            font-weight: bold;
+            animation: countdown-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes countdown-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .countdown-explosion {
+            font-size: 4rem;
+            animation: explosion 0.5s ease-out forwards;
+        }
+
+        @keyframes explosion {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.5); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
@@ -1024,7 +1053,8 @@
             <div class="warning-icon">🤫</div>
             <h3 id="warning-title" class="warning-title">Pst... vrei să vezi ceva?</h3>
             <p class="warning-text">
-                Dacă apeși pe <strong>Deschide</strong>, vei vedea un mesaj special.
+                Dacă apeși pe <strong>Deschide</strong>, vei vedea un mesaj special.<br><br>
+                După ce îl citești, mesajul se va <strong>autodistruge</strong> în <strong>60 de secunde</strong>... sau nu? 😏
             </p>
             <div class="warning-buttons">
                 <button id="btn-open-secret" class="btn-warning btn-warning-open">
@@ -1082,9 +1112,15 @@
                 </p>
             </div>
 
+            <!-- Countdown -->
+            <div id="countdown-container" class="countdown-container" style="display: none;">
+                <p class="text-gray-400 mb-4">Mesajul se va autodistruge în:</p>
+                <div id="countdown-display" class="countdown-text">60</div>
+            </div>
+
             <div class="secret-message-footer">
                 <button id="btn-close-secret" class="secret-message-close">
-                    Închide mesajul 🤫
+                    Închide mesajul (nu se va distruge, promit! 🤫)
                 </button>
             </div>
         </div>
@@ -1719,6 +1755,21 @@
                 }
             }
 
+            playCountdown() {
+                if (this.isMuted || !this.initialized) return;
+                this.resume();
+                this.createTone(800, this.audioContext.currentTime, 0.1, 0.1, 'square');
+            }
+
+            playExplosion() {
+                if (this.isMuted || !this.initialized) return;
+                this.resume();
+                const now = this.audioContext.currentTime;
+                for (let i = 0; i < 10; i++) {
+                    this.createTone(100 + Math.random() * 200, now + i * 0.02, 0.2, 0.15, 'sawtooth');
+                }
+            }
+
             createTone(frequency, startTime, duration, volume, type = 'sine') {
                 if (!this.initialized) return;
                 const osc = this.audioContext.createOscillator();
@@ -1792,7 +1843,8 @@
                     vy: (Math.random() - 0.5) * 4 + vy * 0.15 - 1.5,
                     size: size,
                     life: 0,
-                    maxLife: 40 + Math.random() * 30
+                    maxLife: 40 + Math.random() * 30,
+                    decay: 0.02 + Math.random() * 0.02
                 });
             }
 
@@ -2027,10 +2079,13 @@
             touchParticles.burst(e.clientX, e.clientY, 10);
         });
 
-        // ==================== SECRET MESSAGE SYSTEM (FARA TIMER) ====================
+        // ==================== SECRET MESSAGE SYSTEM ====================
         const warningOverlay = document.getElementById('warning-overlay');
         const jokeOverlay = document.getElementById('joke-overlay');
         const secretMessageContainer = document.getElementById('secret-message-container');
+        const countdownContainer = document.getElementById('countdown-container');
+        const countdownDisplay = document.getElementById('countdown-display');
+        let countdownInterval = null;
 
         // Open warning
         document.getElementById('secret-btn').addEventListener('click', function() {
@@ -2064,6 +2119,8 @@
             setTimeout(() => {
                 secretMessageContainer.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                
+                startCountdown();
             }, 300);
         });
 
@@ -2072,7 +2129,50 @@
             soundSystem.playClick();
             secretMessageContainer.classList.remove('active');
             document.body.style.overflow = '';
+            
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+            }
+            countdownContainer.style.display = 'none';
+            countdownDisplay.textContent = '60';
+            countdownDisplay.className = 'countdown-text';
+            countdownDisplay.innerHTML = '60';
         });
+
+        // Countdown 60 seconds
+        function startCountdown() {
+            let count = 60;
+            countdownContainer.style.display = 'block';
+            countdownDisplay.textContent = count;
+            
+            countdownInterval = setInterval(() => {
+                count--;
+                soundSystem.playCountdown();
+                
+                if (count > 0) {
+                    countdownDisplay.textContent = count;
+                    countdownDisplay.style.animation = 'none';
+                    countdownDisplay.offsetHeight;
+                    countdownDisplay.style.animation = 'countdown-pulse 1s ease-in-out infinite';
+                } else {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                    soundSystem.playExplosion();
+                    countdownDisplay.innerHTML = '<span class="countdown-explosion">💥</span>';
+                    countdownDisplay.style.animation = 'none';
+                    countdownDisplay.className = 'text-center';
+                    
+                    setTimeout(() => {
+                        countdownDisplay.innerHTML = `
+                            <div class="text-green-400 text-lg mb-2">🎉 SURPRIZĂ! 🎉</div>
+                            <div class="text-gray-400 text-sm">Mesajul nu s-a distrus niciodată!</div>
+                            <div class="text-yellow-400 text-sm mt-2">Poți citi mesajul oricând vrei! 💝</div>
+                        `;
+                    }, 500);
+                }
+            }, 1000);
+        }
 
         // ==================== CONFETTI FUNCTIONS ====================
         function createStarConfetti(rating) {
@@ -2567,6 +2667,7 @@
         // ==================== CLEANUP ====================
         window.addEventListener('beforeunload', () => {
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            if (countdownInterval) clearInterval(countdownInterval);
             ScrollTrigger.getAll().forEach(t => t.kill());
             soundSystem.destroy();
             starParticles.forEach(p => p.destroy());
