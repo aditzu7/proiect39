@@ -47,7 +47,7 @@
         button:focus:not(:focus-visible) { outline: none; }
 
         /* ============================================
-           BACKGROUND ANIMAT
+           BACKGROUND ANIMAT - SIMPLU SI EFICIENT
            ============================================ */
         #main-background {
             position: fixed;
@@ -63,118 +63,108 @@
             background: linear-gradient(180deg, #050505 0%, #0a0808 50%, #050505 100%);
         }
 
-        .bg-orb-gold {
+        /* ============================================
+           AMBIENT ORBS ANIMATI - USOARE SI FRUMOASE
+           ============================================ */
+        .ambient-orb {
             position: absolute;
-            width: 150%;
-            height: 150%;
-            top: -25%;
-            left: -25%;
-            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.25) 0%, rgba(212, 175, 55, 0.1) 30%, transparent 70%);
-            animation: orb-gold-move 12s ease-in-out infinite;
-            will-change: transform;
-        }
-
-        @keyframes orb-gold-move {
-            0% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(8%, 5%) scale(1.2); }
-            50% { transform: translate(-5%, 10%) scale(1.1); }
-            75% { transform: translate(-10%, -5%) scale(1.25); }
-            100% { transform: translate(0, 0) scale(1); }
-        }
-
-        .bg-orb-rose {
-            position: absolute;
-            width: 140%;
-            height: 140%;
-            top: -20%;
-            left: -20%;
-            background: radial-gradient(ellipse at center, rgba(183, 110, 121, 0.22) 0%, rgba(183, 110, 121, 0.08) 35%, transparent 65%);
-            animation: orb-rose-move 15s ease-in-out infinite;
-            animation-delay: -5s;
-            will-change: transform;
-        }
-
-        @keyframes orb-rose-move {
-            0% { transform: translate(0, 0) scale(1.1); }
-            33% { transform: translate(-10%, 8%) scale(1); }
-            66% { transform: translate(5%, -10%) scale(1.2); }
-            100% { transform: translate(0, 0) scale(1.1); }
-        }
-
-        .bg-orb-purple {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at 70% 30%, rgba(138, 43, 226, 0.08) 0%, transparent 50%);
-            animation: orb-purple-pulse 10s ease-in-out infinite;
-            animation-delay: -3s;
-            will-change: opacity, transform;
-        }
-
-        @keyframes orb-purple-pulse {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.3); }
-        }
-
-        .bg-glow-center {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 50%, rgba(212, 175, 55, 0.06) 0%, transparent 60%);
-            animation: glow-pulse 8s ease-in-out infinite;
-            will-change: opacity, transform;
-        }
-
-        @keyframes glow-pulse {
-            0%, 100% { opacity: 0.6; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        .bg-dust {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-        }
-
-        .dust-particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
             border-radius: 50%;
-            animation: dust-float 20s linear infinite;
+            pointer-events: none;
             will-change: transform, opacity;
+            transform: translateZ(0);
+            /* Optimizat pentru performanta - doar transform si opacity */
         }
 
-        @keyframes dust-float {
-            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(-100px) translateX(100px); opacity: 0; }
+        .orb-gold {
+            background: radial-gradient(circle, 
+                rgba(212, 175, 55, 0.15) 0%, 
+                rgba(212, 175, 55, 0.05) 40%, 
+                transparent 70%);
+            animation: orb-float-1 20s ease-in-out infinite !important;
         }
 
-        .bg-light-lines {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            opacity: 0.15;
+        .orb-rose {
+            background: radial-gradient(circle, 
+                rgba(183, 110, 121, 0.12) 0%, 
+                rgba(183, 110, 121, 0.04) 40%, 
+                transparent 70%);
+            animation: orb-float-2 25s ease-in-out infinite !important;
         }
 
-        .light-line {
-            position: absolute;
-            width: 1px;
-            height: 200px;
-            background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.5), transparent);
-            animation: line-drift 15s ease-in-out infinite;
-            will-change: transform, opacity;
+        .orb-purple {
+            background: radial-gradient(circle, 
+                rgba(138, 43, 226, 0.08) 0%, 
+                rgba(138, 43, 226, 0.02) 40%, 
+                transparent 70%);
+            animation: orb-float-3 18s ease-in-out infinite !important;
         }
 
-        @keyframes line-drift {
-            0%, 100% { transform: translateY(-100%) rotate(5deg); opacity: 0; }
-            50% { transform: translateY(calc(100vh + 100px)) rotate(5deg); opacity: 1; }
+        .orb-center {
+            background: radial-gradient(circle, 
+                rgba(212, 175, 55, 0.08) 0%, 
+                transparent 60%);
+            animation: orb-pulse 12s ease-in-out infinite !important;
+        }
+
+        /* Animatii GPU-accelerated - doar transform si opacity */
+        @keyframes orb-float-1 {
+            0%, 100% { 
+                transform: translateZ(0) translate(0, 0) scale(1); 
+                opacity: 0.6; 
+            }
+            25% { 
+                transform: translateZ(0) translate(5%, 3%) scale(1.1); 
+                opacity: 0.8; 
+            }
+            50% { 
+                transform: translateZ(0) translate(-3%, 6%) scale(1.05); 
+                opacity: 0.7; 
+            }
+            75% { 
+                transform: translateZ(0) translate(-6%, -3%) scale(1.15); 
+                opacity: 0.9; 
+            }
+        }
+
+        @keyframes orb-float-2 {
+            0%, 100% { 
+                transform: translateZ(0) translate(0, 0) scale(1); 
+                opacity: 0.5; 
+            }
+            33% { 
+                transform: translateZ(0) translate(-5%, 4%) scale(1.08); 
+                opacity: 0.7; 
+            }
+            66% { 
+                transform: translateZ(0) translate(3%, -5%) scale(0.95); 
+                opacity: 0.6; 
+            }
+        }
+
+        @keyframes orb-float-3 {
+            0%, 100% { 
+                transform: translateZ(0) scale(1); 
+                opacity: 0.4; 
+            }
+            50% { 
+                transform: translateZ(0) scale(1.2); 
+                opacity: 0.7; 
+            }
+        }
+
+        @keyframes orb-pulse {
+            0%, 100% { 
+                transform: translateZ(0) scale(0.9); 
+                opacity: 0.5; 
+            }
+            50% { 
+                transform: translateZ(0) scale(1.1); 
+                opacity: 0.8; 
+            }
         }
 
         /* ============================================
-           PARTICLE CONTAINERE
+           PARTICLE CONTAINERE - MINIMALE
            ============================================ */
         .particle-container {
             position: fixed !important;
@@ -244,282 +234,6 @@
             transform: translateZ(0);
         }
 
-        /* ============================================
-           STELE FUNDAL - CSS ANIMATIONS
-           ============================================ */
-        
-        .bg-star {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            will-change: transform, opacity;
-            transform: translateZ(0);
-        }
-
-        .bg-star::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 1) 0%, 
-                rgba(255, 215, 0, 0.8) 30%, 
-                rgba(212, 175, 55, 0.4) 60%, 
-                transparent 100%);
-        }
-
-        .bg-star.gold::before {
-            width: 100%;
-            height: 100%;
-            box-shadow: 
-                0 0 6px 2px rgba(255, 255, 255, 0.9),
-                0 0 12px 4px rgba(255, 215, 0, 0.8),
-                0 0 20px 6px rgba(212, 175, 55, 0.5);
-        }
-
-        .bg-star.rose::before {
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 1) 0%, 
-                rgba(255, 182, 193, 0.9) 30%, 
-                rgba(183, 110, 121, 0.5) 60%, 
-                transparent 100%);
-            box-shadow: 
-                0 0 5px 2px rgba(255, 255, 255, 0.9),
-                0 0 10px 3px rgba(255, 182, 193, 0.7);
-        }
-
-        .bg-star.white::before {
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 1) 0%, 
-                rgba(255, 255, 255, 0.6) 40%, 
-                transparent 100%);
-            box-shadow: 
-                0 0 4px 1px rgba(255, 255, 255, 1),
-                0 0 8px 2px rgba(255, 255, 255, 0.8);
-        }
-
-        .bg-star.dust::before {
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 0.9) 0%, 
-                rgba(255, 255, 255, 0.5) 40%, 
-                transparent 100%);
-            box-shadow: 
-                0 0 3px 1px rgba(255, 255, 255, 0.6);
-        }
-
-        .star-twinkle {
-            animation: twinkle-simple 3s ease-in-out infinite !important;
-        }
-
-        @keyframes twinkle-simple {
-            0%, 100% { opacity: 0.6; transform: translateZ(0) scale(1); }
-            50% { opacity: 1; transform: translateZ(0) scale(1.3); }
-        }
-
-        .star-float {
-            animation: float-simple 8s ease-in-out infinite !important;
-        }
-
-        @keyframes float-simple {
-            0%, 100% { transform: translateZ(0) translate(0, 0); }
-            25% { transform: translateZ(0) translate(8px, -12px); }
-            75% { transform: translateZ(0) translate(-6px, 8px); }
-        }
-
-        .star-pulse {
-            animation: pulse-simple 3s ease-in-out infinite !important;
-        }
-
-        @keyframes pulse-simple {
-            0%, 100% { opacity: 0.5; transform: translateZ(0) scale(1); }
-            50% { opacity: 0.9; transform: translateZ(0) scale(1.4); }
-        }
-
-        .star-firefly {
-            animation: firefly-simple 4s ease-in-out infinite !important;
-        }
-
-        @keyframes firefly-simple {
-            0%, 100% { opacity: 0.3; transform: translateZ(0) scale(0.8); }
-            25% { opacity: 1; transform: translateZ(0) scale(1.2); }
-            50% { opacity: 0.4; transform: translateZ(0) scale(0.9); }
-            75% { opacity: 0.85; transform: translateZ(0) scale(1.1); }
-        }
-
-        .bg-orb {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            will-change: transform, opacity;
-            transform: translateZ(0);
-        }
-
-        .bg-orb.gold-orb {
-            background: radial-gradient(circle, 
-                rgba(255, 215, 0, 0.35) 0%, 
-                rgba(212, 175, 55, 0.15) 40%, 
-                transparent 70%);
-            animation: orb-drift-gold 15s ease-in-out infinite;
-        }
-
-        .bg-orb.rose-orb {
-            background: radial-gradient(circle, 
-                rgba(255, 182, 193, 0.3) 0%, 
-                rgba(183, 110, 121, 0.12) 40%, 
-                transparent 70%);
-            animation: orb-drift-rose 20s ease-in-out infinite;
-        }
-
-        .bg-orb.white-orb {
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 0.25) 0%, 
-                rgba(255, 255, 255, 0.08) 40%, 
-                transparent 70%);
-            animation: orb-drift-white 25s ease-in-out infinite;
-        }
-
-        @keyframes orb-drift-gold {
-            0%, 100% { transform: translateZ(0) translate(0, 0) scale(1); opacity: 0.5; }
-            50% { transform: translateZ(0) translate(40px, -25px) scale(1.15); opacity: 0.7; }
-        }
-
-        @keyframes orb-drift-rose {
-            0%, 100% { transform: translateZ(0) translate(0, 0) scale(1.1); opacity: 0.4; }
-            50% { transform: translateZ(0) translate(-45px, 30px) scale(0.95); opacity: 0.55; }
-        }
-
-        @keyframes orb-drift-white {
-            0%, 100% { transform: translateZ(0) translate(0, 0) scale(1); opacity: 0.3; }
-            50% { transform: translateZ(0) translate(-30px, -40px) scale(1.3); opacity: 0.45; }
-        }
-
-        .star-cluster {
-            position: absolute;
-            pointer-events: none;
-            will-change: transform, opacity;
-            transform: translateZ(0);
-        }
-
-        .star-cluster::before {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            top: 0;
-            left: 0;
-            border-radius: 50%;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 0.9) 0%, 
-                rgba(255, 215, 0, 0.5) 30%, 
-                transparent 70%);
-            box-shadow: 
-                15px 5px 0 2px rgba(255, 215, 0, 0.6),
-                5px 18px 0 1px rgba(255, 255, 255, 0.7);
-            animation: cluster-twinkle 3s ease-in-out infinite;
-        }
-
-        @keyframes cluster-twinkle {
-            0%, 100% { opacity: 0.7; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        .meteor {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            pointer-events: none;
-            will-change: transform, opacity;
-            animation: meteor-fall linear infinite;
-        }
-
-        .meteor::before {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 1px;
-            background: linear-gradient(to right, 
-                rgba(255, 255, 255, 0.9) 0%, 
-                rgba(255, 215, 0, 0.6) 30%, 
-                transparent 100%);
-            transform: translateX(-100px);
-            top: 50%;
-            margin-top: -0.5px;
-        }
-
-        @keyframes meteor-fall {
-            0% { transform: translateY(0) translateX(0); opacity: 1; }
-            70% { opacity: 1; }
-            100% { transform: translateY(100vh) translateX(-25vw); opacity: 0; }
-        }
-
-        .ambient-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            background: 
-                radial-gradient(ellipse at 20% 20%, rgba(212, 175, 55, 0.025) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(183, 110, 121, 0.025) 0%, transparent 50%);
-            animation: ambient-pulse 12s ease-in-out infinite;
-            will-change: opacity;
-        }
-
-        @keyframes ambient-pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
-
-        .star-particle {
-            position: absolute;
-            pointer-events: none;
-            will-change: transform, opacity;
-            transform: translateZ(0);
-        }
-
-        .star-particle::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,215,0,0.7) 60%, transparent 100%);
-            box-shadow: 0 0 8px 2px rgba(255,255,255,0.9), 0 0 15px 5px rgba(212,175,55,0.6);
-        }
-
-        .star-particle.gold::before { width: 40%; height: 40%; }
-        .star-particle.rose::before { width: 35%; height: 35%; box-shadow: 0 0 8px 2px rgba(255,255,255,0.9), 0 0 15px 5px rgba(183,110,121,0.6); }
-        .star-particle.white::before { width: 30%; height: 30%; box-shadow: 0 0 6px 1px rgba(255,255,255,1), 0 0 12px 3px rgba(255,255,255,0.5); }
-        .star-particle.dust::before { width: 50%; height: 50%; box-shadow: 0 0 4px 1px rgba(255,255,255,0.8); }
-
-        .star-particle.twinkle {
-            animation: twinkle-simple 2s ease-in-out infinite;
-        }
-
-        .star-particle.float {
-            animation: float-simple 8s ease-in-out infinite;
-        }
-
-        .touch-particle, .scroll-particle {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            will-change: transform, opacity;
-            transform: translateZ(0);
-        }
-
         #rating-confetti-container, 
         #celebrate-confetti-container, 
         #star-confetti-container {
@@ -540,16 +254,16 @@
         }
 
         /* ============================================
-           SECTIUNI - MOBILE FIRST LAYOUT
+           SECTIUNI - LAYOUT MOBILE CORECT
            ============================================ */
         section {
             position: relative;
             z-index: 10;
-            min-height: 100vh;
-            min-height: 100dvh;
+            min-height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            padding: 50px 0;
         }
         
         section::before {
@@ -561,101 +275,77 @@
             z-index: -1;
         }
 
-        /* Spatiere mobila - sectiuni full height dar cu continut centrat */
         #intro { 
             background: rgba(0, 0, 0, 0.5) !important; 
-            padding: 60px 20px;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 40px 20px;
         }
         #intro::before { background: transparent; }
         
         #timeline { 
             background: rgba(23, 23, 23, 0.5) !important; 
-            padding: 60px 16px;
-            min-height: auto !important;
-            justify-content: flex-start;
-            padding-top: 80px;
-            padding-bottom: 80px;
+            padding: 50px 16px;
         }
         
         #reveal { 
             background: rgba(0, 0, 0, 0.6) !important; 
-            padding: 40px 16px;
-            min-height: auto !important;
-            justify-content: flex-start;
-            padding-top: 60px;
-            padding-bottom: 60px;
+            padding: 50px 16px;
+            min-height: auto;
         }
         #reveal::before { background: rgba(0, 0, 0, 0.5) !important; }
         
         #message { 
             background: rgba(26, 8, 12, 0.5) !important; 
-            padding: 60px 16px;
-            min-height: auto !important;
-            justify-content: flex-start;
-            padding-top: 80px;
-            padding-bottom: 80px;
+            padding: 50px 16px;
         }
         
         #timers { 
             background: rgba(0, 0, 0, 0.5) !important; 
-            padding: 60px 16px;
-            min-height: auto !important;
-            justify-content: flex-start;
-            padding-top: 80px;
-            padding-bottom: 80px;
+            padding: 50px 16px;
         }
         
         #joke { 
             background: rgba(38, 38, 38, 0.5) !important; 
-            padding: 60px 16px;
-            min-height: auto !important;
-            justify-content: flex-start;
-            padding-top: 80px;
-            padding-bottom: 80px;
+            padding: 50px 16px;
         }
         
         #secret { 
             background: rgba(0, 0, 0, 0.5) !important; 
-            padding: 60px 16px;
-            min-height: auto !important;
-            justify-content: flex-start;
-            padding-top: 80px;
-            padding-bottom: 80px;
+            padding: 50px 16px;
         }
         
         #review { 
             background: rgba(0, 0, 0, 0.5) !important; 
-            padding: 60px 16px;
-            min-height: auto !important;
-            justify-content: flex-start;
-            padding-top: 80px;
-            padding-bottom: 80px;
+            padding: 50px 16px;
         }
         
         footer { 
             background: rgba(0, 0, 0, 0.7) !important; 
-            padding: 40px 20px; 
+            padding: 32px 20px; 
             text-align: center; 
             border-top: 1px solid rgba(255, 255, 255, 0.05); 
         }
 
         /* ============================================
-           TYPOGRAPHIE MOBILE-OPTIMIZATA
+           TYPOGRAPHIE - FONTURI CARE INCAP PE ECRAN
            ============================================ */
         .text-gold-gradient {
             background: linear-gradient(135deg, #D4AF37 0%, #F4E8C1 50%, #D4AF37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.3;
         }
         .text-gold-gradient.glowing { 
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.6), 0 0 30px rgba(212, 175, 55, 0.4); 
         }
 
-        /* Intro text - responsive */
+        /* Intro text - dimensionat corect */
         .intro-text {
-            font-size: 1.1rem !important;
-            line-height: 1.7 !important;
+            font-size: 1.125rem !important;
+            line-height: 1.6 !important;
+            letter-spacing: 0.01em;
         }
         
         @media (min-width: 768px) {
@@ -666,13 +356,13 @@
         }
 
         /* ============================================
-           REVEAL SECTION - GIFT BOX MOBILE
+           REVEAL SECTION
            ============================================ */
         #reveal-content { 
             display: none; 
             width: 100%; 
             text-align: center; 
-            margin-top: 40px; 
+            margin-top: 30px; 
         }
         #reveal-content.visible { display: block; }
 
@@ -680,7 +370,7 @@
             width: 100%; 
             max-width: 100%; 
             margin: 0 auto; 
-            padding: 20px 16px; 
+            padding: 10px 16px; 
             text-align: center; 
             position: relative; 
             z-index: 10; 
@@ -693,9 +383,8 @@
             transform: scale(0.5);
             position: relative;
             z-index: 20;
-            /* Marime redusa pentru mobile */
-            width: 140px;
-            height: 140px;
+            width: 130px;
+            height: 130px;
             margin: 0 auto;
         }
         
@@ -709,7 +398,10 @@
         #gift-lid { transform-origin: bottom center; }
 
         .gift-sparkle { animation: sparkle-pulse 1.5s ease-in-out infinite; }
-        @keyframes sparkle-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+        @keyframes sparkle-pulse { 
+            0%, 100% { opacity: 0.3; transform: scale(0.8); } 
+            50% { opacity: 1; transform: scale(1.2); } 
+        }
 
         #gift-glow {
             position: absolute;
@@ -722,7 +414,10 @@
             pointer-events: none;
         }
 
-        @keyframes gift-glow { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 0.8; } }
+        @keyframes gift-glow { 
+            0%, 100% { transform: scale(1); opacity: 0.5; } 
+            50% { transform: scale(1.2); opacity: 0.8; } 
+        }
 
         #confetti-container, #light-rays-container {
             position: fixed;
@@ -772,13 +467,13 @@
         .sparkle-6 { top: 30%; left: -5%; }
         .sparkle-7 { bottom: 40%; right: -5%; }
 
-        /* Gift box body - responsive */
+        /* Gift box body */
         #gift-box-body {
             bottom: 0; 
             left: 50%; 
             transform: translateX(-50%);
-            width: 100px !important;
-            height: 80px !important;
+            width: 90px !important;
+            height: 70px !important;
         }
         
         @media (min-width: 768px) {
@@ -787,22 +482,11 @@
                 height: 112px !important;
             }
         }
-        
-        #gift-box-body .absolute.bottom-0 {
-            width: 100%;
-            height: 60%;
-        }
-        
-        @media (min-width: 768px) {
-            #gift-box-body .absolute.bottom-0 {
-                height: 66%;
-            }
-        }
 
-        /* Gift lid - responsive */
+        /* Gift lid */
         #gift-lid {
-            width: 110px !important;
-            height: 30px !important;
+            width: 100px !important;
+            height: 28px !important;
         }
         
         @media (min-width: 768px) {
@@ -813,21 +497,21 @@
         }
 
         /* Gift ribbon */
-        .absolute.top-0.-translate-y-1\/2 {
-            width: 20px !important;
-            height: 70px !important;
+        .gift-ribbon-vertical {
+            width: 18px !important;
+            height: 60px !important;
         }
         
         @media (min-width: 768px) {
-            .absolute.top-0.-translate-y-1\/2 {
+            .gift-ribbon-vertical {
                 width: 25px !important;
                 height: 96px !important;
             }
         }
 
         #gift-ribbon {
-            width: 60px !important;
-            height: 40px !important;
+            width: 50px !important;
+            height: 35px !important;
         }
         
         @media (min-width: 768px) {
@@ -837,26 +521,65 @@
             }
         }
 
+        /* ============================================
+           REVEAL TEXT - RESPONSIVE SI CITIBILE
+           ============================================ */
+        .reveal-subtitle {
+            font-size: 0.95rem !important;
+            line-height: 1.5 !important;
+        }
+        
+        @media (min-width: 768px) {
+            .reveal-subtitle {
+                font-size: 1.875rem !important;
+                line-height: 1.4 !important;
+            }
+        }
+
+        .reveal-main-text {
+            font-size: 1.1rem !important;
+            line-height: 1.5 !important;
+        }
+        
+        @media (min-width: 768px) {
+            .reveal-main-text {
+                font-size: 2rem !important;
+                line-height: 1.3 !important;
+            }
+        }
+
+        .bianca-name {
+            font-size: 2.5rem !important;
+            line-height: 1.1 !important;
+        }
+        
+        @media (min-width: 768px) {
+            .bianca-name {
+                font-size: 5rem !important;
+                line-height: 1 !important;
+            }
+        }
+
         .btn-celebrate {
             position: relative;
             background: linear-gradient(135deg, rgba(183, 110, 121, 0.9), rgba(212, 175, 55, 0.9));
             border: 3px solid #ffffff;
             border-radius: 9999px;
-            padding: 14px 24px;
+            padding: 12px 20px;
             color: white;
             font-weight: 500;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            min-width: 220px;
+            gap: 8px;
+            min-width: 200px;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 0.875rem;
             box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.4), 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
             z-index: 10;
             cursor: pointer;
-            margin-top: 40px;
+            margin-top: 24px;
         }
         
         @media (min-width: 768px) {
@@ -883,42 +606,7 @@
         .btn-celebrate:active { transform: scale(0.98); }
 
         /* ============================================
-           REVEAL TEXT - RESPONSIVE
-           ============================================ */
-        .reveal-title-mobile {
-            font-size: 1.5rem !important;
-            line-height: 1.5 !important;
-        }
-        
-        @media (min-width: 768px) {
-            .reveal-title-mobile {
-                font-size: 3rem !important;
-                line-height: 1.2 !important;
-            }
-        }
-        
-        .reveal-subtitle-mobile {
-            font-size: 1.3rem !important;
-        }
-        
-        @media (min-width: 768px) {
-            .reveal-subtitle-mobile {
-                font-size: 3rem !important;
-            }
-        }
-        
-        .bianca-name-mobile {
-            font-size: 3rem !important;
-        }
-        
-        @media (min-width: 768px) {
-            .bianca-name-mobile {
-                font-size: 6rem !important;
-            }
-        }
-
-        /* ============================================
-           STAR BUTTONS - TOUCH FRIENDLY
+           STAR BUTTONS
            ============================================ */
         .star-btn {
             transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease;
@@ -926,9 +614,8 @@
             background: none;
             border: none;
             color: #374151;
-            /* Touch friendly - mai mare pe mobile */
-            font-size: 2.5rem !important;
-            padding: 8px !important;
+            font-size: 2rem !important;
+            padding: 6px !important;
         }
         
         @media (min-width: 768px) {
@@ -944,7 +631,10 @@
         .star-btn:active { transform: scale(0.9); }
 
         .star-animating { animation: star-bounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        @keyframes star-bounce { 0%, 100% { transform: scale(1) translateY(0); } 50% { transform: scale(1.4) translateY(-5px); } }
+        @keyframes star-bounce { 
+            0%, 100% { transform: scale(1) translateY(0); } 
+            50% { transform: scale(1.4) translateY(-5px); } 
+        }
 
         .glass-panel {
             background: rgba(255, 255, 255, 0.05);
@@ -955,7 +645,6 @@
         }
 
         @supports (-webkit-touch-callout: none) {
-            .min-h-screen { min-height: -webkit-fill-available; }
             .glass-panel { background: rgba(20, 10, 10, 0.9); border: 1px solid rgba(212, 175, 55, 0.2); }
         }
 
@@ -969,23 +658,29 @@
             animation: shimmer 3s infinite;
         }
 
-        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        @keyframes shimmer { 
+            0% { background-position: -200% 0; } 
+            100% { background-position: 200% 0; } 
+        }
 
         .animate-bounce { animation: bounce 1s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes bounce { 
+            0%, 100% { transform: translateY(0); } 
+            50% { transform: translateY(-10px); } 
+        }
 
         #sound-toggle {
             position: fixed;
             bottom: 16px;
             right: 16px;
-            width: 48px;
-            height: 48px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(212, 175, 55, 0.3);
             color: #D4AF37;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             z-index: 1000;
             display: flex;
@@ -1017,7 +712,10 @@
             pointer-events: none;
         }
 
-        @keyframes pulse-ring { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.3); opacity: 0; } }
+        @keyframes pulse-ring { 
+            0% { transform: scale(1); opacity: 1; } 
+            100% { transform: scale(1.3); opacity: 0; } 
+        }
 
         .skip-link {
             position: absolute;
@@ -1032,24 +730,21 @@
 
         .skip-link:focus { top: 0; }
 
+        /* ============================================
+           SECRET BUTTON
+           ============================================ */
         .secret-button {
             position: relative;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
             border: 2px solid transparent;
             border-radius: 16px;
-            padding: 20px 32px;
+            padding: 16px 28px;
             cursor: pointer;
             overflow: hidden;
             transition: all 0.4s ease;
             box-shadow: 
                 0 0 30px rgba(0, 0, 0, 0.5),
                 inset 0 0 30px rgba(212, 175, 55, 0.1);
-        }
-        
-        @media (min-width: 768px) {
-            .secret-button {
-                padding: 24px 48px;
-            }
         }
 
         .secret-button::before {
@@ -1082,16 +777,9 @@
         }
 
         .secret-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2rem;
+            margin-bottom: 8px;
             animation: secret-pulse 2s ease-in-out infinite;
-        }
-        
-        @media (min-width: 768px) {
-            .secret-icon {
-                font-size: 3rem;
-                margin-bottom: 12px;
-            }
         }
 
         @keyframes secret-pulse {
@@ -1099,6 +787,9 @@
             50% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8)); }
         }
 
+        /* ============================================
+           WARNING OVERLAY
+           ============================================ */
         .warning-overlay {
             position: fixed;
             inset: 0;
@@ -1118,7 +809,7 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 20px;
-            padding: 28px 24px;
+            padding: 24px 20px;
             max-width: 90%;
             margin: 20px;
             text-align: center;
@@ -1126,53 +817,26 @@
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
             animation: modal-appear 0.3s ease-out;
         }
-        
-        @media (min-width: 768px) {
-            .warning-modal {
-                padding: 32px 40px;
-                max-width: 450px;
-            }
-        }
 
         @keyframes modal-appear {
             0% { opacity: 0; transform: scale(0.9) translateY(20px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        .warning-icon { font-size: 2.5rem; margin-bottom: 14px; }
-        
-        @media (min-width: 768px) {
-            .warning-icon { font-size: 3rem; margin-bottom: 16px; }
-        }
-        
-        .warning-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #D4AF37; margin-bottom: 12px; }
-        
-        @media (min-width: 768px) {
-            .warning-title { font-size: 1.3rem; }
-        }
-        
-        .warning-text { color: #b0b0b0; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
-        
-        @media (min-width: 768px) {
-            .warning-text { font-size: 0.95rem; margin-bottom: 24px; }
-        }
-        
+        .warning-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .warning-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #D4AF37; margin-bottom: 10px; }
+        .warning-text { color: #b0b0b0; font-size: 0.85rem; line-height: 1.6; margin-bottom: 16px; }
         .warning-text strong { color: #D4AF37; }
-        .warning-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-        .btn-warning { padding: 10px 20px; border-radius: 25px; font-weight: 500; cursor: pointer; transition: all 0.3s ease; border: none; font-size: 0.9rem; }
-        
-        @media (min-width: 768px) {
-            .btn-warning {
-                padding: 12px 28px;
-                font-size: 0.95rem;
-            }
-        }
-        
+        .warning-buttons { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+        .btn-warning { padding: 10px 18px; border-radius: 25px; font-weight: 500; cursor: pointer; transition: all 0.3s ease; border: none; font-size: 0.85rem; }
         .btn-warning-open { background: linear-gradient(135deg, #D4AF37, #B8962E); color: #1a1a2e; }
         .btn-warning-open:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
         .btn-warning-cancel { background: rgba(255, 255, 255, 0.05); color: #888; border: 1px solid rgba(255, 255, 255, 0.1); }
         .btn-warning-cancel:hover { background: rgba(255, 255, 255, 0.1); color: #bbb; }
 
+        /* ============================================
+           SECRET MESSAGE
+           ============================================ */
         .secret-message-container {
             position: fixed;
             inset: 0;
@@ -1182,7 +846,7 @@
             align-items: flex-start;
             justify-content: center;
             padding: 20px;
-            padding-top: 40px;
+            padding-top: 30px;
             overflow-y: auto;
         }
 
@@ -1192,82 +856,44 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a0a2e 100%);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 20px;
-            padding: 24px 20px;
+            padding: 20px 16px;
             max-width: 100%;
             width: 100%;
-            max-height: none;
             overflow-y: auto;
             position: relative;
             box-shadow: 0 0 80px rgba(212, 175, 55, 0.15);
-        }
-        
-        @media (min-width: 768px) {
-            .secret-message-content {
-                padding: 40px;
-                max-width: 700px;
-                max-height: 90vh;
-                border-radius: 24px;
-            }
         }
 
         .secret-message-content::-webkit-scrollbar { width: 6px; }
         .secret-message-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
         .secret-message-content::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
-        .secret-message-icon { font-size: 2.5rem; margin-bottom: 14px; text-align: center; }
-        
-        @media (min-width: 768px) {
-            .secret-message-icon { font-size: 3rem; margin-bottom: 16px; }
-        }
-        
-        .secret-message-body { color: #e0e0e0; font-size: 0.95rem; line-height: 1.8; text-align: left; }
-        
-        @media (min-width: 768px) {
-            .secret-message-body { font-size: 1.05rem; line-height: 1.9; }
-        }
-        
-        .secret-message-body p { margin-bottom: 16px; }
-        
-        @media (min-width: 768px) {
-            .secret-message-body p { margin-bottom: 20px; }
-        }
-        
+        .secret-message-icon { font-size: 2.5rem; margin-bottom: 12px; text-align: center; }
+        .secret-message-body { color: #e0e0e0; font-size: 0.9rem; line-height: 1.7; text-align: left; }
+        .secret-message-body p { margin-bottom: 12px; }
         .secret-message-body .highlight { color: #D4AF37; font-weight: 500; }
         .secret-message-body .emoji { font-size: 1.2em; vertical-align: middle; }
-        .secret-message-footer { text-align: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
-        
-        @media (min-width: 768px) {
-            .secret-message-footer { margin-top: 30px; padding-top: 20px; }
-        }
-        
+        .secret-message-footer { text-align: center; margin-top: 20px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
         .secret-message-close {
             background: rgba(255, 255, 255, 0.1);
             color: #999;
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 0.85rem;
         }
-        
-        @media (min-width: 768px) {
-            .secret-message-close {
-                padding: 12px 24px;
-                font-size: 0.9rem;
-            }
-        }
-        
         .secret-message-close:hover { background: rgba(255, 255, 255, 0.2); color: white; }
 
         /* ============================================
            TIMELINE MOBILE
            ============================================ */
         .timeline-content {
-            padding-left: 40px !important;
+            padding-left: 36px !important;
         }
         
         .timeline-dot {
-            left: 12px !important;
+            left: 10px !important;
         }
         
         .timeline-icon {
@@ -1275,7 +901,8 @@
         }
         
         .timeline-year {
-            font-size: 2rem !important;
+            font-size: 1.75rem !important;
+            line-height: 1.2 !important;
         }
         
         @media (min-width: 768px) {
@@ -1295,9 +922,10 @@
                 font-size: 3.5rem !important;
             }
         }
-        
+
         .timeline-line {
-            left: 16px !important;
+            left: 14px !important;
+            width: 1px;
         }
         
         @media (min-width: 768px) {
@@ -1306,24 +934,28 @@
             }
         }
 
+        .timeline-title {
+            font-size: 1.25rem !important;
+        }
+
         /* ============================================
-           MESSAGE SECTION MOBILE
+           MESSAGE SECTION
            ============================================ */
         .message-quote {
-            font-size: 1.4rem !important;
+            font-size: 1.1rem !important;
             line-height: 1.5 !important;
         }
         
         @media (min-width: 768px) {
             .message-quote {
-                font-size: 2rem !important;
+                font-size: 1.875rem !important;
                 line-height: 1.4 !important;
             }
         }
         
         .message-text {
-            font-size: 1rem !important;
-            line-height: 1.7 !important;
+            font-size: 0.9rem !important;
+            line-height: 1.65 !important;
         }
         
         @media (min-width: 768px) {
@@ -1334,7 +966,7 @@
         }
         
         .message-age {
-            font-size: 1.3rem !important;
+            font-size: 1.1rem !important;
         }
         
         @media (min-width: 768px) {
@@ -1344,25 +976,31 @@
         }
 
         .glass-panel {
-            padding: 24px 16px !important;
+            padding: 20px 14px !important;
+            border-radius: 16px !important;
         }
         
         @media (min-width: 768px) {
             .glass-panel {
                 padding: 40px 32px !important;
+                border-radius: 24px !important;
             }
         }
 
         /* ============================================
-           TIMERS SECTION MOBILE
+           TIMERS SECTION
            ============================================ */
         .timer-grid {
             grid-template-columns: repeat(4, 1fr) !important;
-            gap: 8px !important;
+            gap: 6px !important;
         }
         
         .timer-number {
-            font-size: 1.5rem !important;
+            font-size: 1.25rem !important;
+        }
+        
+        .timer-box-inner {
+            padding: 8px 4px !important;
         }
         
         @media (min-width: 768px) {
@@ -1373,23 +1011,21 @@
             .timer-number {
                 font-size: 1.875rem !important;
             }
+            
+            .timer-box-inner {
+                padding: 16px !important;
+            }
         }
         
         .timer-box {
-            padding: 20px 12px !important;
-        }
-        
-        @media (min-width: 768px) {
-            .timer-box {
-                padding: 32px !important;
-            }
+            padding: 16px 10px !important;
         }
 
         /* ============================================
-           JOKE SECTION MOBILE
+           JOKE SECTION
            ============================================ */
         .joke-panel {
-            padding: 20px 16px !important;
+            padding: 16px 12px !important;
         }
         
         @media (min-width: 768px) {
@@ -1399,56 +1035,39 @@
         }
         
         .joke-title {
-            font-size: 1.3rem !important;
-        }
-        
-        @media (min-width: 768px) {
-            .joke-title {
-                font-size: 1.5rem !important;
-            }
+            font-size: 1.1rem !important;
         }
 
         /* ============================================
-           SECRET SECTION MOBILE
+           SECRET SECTION
            ============================================ */
         .secret-title {
-            font-size: 1.5rem !important;
-        }
-        
-        @media (min-width: 768px) {
-            .secret-title {
-                font-size: 2rem !important;
-            }
+            font-size: 1.25rem !important;
+            line-height: 1.4 !important;
         }
 
         /* ============================================
-           REVIEW SECTION MOBILE
+           REVIEW SECTION
            ============================================ */
         .review-title {
-            font-size: 1.5rem !important;
-            margin-bottom: 24px !important;
-        }
-        
-        @media (min-width: 768px) {
-            .review-title {
-                font-size: 2rem !important;
-                margin-bottom: 48px !important;
-            }
+            font-size: 1.25rem !important;
+            margin-bottom: 16px !important;
+            line-height: 1.4 !important;
         }
         
         .review-message {
-            min-height: 80px !important;
+            min-height: 70px !important;
         }
 
         /* ============================================
-           FOOTER MOBILE
+           FOOTER
            ============================================ */
         footer {
-            padding: 32px 20px !important;
+            padding: 28px 16px !important;
         }
         
         footer .font-serif {
-            font-size: 1rem !important;
+            font-size: 0.95rem !important;
         }
     </style>
 </head>
@@ -1456,18 +1075,16 @@
 
     <a href="#main-content" class="skip-link">Sari la conținut</a>
 
-    <!-- BACKGROUND ANIMAT VIU -->
+    <!-- BACKGROUND ANIMAT - SIMPLU SI EFICIENT -->
     <div id="main-background" aria-hidden="true">
         <div class="bg-base"></div>
-        <div class="bg-orb-gold"></div>
-        <div class="bg-orb-rose"></div>
-        <div class="bg-orb-purple"></div>
-        <div class="bg-glow-center"></div>
-        <div class="bg-dust" id="bg-dust-container"></div>
-        <div class="bg-light-lines" id="bg-light-lines-container"></div>
+        
+        <!-- Orburi animati cu gradienti subtili -->
+        <div class="ambient-orb orb-gold" style="width: 80vw; height: 80vw; top: -20%; left: -20%;"></div>
+        <div class="ambient-orb orb-rose" style="width: 70vw; height: 70vw; top: 30%; right: -25%; animation-delay: -8s;"></div>
+        <div class="ambient-orb orb-purple" style="width: 60vw; height: 60vw; bottom: 10%; left: -15%; animation-delay: -15s;"></div>
+        <div class="ambient-orb orb-center" style="width: 100vw; height: 100vh; top: 0; left: 0;"></div>
     </div>
-
-    <div class="ambient-glow" aria-hidden="true"></div>
 
     <div id="star-confetti-container" class="particle-container" aria-hidden="true"></div>
     <div id="celebrate-confetti-container" class="particle-container" aria-hidden="true"></div>
@@ -1483,10 +1100,10 @@
     <section id="intro" aria-labelledby="intro-title">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-rose-900/20 via-black to-black" aria-hidden="true"></div>
         <div id="main-content" class="relative z-10 max-w-xl mx-auto px-5 text-center w-full">
-            <h1 id="intro-title" class="intro-text font-serif text-gray-100 leading-relaxed mb-8 opacity-0 px-2">
+            <h1 id="intro-title" class="intro-text font-serif text-gray-100 mb-6 opacity-0 px-2">
                 Istoria este plină de momente mari...
             </h1>
-            <button onclick="smoothScrollTo('timeline')" class="intro-text px-6 py-3 rounded-full bg-white/5 border border-white/20 text-white/80 hover:bg-white/10 hover:border-rose-400/50 transition-all opacity-0 backdrop-blur-sm cursor-pointer text-sm">
+            <button onclick="smoothScrollTo('timeline')" class="intro-text px-5 py-2.5 rounded-full bg-white/5 border border-white/20 text-white/80 hover:bg-white/10 hover:border-rose-400/50 transition-all opacity-0 backdrop-blur-sm cursor-pointer text-sm">
                 Descoperă <i class="fas fa-arrow-down ml-2 text-rose-400" aria-hidden="true"></i>
             </button>
         </div>
@@ -1494,52 +1111,39 @@
 
     <!-- SECTION 2: TIMELINE -->
     <section id="timeline" aria-labelledby="timeline-title">
-        <div class="max-w-4xl mx-auto w-full">
-            <div class="text-center mb-12">
-                <h2 id="timeline-title" class="font-serif text-2xl md:text-5xl text-gold-gradient mb-3">3 Martie în Istorie</h2>
+        <div class="max-w-4xl mx-auto w-full px-4">
+            <div class="text-center mb-8">
+                <h2 id="timeline-title" class="font-serif timeline-title text-gold-gradient mb-2">3 Martie în Istorie</h2>
                 <p class="text-rose-300/60 text-xs tracking-widest uppercase">Momente care au definit lumea</p>
             </div>
-            <div class="relative space-y-10" role="list">
-                <!-- Linia verticala -->
-                <div class="timeline-line absolute top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-rose-400/50 to-transparent shadow-[0_0_10px_rgba(244,63,94,0.3)]" aria-hidden="true"></div>
+            <div class="relative space-y-8" role="list">
+                <div class="timeline-line absolute top-0 bottom-0 bg-gradient-to-b from-transparent via-rose-400/50 to-transparent shadow-[0_0_10px_rgba(244,63,94,0.3)]" aria-hidden="true"></div>
                 
-                <!-- Item 1 -->
                 <div class="timeline-item relative timeline-content opacity-0 group" role="listitem">
                     <div>
-                        <span class="timeline-year text-4xl md:text-7xl font-serif text-rose-400/80 font-bold block mb-2">1847</span>
-                        <h3 class="text-lg md:text-xl text-white font-light">Alexander Graham Bell</h3>
-                        <p class="text-gray-400 text-xs md:text-sm mt-2 leading-relaxed">Inventatorul telefonului se naște,<br>schimbând comunicația pentru totdeauna.</p>
+                        <span class="timeline-year font-serif text-rose-400/80 font-bold block mb-1">1847</span>
+                        <h3 class="text-base text-white font-light">Alexander Graham Bell</h3>
+                        <p class="text-gray-400 text-xs mt-1 leading-relaxed">Inventatorul telefonului se naște.</p>
                     </div>
-                    <div class="timeline-dot absolute top-2 w-3 h-3 bg-rose-400 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.8)] ring-4 ring-rose-900/50 -translate-x-1/2" aria-hidden="true"></div>
-                    <div class="timeline-icon hidden md:block absolute top-2 right-0 opacity-30 group-hover:opacity-100 transition-opacity">
-                        <i class="fas fa-phone-alt text-3xl md:text-4xl text-rose-400/30" aria-hidden="true"></i>
-                    </div>
+                    <div class="timeline-dot absolute top-1 w-2.5 h-2.5 bg-rose-400 rounded-full shadow-[0_0_10px_rgba(244,63,94,0.8)] ring-3 ring-rose-900/50 -translate-x-1/2" aria-hidden="true"></div>
                 </div>
                 
-                <!-- Item 2 -->
                 <div class="timeline-item relative timeline-content opacity-0 group" role="listitem">
                     <div>
-                        <span class="timeline-year text-4xl md:text-7xl font-serif text-rose-400/80 font-bold block mb-2">1923</span>
-                        <h3 class="text-lg md:text-xl text-white font-light">Revista TIME</h3>
-                        <p class="text-gray-400 text-xs md:text-sm mt-2 leading-relaxed">Primul număr al celei mai influente<br>publicații de știri din lume.</p>
+                        <span class="timeline-year font-serif text-rose-400/80 font-bold block mb-1">1923</span>
+                        <h3 class="text-base text-white font-light">Revista TIME</h3>
+                        <p class="text-gray-400 text-xs mt-1 leading-relaxed">Primul număr al celei mai influente publicații.</p>
                     </div>
-                    <div class="timeline-dot absolute top-2 w-3 h-3 bg-rose-400 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.8)] ring-4 ring-rose-900/50 -translate-x-1/2" aria-hidden="true"></div>
-                    <div class="timeline-icon hidden md:block absolute top-2 left-0 -translate-x-full pr-8 opacity-30 group-hover:opacity-100 transition-opacity">
-                        <i class="far fa-clock text-3xl md:text-4xl text-rose-400/30" aria-hidden="true"></i>
-                    </div>
+                    <div class="timeline-dot absolute top-1 w-2.5 h-2.5 bg-rose-400 rounded-full shadow-[0_0_10px_rgba(244,63,94,0.8)] ring-3 ring-rose-900/50 -translate-x-1/2" aria-hidden="true"></div>
                 </div>
                 
-                <!-- Item 3 -->
                 <div class="timeline-item relative timeline-content opacity-0 group" role="listitem">
                     <div>
-                        <span class="timeline-year text-4xl md:text-7xl font-serif text-rose-400/80 font-bold block mb-2">1931</span>
-                        <h3 class="text-lg md:text-xl text-white font-light">The Star-Spangled Banner</h3>
-                        <p class="text-gray-400 text-xs md:text-sm mt-2 leading-relaxed">Devine imnul național al SUA,<br>un simbol al rezistenței.</p>
+                        <span class="timeline-year font-serif text-rose-400/80 font-bold block mb-1">1931</span>
+                        <h3 class="text-base text-white font-light">The Star-Spangled Banner</h3>
+                        <p class="text-gray-400 text-xs mt-1 leading-relaxed">Devine imnul național al SUA.</p>
                     </div>
-                    <div class="timeline-dot absolute top-2 w-3 h-3 bg-rose-400 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.8)] ring-4 ring-rose-900/50 -translate-x-1/2" aria-hidden="true"></div>
-                    <div class="timeline-icon hidden md:block absolute top-2 right-0 opacity-30 group-hover:opacity-100 transition-opacity">
-                        <i class="fas fa-music text-3xl md:text-4xl text-rose-400/30" aria-hidden="true"></i>
-                    </div>
+                    <div class="timeline-dot absolute top-1 w-2.5 h-2.5 bg-rose-400 rounded-full shadow-[0_0_10px_rgba(244,63,94,0.8)] ring-3 ring-rose-900/50 -translate-x-1/2" aria-hidden="true"></div>
                 </div>
             </div>
         </div>
@@ -1557,54 +1161,54 @@
                 <div id="gift-box-body" class="absolute bottom-0 left-1/2 -translate-x-1/2">
                     <div class="absolute bottom-0 w-full h-full bg-gradient-to-br from-rose-500 to-rose-700 rounded-lg shadow-2xl">
                         <div class="absolute inset-0 bg-gradient-to-br from-rose-500 to-rose-700 rounded-lg">
-                            <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-3 md:h-4 bg-gradient-to-r from-transparent via-amber-400 to-transparent" aria-hidden="true"></div>
+                            <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-amber-400 to-transparent" aria-hidden="true"></div>
                         </div>
                     </div>
-                    <div id="gift-lid" class="absolute -top-2 md:-top-4 left-1/2 -translate-x-1/2 origin-bottom">
+                    <div id="gift-lid" class="absolute -top-1 left-1/2 -translate-x-1/2 origin-bottom">
                         <div class="w-full h-full bg-gradient-to-br from-rose-400 to-rose-600 rounded-lg shadow-xl">
-                            <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-3 md:h-4 bg-gradient-to-r from-transparent via-amber-400 to-transparent" aria-hidden="true"></div>
+                            <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-amber-400 to-transparent" aria-hidden="true"></div>
                         </div>
                     </div>
-                    <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 md:w-5 h-14 md:h-24 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 rounded-sm shadow-lg z-10" aria-hidden="true">
-                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 md:w-8 h-6 md:h-10 bg-amber-400 rounded-b-full"></div>
+                    <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 gift-ribbon-vertical bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 rounded-sm shadow-lg z-10" aria-hidden="true">
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-5 bg-amber-400 rounded-b-full"></div>
                     </div>
-                    <svg id="gift-ribbon" class="absolute -top-4 md:-top-8 left-1/2 -translate-x-1/2" viewBox="0 0 80 40" aria-hidden="true">
+                    <svg id="gift-ribbon" class="absolute -top-3 left-1/2 -translate-x-1/2" viewBox="0 0 80 40" aria-hidden="true">
                         <path d="M10 35 Q20 5 40 15 Q60 5 70 35" stroke="#FBBF24" stroke-width="4" fill="none" stroke-linecap="round"/>
                     </svg>
                 </div>
                 <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-                    <span class="gift-sparkle sparkle-1 absolute w-2 h-2 md:w-3 md:h-3 bg-amber-300 rounded-full"></span>
-                    <span class="gift-sparkle sparkle-2 absolute w-1.5 h-1.5 md:w-2 md:h-2 bg-rose-300 rounded-full"></span>
-                    <span class="gift-sparkle sparkle-3 absolute w-2 h-2 md:w-3 md:h-3 bg-amber-400 rounded-full"></span>
-                    <span class="gift-sparkle sparkle-4 absolute w-1.5 h-1.5 md:w-2 md:h-2 bg-rose-400 rounded-full"></span>
-                    <span class="gift-sparkle sparkle-5 absolute w-2 h-2 md:w-3 md:h-3 bg-amber-300 rounded-full"></span>
-                    <span class="gift-sparkle sparkle-6 absolute w-1.5 h-1.5 md:w-2 md:h-2 bg-rose-300 rounded-full"></span>
-                    <span class="gift-sparkle sparkle-7 absolute w-1.5 h-1.5 md:w-2 md:h-2 bg-amber-400 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-1 absolute w-1.5 h-1.5 bg-amber-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-2 absolute w-1 h-1 bg-rose-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-3 absolute w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-4 absolute w-1 h-1 bg-rose-400 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-5 absolute w-1.5 h-1.5 bg-amber-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-6 absolute w-1 h-1 bg-rose-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-7 absolute w-1 h-1 bg-amber-400 rounded-full"></span>
                 </div>
-                <p id="gift-hint" class="absolute -bottom-6 md:-bottom-8 left-1/2 -translate-x-1/2 text-amber-400/60 text-xs whitespace-nowrap opacity-0 transition-opacity">👆 Click pentru a deschide</p>
+                <p id="gift-hint" class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-amber-400/60 text-xs whitespace-nowrap opacity-0 transition-opacity">👆 Click pentru a deschide</p>
             </div>
             
             <!-- Continut revelat -->
             <div id="reveal-content" aria-live="polite">
-                <div class="mb-6">
-                    <span class="text-rose-400 text-xs tracking-[0.4em] md:tracking-[0.6em] uppercase font-light">Dar adevărata minune...</span>
+                <div class="mb-4">
+                    <span class="text-rose-400 text-xs tracking-[0.3em] uppercase font-light">Dar adevărata minune...</span>
                 </div>
-                <div class="mt-6">
-                    <h2 id="reveal-title" class="reveal-title-mobile font-serif text-white leading-tight font-light">
+                <div class="mt-4">
+                    <h2 id="reveal-title" class="reveal-main-text font-serif text-white leading-tight font-light">
                         Pe <span class="text-gold-gradient font-semibold">3 Martie 2006</span>,<br>
                         Dumnezeu a decis că lumea<br>
                         are nevoie de mai multă <span class="italic text-rose-300">lumină</span>.
                     </h2>
                 </div>
-                <div class="mt-8 md:mt-12">
-                    <p class="font-serif text-xl md:text-5xl text-gray-200 italic reveal-subtitle-mobile">
+                <div class="mt-6">
+                    <p class="font-serif text-lg md:text-3xl text-gray-200 italic reveal-subtitle">
                         Așa că te-a creat pe tine,<br>
-                        <span id="bianca-name" class="text-gold-gradient not-italic font-bold bianca-name-mobile block mt-4 md:mt-6">Bianca</span>
+                        <span class="bianca-name text-gold-gradient not-italic font-bold block mt-3">Bianca</span>
                     </p>
                 </div>
                 <button id="celebrate-btn" class="btn-celebrate cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
                     <span aria-hidden="true">🥳</span>
-                    <span>Celebrează momentul</span>
+                    <span>Celebrează</span>
                     <i class="fas fa-sparkles" aria-hidden="true"></i>
                 </button>
             </div>
@@ -1617,30 +1221,28 @@
     <!-- SECTION 4: MESSAGE -->
     <section id="message" aria-labelledby="message-title">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,_rgba(212,175,55,0.1),_transparent_60%)]" aria-hidden="true"></div>
-        <div class="max-w-3xl mx-auto px-5 text-center relative z-10 w-full">
-            <!-- Citat biblic -->
-            <div class="message-anim opacity-0 transform scale-95 mb-10">
-                <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-rose-400/20 to-yellow-400/20 flex items-center justify-center border border-rose-400/30">
-                    <i class="fas fa-heart text-rose-300 text-2xl" aria-hidden="true"></i>
+        <div class="max-w-3xl mx-auto px-4 text-center relative z-10 w-full">
+            <div class="message-anim opacity-0 transform scale-95 mb-8">
+                <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-gradient-to-br from-rose-400/20 to-yellow-400/20 flex items-center justify-center border border-rose-400/30">
+                    <i class="fas fa-heart text-rose-300 text-xl" aria-hidden="true"></i>
                 </div>
-                <blockquote class="message-quote font-serif text-white leading-relaxed mb-4 font-light">
+                <blockquote class="message-quote font-serif text-white leading-relaxed mb-3 font-light">
                     „Te laud că sunt o <span class="text-gold-gradient font-normal">făptură</span><br>
                     atât de minunată!"
                 </blockquote>
-                <cite class="text-rose-300/80 text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase not-italic">Psalmul 139:14</cite>
+                <cite class="text-rose-300/80 text-xs tracking-[0.15em] uppercase not-italic">Psalmul 139:14</cite>
             </div>
             
-            <!-- Mesaj principal -->
-            <div class="message-anim opacity-0 transform translate-y-6">
-                <div class="glass-panel rounded-2xl p-6 md:p-12 relative overflow-hidden">
+            <div class="message-anim opacity-0 transform translate-y-4">
+                <div class="glass-panel relative overflow-hidden">
                     <div class="absolute inset-0 shimmer opacity-20" aria-hidden="true"></div>
                     <div class="relative z-10">
                         <p class="message-text text-gray-200 leading-relaxed font-light">
                             La <span class="text-gold-gradient font-semibold message-age">20 de ani</span>, nu este doar o schimbare de prefix.<br>
                             Este împlinirea unei <span class="text-rose-300">promisiuni divine</span> —<br>
-                            <span class="block mt-3 md:mt-4 text-white/90">20 de ani de binecuvântări, de har, și de lumină<br>pe care ai adus-o în lume.</span>
+                            <span class="block mt-2 text-white/90">20 de ani de binecuvântări, de har, și de lumină pe care ai adus-o în lume.</span>
                         </p>
-                        <div class="mt-6 md:mt-8 flex justify-center gap-4 md:gap-6 text-3xl md:text-4xl" aria-hidden="true">
+                        <div class="mt-4 flex justify-center gap-4 text-2xl" aria-hidden="true">
                             <span class="animate-bounce" style="animation-delay: 0s">✨</span>
                             <span class="animate-bounce" style="animation-delay: 0.2s">🌹</span>
                             <span class="animate-bounce" style="animation-delay: 0.4s">✨</span>
@@ -1653,62 +1255,60 @@
 
     <!-- SECTION 5: TIMERS -->
     <section id="timers" aria-labelledby="timers-title">
-        <div class="max-w-5xl mx-auto px-4 w-full">
-            <h2 id="timers-title" class="text-center font-serif text-2xl md:text-4xl text-gold-gradient mb-3">Timpul și Minunea</h2>
-            <div class="w-24 md:w-32 h-px bg-gradient-to-r from-transparent via-rose-400/50 to-transparent mx-auto mb-8 md:mb-12" aria-hidden="true"></div>
-            <div class="space-y-6 md:grid md:grid-cols-2 md:gap-6 md:space-y-0">
-                <!-- Timer 1 -->
-                <div class="timer-box glass-panel rounded-2xl p-5 md:p-8 text-center opacity-0 transform translate-y-6 border border-rose-400/10" role="group">
-                    <div class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 md:mb-6 rounded-xl bg-gradient-to-br from-rose-400/10 to-transparent flex items-center justify-center border border-rose-400/20">
-                        <i class="fas fa-hourglass-half text-rose-400 text-lg md:text-2xl" aria-hidden="true"></i>
+        <div class="max-w-5xl mx-auto px-3 w-full">
+            <h2 id="timers-title" class="text-center font-serif text-xl md:text-3xl text-gold-gradient mb-2">Timpul și Minunea</h2>
+            <div class="w-20 md:w-32 h-px bg-gradient-to-r from-transparent via-rose-400/50 to-transparent mx-auto mb-6" aria-hidden="true"></div>
+            <div class="space-y-4 md:grid md:grid-cols-2 md:gap-4 md:space-y-0">
+                <div class="timer-box glass-panel rounded-xl text-center opacity-0 transform translate-y-4 border border-rose-400/10" role="group">
+                    <div class="w-10 h-10 md:w-14 md:h-14 mx-auto mb-3 rounded-xl bg-gradient-to-br from-rose-400/10 to-transparent flex items-center justify-center border border-rose-400/20">
+                        <i class="fas fa-hourglass-half text-rose-400 text-sm md:text-xl" aria-hidden="true"></i>
                     </div>
-                    <h3 class="text-gray-400 text-xs uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 md:mb-6">De când există minunea</h3>
-                    <div class="timer-grid grid grid-cols-4 gap-2 md:gap-3">
-                        <div class="bg-black/40 rounded-xl p-2 md:p-4 border border-white/5">
-                            <div class="timer-number text-2xl md:text-3xl font-bold text-gold-gradient font-serif" id="years">0</div>
-                            <div class="text-[9px] md:text-[10px] text-gray-500 mt-1 md:mt-2 uppercase tracking-wider">Ani</div>
+                    <h3 class="text-gray-400 text-[10px] uppercase tracking-[0.15em] mb-3">De când există minunea</h3>
+                    <div class="timer-grid">
+                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                            <div class="timer-number font-bold text-gold-gradient font-serif" id="years">0</div>
+                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Ani</div>
                         </div>
-                        <div class="bg-black/40 rounded-xl p-2 md:p-4 border border-white/5">
-                            <div class="timer-number text-2xl md:text-3xl font-bold text-gold-gradient font-serif" id="months">0</div>
-                            <div class="text-[9px] md:text-[10px] text-gray-500 mt-1 md:mt-2 uppercase tracking-wider">Luni</div>
+                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                            <div class="timer-number font-bold text-gold-gradient font-serif" id="months">0</div>
+                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Luni</div>
                         </div>
-                        <div class="bg-black/40 rounded-xl p-2 md:p-4 border border-white/5">
-                            <div class="timer-number text-2xl md:text-3xl font-bold text-gold-gradient font-serif" id="days">0</div>
-                            <div class="text-[9px] md:text-[10px] text-gray-500 mt-1 md:mt-2 uppercase tracking-wider">Zile</div>
+                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                            <div class="timer-number font-bold text-gold-gradient font-serif" id="days">0</div>
+                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Zile</div>
                         </div>
-                        <div class="bg-black/40 rounded-xl p-2 md:p-4 border border-white/5">
-                            <div class="timer-number text-2xl md:text-3xl font-bold text-rose-400 font-serif" id="seconds">0</div>
-                            <div class="text-[9px] md:text-[10px] text-gray-500 mt-1 md:mt-2 uppercase tracking-wider">Sec</div>
+                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                            <div class="timer-number font-bold text-rose-400 font-serif" id="seconds">0</div>
+                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Sec</div>
                         </div>
                     </div>
-                    <div class="mt-4 text-rose-300/40 text-xs" aria-hidden="true">03.03.2006</div>
+                    <div class="mt-2 text-rose-300/40 text-[10px]" aria-hidden="true">03.03.2006</div>
                 </div>
                 
-                <!-- Timer 2 -->
-                <div class="timer-box glass-panel rounded-2xl p-5 md:p-8 text-center opacity-0 transform translate-y-6 border border-yellow-400/10" role="group">
-                    <div class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 md:mb-6 rounded-xl bg-gradient-to-br from-yellow-400/10 to-transparent flex items-center justify-center border border-yellow-400/20">
-                        <i class="fas fa-gift text-gold text-lg md:text-2xl" aria-hidden="true"></i>
+                <div class="timer-box glass-panel rounded-xl text-center opacity-0 transform translate-y-4 border border-yellow-400/10" role="group">
+                    <div class="w-10 h-10 md:w-14 md:h-14 mx-auto mb-3 rounded-xl bg-gradient-to-br from-yellow-400/10 to-transparent flex items-center justify-center border border-yellow-400/20">
+                        <i class="fas fa-gift text-gold text-sm md:text-xl" aria-hidden="true"></i>
                     </div>
-                    <h3 class="text-gray-400 text-xs uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 md:mb-6">Până la următoarea aniversare</h3>
-                    <div class="timer-grid grid grid-cols-4 gap-2 md:gap-3">
-                        <div class="bg-black/40 rounded-xl p-2 md:p-4 border border-white/5">
-                            <div class="timer-number text-2xl md:text-3xl font-bold text-gold-gradient font-serif" id="cd-days">00</div>
-                            <div class="text-[9px] md:text-[10px] text-gray-500 mt-1 md:mt-2 uppercase tracking-wider">Zile</div>
+                    <h3 class="text-gray-400 text-[10px] uppercase tracking-[0.15em] mb-3">Până la următoarea</h3>
+                    <div class="timer-grid">
+                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                            <div class="timer-number font-bold text-gold-gradient font-serif" id="cd-days">00</div>
+                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Zile</div>
                         </div>
-                        <div class="bg-black/40 rounded-xl p-2 md:p-4 border border-white/5">
-                            <div class="timer-number text-2xl md:text-3xl font-bold text-gold-gradient font-serif" id="cd-hours">00</div>
-                            <div class="text-[9px] md:text-[10px] text-gray-500 mt-1 md:mt-2 uppercase tracking-wider">Ore</div>
+                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                            <div class="timer-number font-bold text-gold-gradient font-serif" id="cd-hours">00</div>
+                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Ore</div>
                         </div>
-                        <div class="bg-black/40 rounded-xl p-2 md:p-4 border border-white/5">
-                            <div class="timer-number text-2xl md:text-3xl font-bold text-gold-gradient font-serif" id="cd-minutes">00</div>
-                            <div class="text-[9px] md:text-[10px] text-gray-500 mt-1 md:mt-2 uppercase tracking-wider">Min</div>
+                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                            <div class="timer-number font-bold text-gold-gradient font-serif" id="cd-minutes">00</div>
+                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Min</div>
                         </div>
-                        <div class="bg-black/40 rounded-xl p-2 md:p-4 border border-white/5">
-                            <div class="timer-number text-2xl md:text-3xl font-bold text-rose-400 font-serif" id="cd-seconds">00</div>
-                            <div class="text-[9px] md:text-[10px] text-gray-500 mt-1 md:mt-2 uppercase tracking-wider">Sec</div>
+                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                            <div class="timer-number font-bold text-rose-400 font-serif" id="cd-seconds">00</div>
+                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Sec</div>
                         </div>
                     </div>
-                    <div class="mt-4 text-yellow-300/40 text-xs" id="next-date" aria-live="polite">Următoarea aniversare</div>
+                    <div class="mt-2 text-yellow-300/40 text-[10px]" id="next-date" aria-live="polite">Următoarea aniversare</div>
                 </div>
             </div>
         </div>
@@ -1718,12 +1318,12 @@
     <section id="joke" aria-labelledby="joke-title">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(212,175,55,0.05),_transparent_70%)]" aria-hidden="true"></div>
         <div class="max-w-2xl mx-auto px-4 text-center relative z-10 w-full">
-            <div class="glass-panel rounded-2xl p-6 md:p-10 border-l-4 border-yellow-400 joke-panel">
-                <i class="far fa-lightbulb text-yellow-400/40 text-2xl md:text-3xl mb-3 md:mb-4 block" aria-hidden="true"></i>
-                <h3 id="joke-title" class="joke-title font-serif text-gold-gradient mb-3">O mică confesiune...</h3>
-                <p class="text-gray-300 text-base md:text-lg mb-3 md:mb-4 leading-relaxed">Mi-a venit ideea cam târziu, dar am zis că merită...</p>
-                <p class="text-rose-300 text-sm md:text-base mb-4 md:mb-6 font-light">Surprizele vin atunci când nu te aștepți 😂</p>
-                <div class="flex justify-center gap-2 md:gap-3 text-2xl md:text-3xl" aria-hidden="true">
+            <div class="glass-panel rounded-xl p-5 border-l-4 border-yellow-400 joke-panel">
+                <i class="far fa-lightbulb text-yellow-400/40 text-xl mb-2 block" aria-hidden="true"></i>
+                <h3 id="joke-title" class="joke-title font-serif text-gold-gradient mb-2">O mică confesiune...</h3>
+                <p class="text-gray-300 text-sm mb-2 leading-relaxed">Mi-a venit ideea cam târziu, dar am zis că merită...</p>
+                <p class="text-rose-300 text-xs mb-3 font-light">Surprizele vin când nu te aștepți 😂</p>
+                <div class="flex justify-center gap-2 text-xl" aria-hidden="true">
                     <span>⏰</span><span>💡</span><span>🎁</span>
                 </div>
             </div>
@@ -1734,14 +1334,14 @@
     <section id="secret" aria-labelledby="secret-title">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(138, 43, 226, 0.1),_transparent_70%)]" aria-hidden="true"></div>
         <div class="max-w-2xl mx-auto px-4 text-center relative z-10 w-full">
-            <h2 id="secret-title" class="secret-title font-serif text-gold-gradient mb-6 opacity-0 transform translate-y-4">
+            <h2 id="secret-title" class="secret-title font-serif text-gold-gradient mb-5 opacity-0 transform translate-y-3">
                 Mai este ceva...
             </h2>
             
             <button id="secret-btn" class="secret-button cursor-pointer" aria-label="Deschide mesajul secret">
                 <div class="secret-icon">🔒</div>
-                <div class="text-white font-semibold text-base md:text-lg">Mesaj Secret</div>
-                <div class="text-gray-500 text-xs md:text-sm mt-2">Tap pentru a descoperi</div>
+                <div class="text-white font-semibold text-sm">Mesaj Secret</div>
+                <div class="text-gray-500 text-xs mt-1">Tap pentru a descoperi</div>
             </button>
         </div>
     </section>
@@ -1750,25 +1350,25 @@
     <section id="review" aria-labelledby="review-title">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(183,110,121,0.05),_transparent_70%)]" aria-hidden="true"></div>
         <div class="max-w-2xl mx-auto px-4 text-center relative z-10 w-full">
-            <span class="text-3xl md:text-4xl mb-4 md:mb-6 block" aria-label="thinking emoji">🤔</span>
+            <span class="text-2xl mb-3 block" aria-label="thinking emoji">🤔</span>
             <h2 id="review-title" class="review-title font-serif text-white">Cum ți s-a părut surpriza?</h2>
-            <div class="flex justify-center gap-1 md:gap-2" id="star-container" role="radiogroup" aria-label="Evaluare cu stele">
-                <button class="star-btn p-1 md:p-2" data-rating="1" aria-label="1 stea" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
-                <button class="star-btn p-1 md:p-2" data-rating="2" aria-label="2 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
-                <button class="star-btn p-1 md:p-2" data-rating="3" aria-label="3 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
-                <button class="star-btn p-1 md:p-2" data-rating="4" aria-label="4 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
-                <button class="star-btn p-1 md:p-2" data-rating="5" aria-label="5 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+            <div class="flex justify-center gap-0.5" id="star-container" role="radiogroup" aria-label="Evaluare cu stele">
+                <button class="star-btn" data-rating="1" aria-label="1 stea" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+                <button class="star-btn" data-rating="2" aria-label="2 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+                <button class="star-btn" data-rating="3" aria-label="3 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+                <button class="star-btn" data-rating="4" aria-label="4 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+                <button class="star-btn" data-rating="5" aria-label="5 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
             </div>
-            <div id="review-message" class="review-message min-h-[100px] flex items-center justify-center px-4 mt-6" role="status" aria-live="polite">
-                <p class="text-gray-500 italic font-light text-sm">Apasă pe stele pentru a spune cum te-ai simțit...</p>
+            <div id="review-message" class="review-message min-h-[70px] flex items-center justify-center px-2 mt-4" role="status" aria-live="polite">
+                <p class="text-gray-500 italic font-light text-xs">Apasă pe stele pentru a spune cum te-ai simțit...</p>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="text-center py-10 md:py-12 text-gray-600 text-xs md:text-sm border-t border-white/5 relative z-10">
-        <p class="font-serif text-sm md:text-lg text-gray-500 mb-2">Cu drag, pentru tine</p>
-        <div class="flex justify-center gap-2 text-xl md:text-2xl" aria-hidden="true"><span>🤗</span><span>✨</span><span>🤗</span></div>
+    <footer class="text-center py-8 text-gray-600 text-xs border-t border-white/5 relative z-10">
+        <p class="font-serif text-sm text-gray-500 mb-1">Cu drag, pentru tine</p>
+        <div class="flex justify-center gap-2 text-lg" aria-hidden="true"><span>🤗</span><span>✨</span><span>🤗</span></div>
     </footer>
 
     <!-- Warning Overlay -->
@@ -1781,7 +1381,7 @@
             </p>
             <div class="warning-buttons">
                 <button id="btn-open-secret" class="btn-warning btn-warning-open">🔓 Deschide</button>
-                <button id="btn-cancel-warning" class="btn-warning btn-warning-cancel">Poate mai târziu</button>
+                <button id="btn-cancel-warning" class="btn-warning btn-warning-cancel">Mai târziu</button>
             </div>
         </div>
     </div>
@@ -1791,13 +1391,13 @@
         <div class="secret-message-content">
             <div class="secret-message-icon">🧐</div>
             <div class="secret-message-body">
-                <p>Acum aproape un an am venit <span class="highlight">prima dată la voi la biserică</span>, unde am fost surprins de atmosfera și de colectiv, și cum a "sarit" Alex pe mine să facem cunoștință <span class="emoji">😂</span>.</p>
-                <p>Contextul pentru care am venit nu a fost tocmai placut, dar chiar nu îmi pare rău, altfel nu cred că vă cunoșteam.</p>
-                <p>Una din primele activități pe care le-am făcut cu voi a fost să împărțim pliante cu <span class="highlight">Memo</span>, când am făcut amândoi echipă, tu mă împingeai să prezint oamenilor evenimentul și mie îmi era rușine să întreb cât e ceasul ,dar să le mai zic de eveniment <span class="emoji">🤣</span>.</p>
-                <p>Când mai lipseam mă "certai" dar din câte mi s-au spus putea să fie și mai rău <span class="emoji">👊🤕</span>, veneam de frica ta 🤣, sau faza cu capacul de presiune 🍲, de care s-a făcut mișto cam 2 săptămâni.</p>
-                <p>Mă bucur că ne-am cunoscut, altfel nu cred că aveam vreo șansă să îl văd pe <span class="highlight">Memo</span> live <span class="emoji">😂🤖</span>. Cu toate că nu ne-am mai văzut, tot ești pe listă în "camera de război"🍦.</p>
+                <p>Acum aproape un an am venit <span class="highlight">prima dată la voi la biserică</span>, unde am fost surprins de atmosferă și de colectiv, și cum a "sarit" Alex pe mine să facem cunoștință <span class="emoji">😂</span>.</p>
+                <p>Contextul pentru care am venit nu a fost tocmai plăcut, dar chiar nu îmi pare rău, altfel nu cred că vă cunoșteam.</p>
+                <p>Una din primele activități pe care le-am făcut cu voi a fost să împărțim pliante cu <span class="highlight">Memo</span>, când am făcut amândoi echipă, tu mă împingeai să prezint oamenilor evenimentul și mie îmi era rușine să întreb <span class="emoji">🤣</span>.</p>
+                <p>Când mai lipseam mă "certai" dar din câte mi s-au spus putea să fie și mai rău <span class="emoji">👊🤕</span>, veneam de frica ta 🤣, sau faza cu capacul de presiune 🍲.</p>
+                <p>Mă bucur că ne-am cunoscut, altfel nu cred că aveam vreo șansă să îl văd pe <span class="highlight">Memo</span> live <span class="emoji">😂🤖</span>.</p>
                 <p>Chiar ești o <span class="highlight">minune</span> și o <span class="highlight">binecuvântare</span> pentru cei din jurul tău timp de 2 decenii.</p>
-                <p class="text-center text-lg md:text-xl"><strong class="text-gold-gradient">GBU Bianca!</strong> <span class="emoji">😇🤗</span></p>
+                <p class="text-center text-base"><strong class="text-gold-gradient">GBU Bianca!</strong> <span class="emoji">😇🤗</span></p>
             </div>
             <div class="secret-message-footer">
                 <button id="btn-close-secret" class="secret-message-close">Închide mesajul</button>
@@ -1807,30 +1407,24 @@
 
     <script>
         // ============================================
-        // CONFIGURAȚIE - OPTIMIZATĂ PENTRU MOBILE
+        // CONFIGURAȚIE
         // ============================================
         const CONFIG = {
             prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
             isMobile: window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768,
             isTouchDevice: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
             
-            // Particule optimizate - mai putine pe mobile
-            starParticles: { 
-                desktop: { stars: 60, orbs: 5, clusters: 4, meteors: 3 },
-                mobile: { stars: 35, orbs: 3, clusters: 2, meteors: 2 }
-            },
+            // Particule touch
+            touchParticles: { desktop: 35, mobile: 20 },
+            scrollParticles: { desktop: 30, mobile: 15 },
             
-            // FPS limitat pe mobile pentru performanță
+            // FPS
             targetFPS: window.matchMedia('(pointer: coarse)').matches ? 30 : 60,
             frameInterval: window.matchMedia('(pointer: coarse)').matches ? 1000 / 30 : 1000 / 60,
             
-            // Throttle mai agresiv pe mobile
+            // Throttle
             scrollThrottle: window.matchMedia('(pointer: coarse)').matches ? 32 : 16,
-            resizeThrottle: 150,
-            
-            // Particule touch
-            touchParticles: { desktop: 35, mobile: 20 },
-            scrollParticles: { desktop: 30, mobile: 15 }
+            resizeThrottle: 150
         };
 
         // ============================================
@@ -1870,7 +1464,7 @@
         }
 
         // ============================================
-        // ANIMATION MANAGER - OPTIMIZAT
+        // ANIMATION MANAGER
         // ============================================
         class AnimationManager {
             constructor() {
@@ -1906,14 +1500,13 @@
                     }, { passive: true });
                 });
                 
-                const idleCheckInterval = CONFIG.isMobile ? 2000 : 500;
                 setInterval(() => {
                     const idleTime = Date.now() - this.lastUserInteraction;
                     if (idleTime > this.idleThreshold && !this.isIdle) {
                         this.isIdle = true;
                         this.emit('userIdle');
                     }
-                }, idleCheckInterval);
+                }, 2000);
             }
             
             addCallback(id, callback) { this.callbacks.set(id, { callback }); }
@@ -1959,149 +1552,7 @@
         const animationManager = new AnimationManager();
 
         // ============================================
-        // BACKGROUND EFFECTS
-        // ============================================
-        function initBackgroundEffects() {
-            const dustContainer = document.getElementById('bg-dust-container');
-            if (dustContainer && !CONFIG.prefersReducedMotion) {
-                dustContainer.innerHTML = '';
-                const dustCount = CONFIG.isMobile ? 12 : 25;
-                for (let i = 0; i < dustCount; i++) {
-                    const dust = document.createElement('div');
-                    dust.className = 'dust-particle';
-                    dust.style.cssText = `
-                        left: ${Math.random() * 100}%;
-                        animation-delay: ${Math.random() * 20}s;
-                        animation-duration: ${18 + Math.random() * 12}s;
-                        opacity: ${0.3 + Math.random() * 0.5};
-                        width: ${2 + Math.random() * 4}px;
-                        height: ${2 + Math.random() * 4}px;
-                    `;
-                    dustContainer.appendChild(dust);
-                }
-            }
-            
-            const linesContainer = document.getElementById('bg-light-lines-container');
-            if (linesContainer && !CONFIG.prefersReducedMotion) {
-                linesContainer.innerHTML = '';
-                const lineCount = CONFIG.isMobile ? 4 : 8;
-                for (let i = 0; i < lineCount; i++) {
-                    const line = document.createElement('div');
-                    line.className = 'light-line';
-                    line.style.cssText = `
-                        left: ${5 + (i * (95 / lineCount))}%;
-                        animation-delay: ${i * 2.5}s;
-                        animation-duration: ${15 + Math.random() * 8}s;
-                        height: ${100 + Math.random() * 100}px;
-                        transform: rotate(${-5 + Math.random() * 10}deg);
-                    `;
-                    linesContainer.appendChild(line);
-                }
-            }
-
-            if (!CONFIG.prefersReducedMotion) {
-                initAnimatedStars();
-            }
-        }
-
-        // ============================================
-        // STELE ANIMATE - OPTIMIZATE PENTRU GPU
-        // ============================================
-        function initAnimatedStars() {
-            const container = document.getElementById('particles-container');
-            container.innerHTML = '';
-
-            const settings = CONFIG.isMobile ? CONFIG.starParticles.mobile : CONFIG.starParticles.desktop;
-            
-            // Orbs
-            const orbTypes = ['gold-orb', 'rose-orb', 'white-orb'];
-            for (let i = 0; i < settings.orbs; i++) {
-                const orb = document.createElement('div');
-                const orbType = orbTypes[Math.floor(Math.random() * orbTypes.length)];
-                orb.className = `bg-orb ${orbType}`;
-                orb.style.cssText = `
-                    left: ${Math.random() * 80}%;
-                    top: ${Math.random() * 80}%;
-                    width: ${120 + Math.random() * 150}px;
-                    height: ${120 + Math.random() * 150}px;
-                    animation-delay: ${Math.random() * 10}s;
-                    will-change: transform, opacity;
-                    transform: translateZ(0);
-                `;
-                container.appendChild(orb);
-            }
-
-            // Clustere
-            for (let i = 0; i < settings.clusters; i++) {
-                const cluster = document.createElement('div');
-                cluster.className = 'star-cluster';
-                cluster.style.cssText = `
-                    left: ${Math.random() * 90}%;
-                    top: ${Math.random() * 90}%;
-                    width: 30px;
-                    height: 30px;
-                    animation-delay: ${Math.random() * 3}s;
-                    will-change: transform, opacity;
-                    transform: translateZ(0);
-                `;
-                container.appendChild(cluster);
-            }
-
-            // Meteori
-            for (let i = 0; i < settings.meteors; i++) {
-                const meteor = document.createElement('div');
-                meteor.className = 'meteor';
-                meteor.style.cssText = `
-                    left: ${20 + Math.random() * 60}%;
-                    top: ${Math.random() * 20}%;
-                    animation-duration: ${4 + Math.random() * 4}s;
-                    animation-delay: ${i * 8 + Math.random() * 10}s;
-                    will-change: transform, opacity;
-                `;
-                container.appendChild(meteor);
-            }
-
-            // Stele normale
-            const starTypes = ['gold', 'rose', 'white', 'dust'];
-            const starWeights = [0.25, 0.2, 0.35, 0.2];
-            const animations = ['star-twinkle', 'star-float', 'star-pulse', 'star-firefly'];
-            
-            for (let i = 0; i < settings.stars; i++) {
-                const star = document.createElement('div');
-                
-                let random = Math.random(), typeIndex = 0;
-                for (let j = 0; j < starWeights.length; j++) {
-                    random -= starWeights[j];
-                    if (random <= 0) { typeIndex = j; break; }
-                }
-                const type = starTypes[typeIndex];
-                star.className = `bg-star ${type}`;
-                
-                random = Math.random();
-                const animIndex = Math.floor(random * animations.length);
-                const animClass = animations[animIndex];
-                
-                const sizes = { gold: [12, 22], rose: [10, 18], white: [6, 12], dust: [4, 8] };
-                const [minSize, maxSize] = sizes[type];
-                const size = minSize + Math.random() * (maxSize - minSize);
-                
-                star.style.cssText = `
-                    left: ${Math.random() * 95}%;
-                    top: ${Math.random() * 95}%;
-                    width: ${size}px;
-                    height: ${size}px;
-                    animation: ${animClass} ${3 + Math.random() * 3}s ease-in-out infinite;
-                    animation-delay: ${Math.random() * 8}s;
-                    will-change: transform, opacity;
-                    transform: translateZ(0);
-                `;
-                
-                container.appendChild(star);
-            }
-        }
-
-        // ============================================
-        // TOUCH SPARKLE SYSTEM - OPTIMIZAT
+        // TOUCH SPARKLE SYSTEM
         // ============================================
         class TouchSparkleSystem {
             constructor() {
@@ -2263,8 +1714,8 @@
                 const particle = document.createElement('div');
                 const size = Math.random() * 4 + 3;
                 const color = this.colors[Math.floor(Math.random() * this.colors.length)];
-                particle.className = 'scroll-particle';
                 particle.style.cssText = `
+                    position: absolute;
                     left: ${x}px;
                     top: ${y}px;
                     width: ${size}px;
@@ -2273,6 +1724,7 @@
                     box-shadow: 0 0 ${size * 2}px ${color};
                     will-change: transform, opacity;
                     transform: translateZ(0);
+                    border-radius: 50%;
                 `;
                 this.container.appendChild(particle);
                 const vx = (Math.random() - 0.5) * 30, vy = -Math.abs(velocityY) * 0.25 + Math.random() * 30, duration = 0.4 + Math.random() * 0.2;
@@ -2301,122 +1753,6 @@
         }
 
         // ============================================
-        // STAR TRAIL SYSTEM
-        // ============================================
-        class StarTrailSystem {
-            constructor() {
-                this.points = [];
-                this.maxPoints = CONFIG.isMobile ? 8 : 12;
-                this.container = null;
-                this.isDrawing = false;
-                this.ctx = null;
-                this.lastTrailTime = 0;
-                this.trailThrottle = CONFIG.isMobile ? 25 : 16;
-                
-                if (CONFIG.isTouchDevice || CONFIG.prefersReducedMotion) return;
-                this.init();
-            }
-
-            init() {
-                this.container = document.createElement('canvas');
-                this.container.id = 'star-trail-canvas';
-                Object.assign(this.container.style, {
-                    position: 'fixed',
-                    top: '0px',
-                    left: '0px',
-                    width: '100vw',
-                    height: '100vh',
-                    margin: '0px',
-                    padding: '0px',
-                    pointerEvents: 'none',
-                    zIndex: '9999',
-                    background: 'transparent',
-                    border: 'none',
-                    outline: 'none',
-                    boxShadow: 'none',
-                    opacity: '1',
-                    visibility: 'visible',
-                    display: 'block',
-                    contain: 'strict'
-                });
-                this.resizeCanvas();
-                document.body.appendChild(this.container);
-                this.ctx = this.container.getContext('2d');
-                this.bindEvents();
-                animationManager.addCallback('starTrail', (time, isIdle) => this.draw(isIdle));
-            }
-
-            resizeCanvas() {
-                if (!this.container) return;
-                const dpr = Math.min(window.devicePixelRatio || 1, CONFIG.isMobile ? 1.5 : 2);
-                this.container.width = window.innerWidth * dpr;
-                this.container.height = window.innerHeight * dpr;
-                this.container.style.width = window.innerWidth + 'px';
-                this.container.style.height = window.innerHeight + 'px';
-                if (this.ctx) this.ctx.scale(dpr, dpr);
-            }
-
-            bindEvents() {
-                document.addEventListener('mousedown', (e) => { if (CONFIG.prefersReducedMotion) return; this.isDrawing = true; this.addPoint(e.clientX, e.clientY); });
-                document.addEventListener('mousemove', (e) => { 
-                    if (CONFIG.prefersReducedMotion || !this.isDrawing) return;
-                    const now = Date.now();
-                    if (now - this.lastTrailTime < this.trailThrottle) return;
-                    this.lastTrailTime = now;
-                    this.addPoint(e.clientX, e.clientY); 
-                });
-                document.addEventListener('mouseup', () => this.isDrawing = false);
-            }
-
-            addPoint(x, y) {
-                this.points.push({
-                    x, y,
-                    life: 1,
-                    size: 3 + Math.random() * 3,
-                    hue: Math.random() > 0.5 ? 45 : 330
-                });
-                if (this.points.length > this.maxPoints) this.points.shift();
-            }
-
-            draw(isIdle) {
-                if (!this.ctx || !this.container) return;
-                this.ctx.clearRect(0, 0, this.container.width, this.container.height);
-                if (this.points.length === 0) return;
-                
-                const decayRate = isIdle ? 0.015 : 0.025;
-                this.points = this.points.filter(p => {
-                    p.life -= decayRate;
-                    if (p.life <= 0) return false;
-                    
-                    const alpha = p.life;
-                    const size = p.size * p.life;
-                    
-                    const gradient = this.ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, size * 2.5);
-                    gradient.addColorStop(0, `hsla(${p.hue}, 100%, 70%, ${alpha})`);
-                    gradient.addColorStop(0.4, `hsla(${p.hue}, 100%, 50%, ${alpha * 0.5})`);
-                    gradient.addColorStop(1, `hsla(${p.hue}, 100%, 50%, 0)`);
-                    
-                    this.ctx.beginPath();
-                    this.ctx.arc(p.x, p.y, size * 2.5, 0, Math.PI * 2);
-                    this.ctx.fillStyle = gradient;
-                    this.ctx.fill();
-                    
-                    this.ctx.beginPath();
-                    this.ctx.arc(p.x, p.y, size * 0.6, 0, Math.PI * 2);
-                    this.ctx.fillStyle = `hsla(${p.hue}, 100%, 90%, ${alpha})`;
-                    this.ctx.fill();
-                    
-                    return true;
-                });
-            }
-
-            destroy() {
-                animationManager.removeCallback('starTrail');
-                if (this.container && this.container.parentNode) this.container.remove();
-            }
-        }
-
-        // ============================================
         // SOUND SYSTEM
         // ============================================
         class SoundSystem {
@@ -2439,19 +1775,15 @@
         // ============================================
         // INIT SISTEME
         // ============================================
-        initBackgroundEffects();
-        
         const scrollParticles = new ScrollParticleSystem(
             'scroll-particles-container',
             CONFIG.isMobile ? CONFIG.scrollParticles.mobile : CONFIG.scrollParticles.desktop
         );
         
         let touchSparkleSystem = null;
-        let starTrailSystem = null;
         
         if (!CONFIG.prefersReducedMotion) {
             touchSparkleSystem = new TouchSparkleSystem();
-            starTrailSystem = new StarTrailSystem();
             animationManager.addCallback('scrollParticles', () => { scrollParticles.update(); });
             animationManager.start();
         }
@@ -2464,13 +1796,12 @@
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
                 fixParticleContainers();
-                if (starTrailSystem) starTrailSystem.resizeCanvas();
                 ScrollTrigger.refresh();
             }, CONFIG.resizeThrottle);
         }, { passive: true });
 
         // ============================================
-        // SCROLL EVENTS - THROTTLED
+        // SCROLL EVENTS
         // ============================================
         let lastScrollY = window.scrollY;
         let scrollVelocity = 0;
@@ -2767,10 +2098,10 @@
                 stars.forEach((s, i) => s.setAttribute('aria-checked', i < rating ? 'true' : 'false'));
                 const reviewMessage = document.getElementById('review-message');
                 if (rating >= 4) {
-                    reviewMessage.innerHTML = `<div class="text-center"><p class="text-gold-gradient text-base md:text-xl font-serif">${rating === 5 ? 'Wow,chiar atât de mult ți-a plăcut!' : 'Sunt atât de bucuros că ți-a plăcut!'}</p><p class="text-rose-300/70 text-xs mt-2 md:mt-3 italic">„La mulți ani, Bianca!"</p></div>`;
+                    reviewMessage.innerHTML = `<div class="text-center"><p class="text-gold-gradient text-sm md:text-xl font-serif">${rating === 5 ? 'Wow,chiar atât de mult ți-a plăcut!' : 'Sunt atât de bucuros că ți-a plăcut!'}</p><p class="text-rose-300/70 text-[10px] md:text-xs mt-1.5 italic">„La mulți ani, Bianca!"</p></div>`;
                 } else {
                     const msg = {1:{text:'Ok, e un început!',sub:'Măcar ai deschis!'},2:{text:'Hmm, sigur?',sub:'Poate mai ai nevoie de timp...'},3:{text:'E ok!',sub:'Feedback onest = apreciat!'}};
-                    reviewMessage.innerHTML = `<div class="text-center"><p class="text-rose-400 text-base md:text-lg font-serif">${msg[rating].text}</p><p class="text-gray-400 text-xs md:text-sm">${msg[rating].sub}</p></div>`;
+                    reviewMessage.innerHTML = `<div class="text-center"><p class="text-rose-400 text-sm md:text-lg font-serif">${msg[rating].text}</p><p class="text-gray-400 text-[10px] md:text-sm">${msg[rating].sub}</p></div>`;
                 }
                 this.classList.add('star-animating');
                 setTimeout(() => this.classList.remove('star-animating'), 500);
@@ -2861,12 +2192,10 @@
         window.addEventListener('beforeunload', () => {
             animationManager.pause();
             animationManager.removeCallback('scrollParticles');
-            animationManager.removeCallback('starTrail');
             ScrollTrigger.getAll().forEach(t => t.kill());
             soundSystem.destroy();
             scrollParticles.clear();
             if (touchSparkleSystem) touchSparkleSystem.destroy();
-            if (starTrailSystem) starTrailSystem.destroy();
         });
     </script>
 </body>
