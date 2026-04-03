@@ -116,16 +116,16 @@
                 0 0 12px 3px rgba(255, 182, 193, 0.7);
         }
 
-        .star-twinkle { animation: star-twinkle 3s ease-in-out infinite !important; }
-        .star-twinkle-fast { animation: star-twinkle 2s ease-in-out infinite !important; }
-        .star-twinkle-slow { animation: star-twinkle 4s ease-in-out infinite !important; }
+        .star-twinkle { animation: star-twinkle 3s ease-in-out infinite; }
+        .star-twinkle-fast { animation: star-twinkle 2s ease-in-out infinite; }
+        .star-twinkle-slow { animation: star-twinkle 4s ease-in-out infinite; }
 
         @keyframes star-twinkle {
             0%, 100% { opacity: 0.4; transform: translateZ(0) scale(1); }
             50% { opacity: 1; transform: translateZ(0) scale(1.3); }
         }
 
-        .star-float { animation: star-float 8s ease-in-out infinite !important; }
+        .star-float { animation: star-float 8s ease-in-out infinite; }
 
         @keyframes star-float {
             0%, 100% { transform: translateZ(0) translate(0, 0); }
@@ -133,7 +133,7 @@
             75% { transform: translateZ(0) translate(-8px, 10px); }
         }
 
-        .star-firefly { animation: star-firefly 5s ease-in-out infinite !important; }
+        .star-firefly { animation: star-firefly 5s ease-in-out infinite; }
 
         @keyframes star-firefly {
             0%, 100% { opacity: 0.2; transform: translateZ(0) scale(0.7); }
@@ -153,7 +153,7 @@
             will-change: transform, opacity;
         }
 
-        .dust-float { animation: dust-float linear infinite !important; }
+        .dust-float { animation: dust-float linear infinite; }
 
         @keyframes dust-float {
             0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
@@ -162,7 +162,7 @@
             100% { transform: translateY(-100px) translateX(50px) rotate(360deg); opacity: 0; }
         }
 
-        .dust-drift { animation: dust-drift 15s ease-in-out infinite !important; }
+        .dust-drift { animation: dust-drift 15s ease-in-out infinite; }
 
         @keyframes dust-drift {
             0%, 100% { transform: translateZ(0) translate(0, 0); opacity: 0.4; }
@@ -181,22 +181,22 @@
 
         .orb-gold {
             background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 40%, transparent 70%);
-            animation: orb-float-1 20s ease-in-out infinite !important;
+            animation: orb-float-1 20s ease-in-out infinite;
         }
 
         .orb-rose {
             background: radial-gradient(circle, rgba(183, 110, 121, 0.12) 0%, rgba(183, 110, 121, 0.03) 40%, transparent 70%);
-            animation: orb-float-2 25s ease-in-out infinite !important;
+            animation: orb-float-2 25s ease-in-out infinite;
         }
 
         .orb-purple {
             background: radial-gradient(circle, rgba(138, 43, 226, 0.08) 0%, rgba(138, 43, 226, 0.02) 40%, transparent 70%);
-            animation: orb-float-3 18s ease-in-out infinite !important;
+            animation: orb-float-3 18s ease-in-out infinite;
         }
 
         .orb-center {
             background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
-            animation: orb-pulse 12s ease-in-out infinite !important;
+            animation: orb-pulse 12s ease-in-out infinite;
         }
 
         @keyframes orb-float-1 {
@@ -600,10 +600,9 @@
         }
 
         /* ============================================
-           REVEAL TEXT - MĂRIT SI ANIMAT DE SUS IN JOS
+           REVEAL TEXT - ANIMAT CUVANT CU CUVANT
            ============================================ */
         
-        /* Container pentru text revelat - umple tot slide-ul */
         #reveal-text-content {
             display: none;
             width: 100%;
@@ -731,28 +730,65 @@
         .btn-celebrate:active { transform: scale(0.98); }
 
         /* ============================================
-           ANIMATII REVEAL TEXT - LENTE SI DRAMATICE
+           WORD REVEAL ANIMATION STYLES
            ============================================ */
-        
-        /* Initial state - invizibil si sus */
-        .reveal-text-item {
-            opacity: 0;
-            transform: translateY(-60px);
-            will-change: transform, opacity;
+        .word-container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-        
-        /* Animatia de glow */
-        @keyframes textGlow {
+
+        .word-wrapper {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+        }
+
+        .word-inner {
+            display: inline-block;
+            transform: translateY(110%);
+            opacity: 0;
+            filter: blur(8px);
+        }
+
+        .word-inner.no-blur {
+            filter: blur(0px);
+        }
+
+        .word-line {
+            display: block;
+            width: 100%;
+        }
+
+        .word-name {
+            display: inline-block;
+            opacity: 0;
+            transform: scale(0) rotate(-15deg);
+            filter: blur(15px);
+        }
+
+        .word-emoji {
+            display: inline-block;
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        /* Efect de stralucire pe Bianca */
+        .bianca-name-glow {
+            animation: nameGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes nameGlow {
             0%, 100% {
-                filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8));
+                filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.9));
+                text-shadow: 0 0 40px rgba(212, 175, 55, 0.7);
             }
             50% {
-                filter: drop-shadow(0 0 30px rgba(212, 175, 55, 1)) drop-shadow(0 0 50px rgba(212, 175, 55, 0.6));
+                filter: drop-shadow(0 0 50px rgba(212, 175, 55, 1)) drop-shadow(0 0 80px rgba(244, 63, 94, 0.5));
+                text-shadow: 0 0 60px rgba(212, 175, 55, 0.9), 0 0 100px rgba(244, 63, 94, 0.5);
             }
-        }
-        
-        .bianca-name-glow {
-            animation: textGlow 2s ease-in-out infinite;
         }
 
         /* ============================================
@@ -1340,25 +1376,29 @@
                 <p id="gift-hint" class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-amber-400/70 text-sm whitespace-nowrap opacity-0 transition-opacity">👆 Apasă pentru a deschide</p>
             </div>
             
-            <!-- Text revelat - ANIMAT SI MĂRIT -->
+            <!-- Text revelat - ANIMAT CUVANT CU CUVANT -->
             <div id="reveal-text-content" class="hidden">
-                <!-- Text 1: Mesajul principal -->
-                <h2 id="reveal-title" class="reveal-main-text font-serif text-white leading-tight font-light reveal-text-item">
-                    Pe <span class="text-gold-gradient font-semibold">3 Martie 2006</span>,<br>
-                    Dumnezeu a decis că lumea<br>
-                    are nevoie de mai multă <span class="italic text-rose-300">lumină</span>.
-                </h2>
+                <!-- Linia 1: Pe 3 Martie 2006... -->
+                <div id="reveal-line-1" class="word-container mb-4 md:mb-8">
+                    <h2 id="reveal-title" class="reveal-main-text font-serif text-white leading-tight font-light">
+                        <!-- Cuvintele vor fi generate automat -->
+                    </h2>
+                </div>
                 
-                <!-- Text 2: Subtitlu -->
-                <p class="font-serif text-xl md:text-4xl text-gray-200 italic reveal-subtitle reveal-text-item">
-                    Așa că te-a creat pe tine,<br>
-                </p>
+                <!-- Linia 2: Asa ca te-a creat... -->
+                <div id="reveal-line-2" class="word-container mb-6 md:mb-10">
+                    <p class="reveal-subtitle font-serif text-gray-200 italic">
+                        <!-- Cuvintele vor fi generate automat -->
+                    </p>
+                </div>
                 
-                <!-- Text 3: Numele Bianca - animatie speciala -->
-                <span class="bianca-name text-gold-gradient not-italic font-bold block reveal-text-item">Bianca</span>
+                <!-- Linia 3: Numele Bianca -->
+                <div id="reveal-line-3" class="word-container mb-8 md:mb-12">
+                    <span class="bianca-name text-gold-gradient not-italic font-bold">Bianca</span>
+                </div>
                 
                 <!-- Butonul Celebrate -->
-                <button id="celebrate-btn" class="btn-celebrate cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white reveal-text-item">
+                <button id="celebrate-btn" class="btn-celebrate cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white opacity-0" style="transform: translateY(30px);">
                     <span aria-hidden="true">🥳</span>
                     <span>Celebrează</span>
                     <i class="fas fa-sparkles" aria-hidden="true"></i>
@@ -1503,7 +1543,7 @@
     <section id="review" aria-labelledby="review-title">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(183,110,121,0.08),_transparent_70%)]" aria-hidden="true"></div>
         <div class="max-w-2xl mx-auto px-5 text-center relative z-10 w-full">
-            <span class="text-3xl mb-4 block" aria-label="thinking emoji">🤔</span>
+            <span class="text-3xl mb-4 block" aria-hidden="true">🤔</span>
             <h2 id="review-title" class="review-title font-serif text-white">Cum ți s-a părut surpriza?</h2>
             <div class="flex justify-center gap-1" id="star-container" role="radiogroup" aria-label="Evaluare cu stele">
                 <button class="star-btn" data-rating="1" aria-label="1 stea" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
@@ -1539,7 +1579,7 @@
         </div>
     </div>
 
-    <!-- Secret Message Container - CU MESAJUL COMPLET -->
+    <!-- Secret Message Container -->
     <div id="secret-message-container" class="secret-message-container" role="dialog" aria-modal="true">
         <div class="secret-message-content">
             <div class="secret-message-icon">🧐</div>
@@ -1730,7 +1770,7 @@
                     }, { passive: true });
                 });
                 
-                setInterval(() => {
+                this.idleInterval = setInterval(() => {
                     const idleTime = Date.now() - this.lastUserInteraction;
                     if (idleTime > this.idleThreshold && !this.isIdle) {
                         this.isIdle = true;
@@ -1777,6 +1817,15 @@
                 }
                 this.frameId = requestAnimationFrame((t) => this.loop(t));
             }
+            
+            destroy() {
+                this.pause();
+                if (this.idleInterval) {
+                    clearInterval(this.idleInterval);
+                    this.idleInterval = null;
+                }
+                this.callbacks.clear();
+            }
         }
 
         const animationManager = new AnimationManager();
@@ -1798,6 +1847,9 @@
             }
 
             init() {
+                // Verifica daca containerul exista deja
+                if (document.getElementById('touch-sparkles')) return;
+                
                 this.container = document.createElement('div');
                 this.container.id = 'touch-sparkles';
                 this.container.style.cssText = `
@@ -1986,14 +2038,36 @@
         // SOUND SYSTEM
         // ============================================
         class SoundSystem {
-            constructor() { this.audioContext = null; this.isMuted = false; this.masterGain = null; this.initialized = false; }
-            init() { if (this.initialized) return; try { this.audioContext = new (window.AudioContext || window.webkitAudioContext)(); this.masterGain = this.audioContext.createGain(); this.masterGain.connect(this.audioContext.destination); this.masterGain.gain.value = 0.4; this.initialized = true; } catch (e) {} }
+            constructor() { 
+                this.audioContext = null; 
+                this.isMuted = false; 
+                this.masterGain = null; 
+                this.initialized = false; 
+            }
+            
+            init() { 
+                if (this.initialized) return; 
+                try { 
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)(); 
+                    this.masterGain = this.audioContext.createGain(); 
+                    this.masterGain.connect(this.audioContext.destination); 
+                    this.masterGain.gain.value = 0.4; 
+                    this.initialized = true; 
+                } catch (e) { console.warn('Audio not supported'); } 
+            }
+            
             resume() { if (this.audioContext && this.audioContext.state === 'suspended') this.audioContext.resume(); }
+            
             setMuted(muted) { this.isMuted = muted; if (this.masterGain) this.masterGain.gain.value = muted ? 0 : 0.4; }
+            
             playClick() { if (this.isMuted || !this.initialized) return; this.resume(); this.createTone(600, this.audioContext.currentTime, 0.08, 0.12, 'sine'); setTimeout(() => this.createTone(800, this.audioContext.currentTime, 0.1, 0.08, 'sine'), 50); }
+            
             playCelebrate() { if (this.isMuted || !this.initialized) return; this.resume(); const now = this.audioContext.currentTime; [523.25, 659.25, 783.99, 1046.50].forEach(freq => this.createTone(freq, now, 0.6, 0.1, 'sine')); setTimeout(() => [1318.51, 1567.98, 2093].forEach((freq, i) => setTimeout(() => this.createTone(freq, this.audioContext.currentTime, 0.4, 0.08, 'sine'), i * 80)), 200); }
+            
             playStarRating(rating) { if (this.isMuted || !this.initialized) return; this.resume(); const baseFreqs = {1:523.25,2:587.33,3:659.25,4:783.99,5:880}; const baseFreq = baseFreqs[rating] || 523.25; const now = this.audioContext.currentTime; this.createTone(baseFreq, now, 0.4, 0.15, 'sine'); this.createTone(baseFreq * 2, now, 0.35, 0.1, 'sine'); this.createTone(baseFreq * 1.5, now + 0.05, 0.3, 0.08, 'sine'); this.createTone(baseFreq * 4, now + 0.1, 0.25, 0.06, 'sine'); if (rating >= 3) setTimeout(() => [2637, 3136, 3951, 4698].forEach((freq, i) => setTimeout(() => this.createTone(freq, this.audioContext.currentTime, 0.3, 0.05, 'sine'), i * 40)), 100); if (rating === 5) { setTimeout(() => [1046.50, 1318.51, 1567.98, 2093].forEach((freq, i) => setTimeout(() => this.createTone(freq, this.audioContext.currentTime, 0.5, 0.08, 'triangle'), i * 50)), 200); } }
+            
             createTone(frequency, startTime, duration, volume, type = 'sine') { if (!this.initialized) return; const osc = this.audioContext.createOscillator(); const gain = this.audioContext.createGain(); osc.type = type; osc.frequency.setValueAtTime(frequency, startTime); gain.gain.setValueAtTime(volume, startTime); gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration); osc.connect(gain); gain.connect(this.masterGain); osc.start(startTime); osc.stop(startTime + duration); }
+            
             destroy() { if (this.audioContext) { this.audioContext.close(); this.audioContext = null; this.initialized = false; } }
         }
 
@@ -2153,7 +2227,9 @@
             createBatch();
         }
 
+        // ============================================
         // CADOU REVEAL - CU ANIMATII LENTE SI DRAMATICE
+        // ============================================
         gsap.registerPlugin(ScrollTrigger);
         let giftAnimationTriggered = false, giftClicked = false;
 
@@ -2201,7 +2277,9 @@
             }
         }
 
-        // NOUA FUNCTIE revealText - CU ANIMATII LENTE SI DRAMATICE
+        // ============================================
+        // REVEAL TEXT - CUVANT CU CUVANT (NOUA FUNCTIE)
+        // ============================================
         function revealText() {
             const revealContent = document.getElementById('reveal-content');
             const revealTextContent = document.getElementById('reveal-text-content');
@@ -2221,87 +2299,159 @@
             const giftBox = document.getElementById('gift-box');
             if (giftBox) giftBox.style.display = 'none';
             
-            // ANIMATII LENTE SI DRAMATICE - DE SUS IN JOS
+            // DACA prefers-reduced-motion - arata totul imediat
             if (CONFIG.prefersReducedMotion) {
-                // Daca prefers-reduced-motion, arata totul imediat
-                document.querySelectorAll('.reveal-text-item').forEach(el => {
+                document.querySelectorAll('.bianca-name').forEach(el => {
                     el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
+                    el.style.transform = 'scale(1)';
+                    el.classList.add('bianca-name-glow', 'glowing');
                 });
-            } else {
-                // Obtinem toate elementele text in ordine
-                const textItems = [
-                    document.getElementById('reveal-title'),
-                    document.querySelector('.reveal-subtitle'),
-                    document.querySelector('.bianca-name'),
-                    document.getElementById('celebrate-btn')
-                ];
-                
-                // Seteaza pozitia initiala pentru toate
-                textItems.forEach(item => {
-                    if (item) {
-                        gsap.set(item, {
-                            opacity: 0,
-                            y: -80,
-                            filter: 'blur(10px)'
-                        });
-                    }
-                });
-                
-                // Timeline cu animatii lente si dramatice
-                const tl = gsap.timeline({
-                    defaults: { 
-                        ease: 'power3.out',
-                        duration: 1.2 // Durata mai lunga pentru fiecare element
-                    }
-                });
-                
-                // Text 1: Mesajul principal (apare primul)
-                tl.to('#reveal-title', {
-                    opacity: 1,
-                    y: 0,
-                    filter: 'blur(0px)',
-                    duration: 1.5,
-                    ease: 'power2.out'
-                }, 0.5);
-                
-                // Text 2: Subtitlul (dupa 1.5s)
-                tl.to('.reveal-subtitle', {
-                    opacity: 1,
-                    y: 0,
-                    filter: 'blur(0px)',
-                    duration: 1.5,
-                    ease: 'power2.out'
-                }, 1.8);
-                
-                // Text 3: Numele Bianca (dupa 3.3s) - cu efect special
-                tl.to('.bianca-name', {
-                    opacity: 1,
-                    y: 0,
-                    filter: 'blur(0px)',
-                    scale: 1,
-                    duration: 2,
-                    ease: 'back.out(1.2)' // Usor bounce
-                }, 3.3);
-                
-                // Adauga glow effect la Bianca dupa ce apare
-                tl.add(() => {
-                    const biancaName = document.querySelector('.bianca-name');
-                    if (biancaName) {
-                        biancaName.classList.add('bianca-name-glow');
-                        biancaName.classList.add('glowing');
-                    }
-                }, '+=0.3');
-                
-                // Butonul Celebrate (ultimul, dupa 5.3s)
-                tl.to('#celebrate-btn', {
-                    opacity: 1,
-                    y: 0,
-                    filter: 'blur(0px)',
-                    duration: 1.2,
-                    ease: 'power2.out'
-                }, 5.5);
+                document.getElementById('celebrate-btn').style.opacity = '1';
+                document.getElementById('celebrate-btn').style.transform = 'translateY(0)';
+                return;
             }
+            
+            // DEFINIM CONTINUTUL TEXTELOR
+            const line1Words = [
+                { text: 'Pe', class: '' },
+                { text: '3', class: 'text-gold-gradient font-semibold' },
+                { text: 'Martie', class: 'text-gold-gradient font-semibold' },
+                { text: '2006,', class: '' },
+                { text: 'Dumnezeu', class: '' },
+                { text: 'a', class: '' },
+                { text: 'decis', class: '' },
+                { text: 'că', class: '' },
+                { text: 'lumea', class: '' },
+                { text: 'are', class: '' },
+                { text: 'nevoie', class: '' },
+                { text: 'de', class: '' },
+                { text: 'mai', class: '' },
+                { text: 'multă', class: '' },
+                { text: 'lumină.', class: 'italic text-rose-300' }
+            ];
+            
+            const line2Words = [
+                { text: 'Așa', class: '' },
+                { text: 'că', class: '' },
+                { text: 'te-a', class: '' },
+                { text: 'creat', class: '' },
+                { text: 'pe', class: '' },
+                { text: 'tine,', class: '' }
+            ];
+            
+            // GENERAM HTML PENTRU CUVINTE
+            const line1Container = document.getElementById('reveal-line-1');
+            const line2Container = document.getElementById('reveal-line-2');
+            const biancaEl = document.querySelector('.bianca-name');
+            const buttonEl = document.getElementById('celebrate-btn');
+            
+            // Construim HTML pentru Linia 1
+            let html1 = '';
+            line1Words.forEach((word, i) => {
+                const isSpecial = word.class.includes('text-gold-gradient') || word.class.includes('italic');
+                html1 += `<span class="word-wrapper ${isSpecial ? 'word-special' : ''}"><span class="word-inner ${word.class}" data-index="${i}">${word.text}</span></span>`;
+                if (i < line1Words.length - 1) html1 += ' ';
+            });
+            line1Container.querySelector('h2').innerHTML = html1;
+            
+            // Construim HTML pentru Linia 2
+            let html2 = '';
+            line2Words.forEach((word, i) => {
+                html2 += `<span class="word-wrapper"><span class="word-inner" data-index="${i}">${word.text}</span></span>`;
+                if (i < line2Words.length - 1) html2 += ' ';
+            });
+            line2Container.querySelector('p').innerHTML = html2;
+            
+            // TIMELINE PRINCIPAL
+            const tl = gsap.timeline();
+            
+            // ===== Faza 1: Linia 1 - CUVANT CU CUVANT =====
+            const line1Delay = 0.8;
+            const wordDelay = 0.18; // Delay intre cuvinte
+            
+            // Face vizibil containerul liniei 1
+            gsap.set(line1Container, { opacity: 0 });
+            tl.to(line1Container, {
+                opacity: 1,
+                duration: 0.6,
+                ease: 'power2.out'
+            }, line1Delay);
+            
+            // Animeaza fiecare cuvant din linia 1
+            const line1Spans = line1Container.querySelectorAll('.word-inner');
+            line1Spans.forEach((span, i) => {
+                tl.to(span, {
+                    y: 0,
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    duration: 0.4,
+                    ease: 'power2.out'
+                }, line1Delay + 0.6 + (i * wordDelay));
+            });
+            
+            // ===== Faza 2: Pauza de suspans =====
+            const pauseAfterLine1 = line1Delay + 0.6 + (line1Spans.length * wordDelay) + 1.5;
+            
+            // ===== Faza 3: Linia 2 - CUVANT CU CUVANT =====
+            gsap.set(line2Container, { opacity: 0 });
+            tl.to(line2Container, {
+                opacity: 1,
+                duration: 0.6,
+                ease: 'power2.out'
+            }, pauseAfterLine1);
+            
+            const line2Spans = line2Container.querySelectorAll('.word-inner');
+            line2Spans.forEach((span, i) => {
+                tl.to(span, {
+                    y: 0,
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    duration: 0.4,
+                    ease: 'power2.out'
+                }, pauseAfterLine1 + 0.6 + (i * wordDelay));
+            });
+            
+            // ===== Faza 4: MARELE SUSPANS =====
+            const pauseBeforeName = pauseAfterLine1 + 0.6 + (line2Spans.length * wordDelay) + 2;
+            
+            // ===== Faza 5: NUMELE "BIANCA" - CU EFECT DRAMATIC =====
+            gsap.set(biancaEl, {
+                opacity: 0,
+                scale: 0,
+                rotation: -15,
+                filter: 'blur(20px)'
+            });
+            
+            tl.to(biancaEl, {
+                opacity: 1,
+                scale: 1,
+                rotation: 0,
+                filter: 'blur(0px)',
+                duration: 1.5,
+                ease: 'elastic.out(1, 0.4)'
+            }, pauseBeforeName);
+            
+            // Adauga glow effect dupa ce apare numele
+            tl.add(() => {
+                biancaEl.classList.add('bianca-name-glow', 'glowing');
+            }, pauseBeforeName + 1.2);
+            
+            // ===== Faza 6: Butonul Celebrate =====
+            const pauseBeforeButton = pauseBeforeName + 2;
+            
+            tl.to(buttonEl, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'back.out(1.7)'
+            }, pauseBeforeButton);
+            
+            // Efect de stralucire pe buton
+            tl.to(buttonEl, {
+                boxShadow: '0 0 0 4px rgba(212, 175, 55, 0.6), 0 10px 40px rgba(212, 175, 55, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3)',
+                duration: 0.5,
+                ease: 'power2.out'
+            }, pauseBeforeButton + 0.8);
         }
 
         function animateGiftOpen() {
@@ -2388,7 +2538,9 @@
             setTimeout(() => this.style.transform = '', 150);
         });
 
+        // ============================================
         // RATING STARS
+        // ============================================
         const stars = document.querySelectorAll('.star-btn');
         let currentRating = 0;
         
@@ -2443,7 +2595,9 @@
             });
         });
 
+        // ============================================
         // ANIMATII SCROLL
+        // ============================================
         window.addEventListener('load', () => {
             if (CONFIG.prefersReducedMotion) {
                 document.querySelectorAll('.intro-text').forEach(el => {
@@ -2472,8 +2626,11 @@
         
         gsap.to('#secret-title', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '#secret', start: 'top 80%', once: true } });
 
+        // ============================================
         // TIMERE
+        // ============================================
         const birthDate = new Date('2006-03-03T00:00:00');
+        let timersInterval;
         
         function updateTimers() {
             const now = new Date();
@@ -2500,7 +2657,7 @@
             document.getElementById('next-date').textContent = `Următoarea: 3 Martie ${nextBirthday.getFullYear()}`;
         }
         
-        setInterval(updateTimers, 1000);
+        timersInterval = setInterval(updateTimers, 1000);
         updateTimers();
 
         function smoothScrollTo(id) {
@@ -2508,19 +2665,24 @@
         }
         window.smoothScrollTo = smoothScrollTo;
 
+        // ============================================
         // INIT
+        // ============================================
         window.addEventListener('load', () => {
             setTimeout(() => fixParticleContainers(), 100);
         });
 
+        // ============================================
         // CLEANUP
+        // ============================================
         window.addEventListener('beforeunload', () => {
-            animationManager.pause();
+            animationManager.destroy();
             animationManager.removeCallback('scrollParticles');
             ScrollTrigger.getAll().forEach(t => t.kill());
             soundSystem.destroy();
             scrollParticles.clear();
             if (touchSparkleSystem) touchSparkleSystem.destroy();
+            if (timersInterval) clearInterval(timersInterval);
         });
     </script>
 </body>
