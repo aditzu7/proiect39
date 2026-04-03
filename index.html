@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bianca - 20 de Ani de Minunte</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        html { scroll-behavior: smooth; scroll-snap-type: none; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030303;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: pan-y;
+            min-height: 100vh;
+        }
+
+        .font-serif { font-family: 'Playfair Display', serif; }
+
+        :focus-visible { outline: 2px solid #D4AF37; outline-offset: 4px; }
+        button:focus:not(:focus-visible) { outline: none; }
+
+        #main-background {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            background: #030303;
+            animation: bg-pulse 10s ease-in-out infinite;
+        }
+
+        @keyframes bg-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.95; } }
+
+        /* ========== CSS STAR PARTICLES ========== */
+        #particles-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .css-star {
+            position: absolute;
+            pointer-events: none;
+            will-change: transform, opacity;
+            border-radius: 50%;
+        }
+
+        /* GOLD STARS */
+        .css-star.gold {
+            background: radial-gradient(circle, 
+                rgba(255,255,255,1) 0%, 
+                rgba(255,240,200,1) 15%, 
+                rgba(255,215,0,1) 40%, 
+                rgba(218,165,32,1) 60%, 
+                rgba(184,134,11,0.6) 80%, 
+                transparent 100%
+            );
+            box-shadow: 
+                0 0 4px 2px rgba(255,255,255,1),
+                0 0 10px 4px rgba(255,240,150,0.9),
+                0 0 20px 8px rgba(255,215,0,0.7),
+                0 0 35px 12px rgba(218,165,32,0.5),
+                0 0 50px 20px rgba(184,134,11,0.3);
+        }
+
+        /* ROSE STARS */
+        .css-star.rose {
+            background: radial-gradient(circle, 
+                rgba(255,255,255,1) 0%, 
+                rgba(255,200,210,1) 15%, 
+                rgba(255,105,180,1) 40%, 
+                rgba(219,112,147,1) 60%, 
+                rgba(183,110,121,0.6) 80%, 
+                transparent 100%
+            );
+            box-shadow: 
+                0 0 4px 2px rgba(255,255,255,1),
+                0 0 10px 4px rgba(255,200,210,0.9),
+                0 0 20px 8px rgba(255,105,180,0.7),
+                0 0 35px 12px rgba(219,112,147,0.5),
+                0 0 50px 20px rgba(183,110,121,0.3);
+        }
+
+        /* WHITE STARS */
+        .css-star.white {
+            background: radial-gradient(circle, 
+                rgba(255,255,255,1) 0%, 
+                rgba(245,245,255,1) 30%, 
+                rgba(230,230,240,1) 60%, 
+                rgba(200,200,220,0.5) 80%, 
+                transparent 100%
+            );
+            box-shadow: 
+                0 0 3px 1px rgba(255,255,255,1),
+                0 0 8px 2px rgba(245,245,255,0.8),
+                0 0 15px 5px rgba(230,230,240,0.5),
+                0 0 25px 8px rgba(200,200,220,0.3);
+        }
+
+        /* DUST STARS */
+        .css-star.dust {
+            background: radial-gradient(circle, 
+                rgba(255,255,255,0.9) 0%, 
+                rgba(200,200,220,0.6) 40%, 
+                rgba(150,150,180,0.3) 70%, 
+                transparent 100%
+            );
+            box-shadow: 
+                0 0 2px 1px rgba(255,255,255,0.6),
+                0 0 5px 2px rgba(200,200,220,0.3);
+        }
+
+        /* MEGA GLOW */
+        .css-star.mega-glow {
+            box-shadow: 
+                0 0 6px 3px rgba(255,255,255,1),
+                0 0 15px 6px rgba(255,240,150,1),
+                0 0 30px 12px rgba(255,215,0,0.9),
+                0 0 50px 20px rgba(218,165,32,0.7),
+                0 0 80px 30px rgba(184,134,11,0.5),
+                0 0 100px 40px rgba(255,200,0,0.3);
+        }
+
+        /* Animations */
+        @keyframes star-float-1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            20% { transform: translate(25px, -35px) rotate(72deg) scale(1.05); }
+            40% { transform: translate(-15px, -60px) rotate(144deg) scale(0.95); }
+            60% { transform: translate(-40px, -40px) rotate(216deg) scale(1.08); }
+            80% { transform: translate(-20px, -70px) rotate(288deg) scale(1.02); }
+        }
+
+        @keyframes star-float-2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-35px, -25px) rotate(-90deg); }
+            50% { transform: translate(20px, -55px) rotate(-180deg); }
+            75% { transform: translate(40px, -30px) rotate(-270deg); }
+        }
+
+        @keyframes star-float-3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(45px, -40px) scale(1.1); }
+            66% { transform: translate(-30px, -70px) scale(0.92); }
+        }
+
+        @keyframes star-float-4 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-25px, -50px) scale(1.15); }
+        }
+
+        @keyframes star-float-5 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            30% { transform: translate(35px, -30px) rotate(108deg); }
+            60% { transform: translate(-25px, -55px) rotate(216deg); }
+        }
+
+        @keyframes star-float-6 {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(50px, -20px) scale(1.05) rotate(90deg); }
+            50% { transform: translate(30px, -60px) scale(1.1) rotate(180deg); }
+            75% { transform: translate(-20px, -45px) scale(0.95) rotate(270deg); }
+        }
+
+        @keyframes star-twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            25% { opacity: 0.5; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.1); }
+            75% { opacity: 0.4; transform: scale(0.75); }
+        }
+
+        @keyframes mega-glow-pulse {
+            0%, 100% { filter: brightness(1); transform: scale(1); }
+            33% { filter: brightness(1.3); transform: scale(1.05); }
+            66% { filter: brightness(0.85); transform: scale(0.97); }
+        }
+
+        @keyframes star-size-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .css-star.animate-float-1 { animation: star-float-1 var(--drift-duration, 25s) ease-in-out infinite; }
+        .css-star.animate-float-2 { animation: star-float-2 var(--drift-duration, 30s) ease-in-out infinite; }
+        .css-star.animate-float-3 { animation: star-float-3 var(--drift-duration, 35s) ease-in-out infinite; }
+        .css-star.animate-float-4 { animation: star-float-4 var(--drift-duration, 28s) ease-in-out infinite; }
+        .css-star.animate-float-5 { animation: star-float-5 var(--drift-duration, 40s) ease-in-out infinite; }
+        .css-star.animate-float-6 { animation: star-float-6 var(--drift-duration, 32s) ease-in-out infinite; }
+
+        .css-star.animate-twinkle { animation: star-twinkle var(--twinkle-duration, 2.5s) ease-in-out infinite; }
+        .css-star.animate-mega-glow { animation: mega-glow-pulse 3s ease-in-out infinite; }
+        .css-star.animate-size-pulse { animation: star-size-pulse var(--pulse-duration, 4s) ease-in-out infinite; }
+
+        .css-star.delay-1 { animation-delay: -5s; }
+        .css-star.delay-2 { animation-delay: -12s; }
+        .css-star.delay-3 { animation-delay: -20s; }
+        .css-star.delay-4 { animation-delay: -8s; }
+        .css-star.delay-5 { animation-delay: -15s; }
+
+        /* ========== TOUCH SPARKLES - Doar sub deget ========== */
+        #touch-sparkles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            overflow: hidden;
+            contain: layout style paint;
+        }
+
+        /* ========== STAR TRAIL ========== */
+        #star-trail-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        #rating-confetti-container, #celebrate-confetti-container, #star-confetti-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 500;
+            overflow: hidden;
+        }
+
+        section {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+        section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(3, 3, 3, 0.4);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        #intro { background: rgba(3, 3, 3, 0.5) !important; display: flex; align-items: center; justify-content: center; }
+        #intro::before { background: transparent; }
+        #timeline { background: rgba(18, 18, 18, 0.5) !important; padding: 80px 0; }
+        #reveal { background: rgba(3, 3, 3, 0.6) !important; display: flex; align-items: center; justify-content: center; }
+        #reveal::before { background: rgba(3, 3, 3, 0.5) !important; }
+        #message { background: rgba(20, 5, 8, 0.5) !important; display: flex; align-items: center; justify-content: center; }
+        #timers { background: rgba(3, 3, 3, 0.5) !important; padding: 80px 0; }
+        #joke { background: rgba(25, 25, 25, 0.5) !important; padding: 80px 0; }
+        #secret { background: rgba(3, 3, 3, 0.5) !important; display: flex; align-items: center; justify-content: center; padding: 80px 0; }
+        #review { background: rgba(3, 3, 3, 0.5) !important; display: flex; align-items: center; justify-content: center; }
+        footer { background: rgba(3, 3, 3, 0.7) !important; padding: 48px 0; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #F4E8C1 50%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .text-gold-gradient.glowing { text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.6), 0 0 30px rgba(212, 175, 55, 0.4); }
+
+        #reveal-content { display: none; width: 100%; text-align: center; margin-top: 60px; }
+        #reveal-content.visible { display: block; }
+
+        #gift-container { width: 100%; max-width: 4xl; margin: 0 auto; padding: 40px 24px; text-align: center; position: relative; z-index: 10; }
+
+        #gift-box {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            opacity: 0;
+            transform: scale(0.5);
+            position: relative;
+            z-index: 20;
+            width: 192px;
+            height: 192px;
+            margin: 0 auto;
+        }
+
+        #gift-lid { transform-origin: bottom center; }
+
+        .gift-sparkle { animation: sparkle-pulse 1.5s ease-in-out infinite; }
+        @keyframes sparkle-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+
+        #gift-glow {
+            position: absolute;
+            inset: -30px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: gift-glow 2s ease-in-out infinite;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes gift-glow { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 0.8; } }
+
+        #confetti-container, #light-rays-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 30;
+            overflow: visible;
+        }
+
+        #gift-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+
+        #reveal-darkness {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.9) 70%);
+            pointer-events: none;
+            z-index: 5;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+
+        #reveal-darkness.fade-out { opacity: 0; }
+
+        .sparkle-1 { top: 5%; left: 0%; }
+        .sparkle-2 { top: 15%; right: 5%; }
+        .sparkle-3 { bottom: 25%; left: 5%; }
+        .sparkle-4 { top: 0%; right: 15%; }
+        .sparkle-5 { bottom: 5%; right: 0%; }
+        .sparkle-6 { top: 30%; left: -5%; }
+        .sparkle-7 { bottom: 40%; right: -5%; }
+
+        .btn-celebrate {
+            position: relative;
+            background: linear-gradient(135deg, rgba(183, 110, 121, 0.9), rgba(212, 175, 55, 0.9));
+            border: 3px solid #ffffff;
+            border-radius: 9999px;
+            padding: 16px 32px;
+            color: white;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 260px;
+            justify-content: center;
+            font-size: 1.125rem;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.4), 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            z-index: 10;
+            cursor: pointer;
+            margin-top: 64px;
+        }
+
+        .btn-celebrate::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 9999px;
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .btn-celebrate:hover { transform: translateY(-3px) scale(1.02); }
+        .btn-celebrate:active { transform: scale(0.98); }
+
+        .star-btn {
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #374151;
+        }
+        .star-btn:hover, .star-btn.hover-active { color: #F9A8D4; }
+        .star-btn.hover-active.rating-high, .star-btn.active.rating-high { color: #FBBF24; }
+        .star-btn.active { color: #F9A8D4; }
+        .star-btn:active { transform: scale(0.9); }
+
+        .star-animating { animation: star-bounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        @keyframes star-bounce { 0%, 100% { transform: scale(1) translateY(0); } 50% { transform: scale(1.4) translateY(-5px); } }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        @supports (-webkit-touch-callout: none) {
+            .min-h-screen { min-height: -webkit-fill-available; }
+            .glass-panel { background: rgba(15, 8, 8, 0.9); border: 1px solid rgba(212, 175, 55, 0.2); }
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #030303; }
+        ::-webkit-scrollbar-thumb { background: #B76E79; border-radius: 2px; }
+
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+        .animate-bounce { animation: bounce 1s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        #sound-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #D4AF37;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        #sound-toggle:hover { background: rgba(212, 175, 55, 0.2); transform: scale(1.1); }
+        #sound-toggle.muted { color: #666; border-color: rgba(100, 100, 100, 0.3); }
+        #sound-toggle.muted::before { display: none; }
+        #sound-toggle::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            animation: pulse-ring 2s ease-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse-ring { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.3); opacity: 0; } }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #D4AF37;
+            color: #050505;
+            padding: 8px 16px;
+            z-index: 9999;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus { top: 0; }
+
+        .secret-button {
+            position: relative;
+            background: linear-gradient(135deg, #0a0a15 0%, #0f1020 50%, #050510 100%);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 24px 48px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .secret-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.5), rgba(183, 110, 121, 0.5), rgba(212, 175, 55, 0.5));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: border-glow 3s linear infinite;
+        }
+
+        @keyframes border-glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .secret-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3), inset 0 0 50px rgba(212, 175, 55, 0.2);
+        }
+
+        .secret-button:active { transform: scale(0.98); }
+
+        .secret-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            animation: secret-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes secret-pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8)); }
+        }
+
+        .warning-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .warning-overlay.active { display: flex; }
+
+        .warning-modal {
+            background: linear-gradient(135deg, #0a0a15 0%, #0f1020 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 32px 40px;
+            max-width: 450px;
+            margin: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            animation: modal-appear 0.3s ease-out;
+        }
+
+        @keyframes modal-appear {
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .warning-icon { font-size: 3rem; margin-bottom: 16px; }
+        .warning-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #D4AF37; margin-bottom: 12px; }
+        .warning-text { color: #b0b0b0; font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px; }
+        .warning-text strong { color: #D4AF37; }
+        .warning-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+        .btn-warning {
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-warning-open { background: linear-gradient(135deg, #D4AF37, #B8962E); color: #0a0a15; }
+        .btn-warning-open:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+
+        .btn-warning-cancel { background: rgba(255, 255, 255, 0.05); color: #888; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-warning-cancel:hover { background: rgba(255, 255, 255, 0.1); color: #bbb; }
+
+        .secret-message-container {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10001;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .secret-message-container.active { display: flex; }
+
+        .secret-message-content {
+            background: linear-gradient(135deg, #0a0a15 0%, #0f1020 50%, #08050f 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 0 80px rgba(212, 175, 55, 0.15);
+        }
+
+        .secret-message-content::-webkit-scrollbar { width: 6px; }
+        .secret-message-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+        .secret-message-content::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
+
+        .secret-message-icon { font-size: 3rem; margin-bottom: 16px; text-align: center; }
+        .secret-message-body { color: #e0e0e0; font-size: 1.05rem; line-height: 1.9; text-align: left; }
+        .secret-message-body p { margin-bottom: 20px; }
+        .secret-message-body .highlight { color: #D4AF37; font-weight: 500; }
+        .secret-message-body .emoji { font-size: 1.2em; vertical-align: middle; }
+
+        .secret-message-footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+
+        .secret-message-close {
+            background: rgba(255, 255, 255, 0.1);
+            color: #999;
+            padding: 12px 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .secret-message-close:hover { background: rgba(255, 255, 255, 0.2); color: white; }
+    </style>
+</head>
+<body class="text-gray-100 antialiased">
+
+    <a href="#main-content" class="skip-link">Sari la conținut</a>
+
+    <div id="main-background" aria-hidden="true"></div>
+    <div id="star-confetti-container" aria-hidden="true"></div>
+    <div id="celebrate-confetti-container" aria-hidden="true"></div>
+    <div id="particles-container" aria-hidden="true"></div>
+    <div id="touch-sparkles" aria-hidden="true"></div>
+
+    <button id="sound-toggle" aria-label="Activează sau dezactivează sunetul" aria-pressed="false">
+        <i class="fas fa-volume-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- SECTION 1: INTRO -->
+    <section id="intro" aria-labelledby="intro-title">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-rose-900/20 via-black to-black" aria-hidden="true"></div>
+        <div id="main-content" class="relative z-10 max-w-2xl mx-auto px-6 text-center">
+            <h1 id="intro-title" class="intro-text font-serif text-2xl md:text-5xl text-gray-100 leading-relaxed mb-10 opacity-0 px-4">
+                Istoria este plină de momente mari...
+            </h1>
+            <button onclick="smoothScrollTo('timeline')" class="intro-text px-8 py-3 rounded-full bg-white/5 border border-white/20 text-white/80 hover:bg-white/10 hover:border-rose-400/50 transition-all opacity-0 backdrop-blur-sm cursor-pointer">
+                Descoperă <i class="fas fa-arrow-down ml-2 text-rose-400" aria-hidden="true"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- SECTION 2: TIMELINE -->
+    <section id="timeline" aria-labelledby="timeline-title">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 id="timeline-title" class="font-serif text-4xl md:text-6xl text-gold-gradient mb-4">3 Martie în Istorie</h2>
+                <p class="text-rose-300/60 text-sm tracking-widest uppercase">Momente care au definit lumea</p>
+            </div>
+            <div class="relative space-y-20" role="list">
+                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-rose-400/50 to-transparent md:-translate-x-1/2 shadow-[0_0_10px_rgba(244,63,94,0.3)]" aria-hidden="true"></div>
+                <div class="timeline-item relative pl-12 md:pl-0 md:flex items-center opacity-0 group" role="listitem">
+                    <div class="md:w-1/2 md:text-right md:pr-12">
+                        <span class="text-5xl md:text-7xl font-serif text-rose-400/80 font-bold block mb-2">1847</span>
+                        <h3 class="text-xl text-white font-light">Alexander Graham Bell</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">Inventatorul telefonului se naște,<br>schimbând comunicația pentru totdeauna.</p>
+                    </div>
+                    <div class="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-3 h-3 bg-rose-400 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.8)] ring-4 ring-rose-900/50" aria-hidden="true"></div>
+                    <div class="hidden md:block md:w-1/2 md:pl-12 opacity-30 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-phone-alt text-4xl text-rose-400/30" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="timeline-item relative pl-12 md:pl-0 md:flex items-center opacity-0 group" role="listitem">
+                    <div class="hidden md:block md:w-1/2 md:text-right md:pr-12 opacity-30 group-hover:opacity-100 transition-opacity">
+                        <i class="far fa-clock text-4xl text-rose-400/30" aria-hidden="true"></i>
+                    </div>
+                    <div class="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-3 h-3 bg-rose-400 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.8)] ring-4 ring-rose-900/50" aria-hidden="true"></div>
+                    <div class="md:w-1/2 md:pl-12">
+                        <span class="text-5xl md:text-7xl font-serif text-rose-400/80 font-bold block mb-2">1923</span>
+                        <h3 class="text-xl text-white font-light">Revista TIME</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">Primul număr al celei mai influente<br>publicații de știri din lume.</p>
+                    </div>
+                </div>
+                <div class="timeline-item relative pl-12 md:pl-0 md:flex items-center opacity-0 group" role="listitem">
+                    <div class="md:w-1/2 md:text-right md:pr-12">
+                        <span class="text-5xl md:text-7xl font-serif text-rose-400/80 font-bold block mb-2">1931</span>
+                        <h3 class="text-xl text-white font-light">The Star-Spangled Banner</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">Devine imnul național al SUA,<br>un simbol al rezistenței.</p>
+                    </div>
+                    <div class="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-3 h-3 bg-rose-400 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.8)] ring-4 ring-rose-900/50" aria-hidden="true"></div>
+                    <div class="hidden md:block md:w-1/2 md:pl-12 opacity-30 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-music text-4xl text-rose-400/30" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: REVEAL -->
+    <section id="reveal" aria-labelledby="reveal-title">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,_rgba(183,110,121,0.15),_transparent_50%)]" aria-hidden="true"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,_rgba(212,175,55,0.1),_transparent_50%)]" aria-hidden="true"></div>
+        <div id="reveal-darkness" aria-hidden="true"></div>
+        <div id="gift-container">
+            <div id="gift-box" role="button" aria-label="Deschide cadoul" tabindex="0">
+                <div id="gift-glow" aria-hidden="true"></div>
+                <div id="gift-box-body" class="absolute bottom-0 left-1/2 -translate-x-1/2 w-36 h-28">
+                    <div class="absolute bottom-0 w-full h-20 bg-gradient-to-br from-rose-500 to-rose-700 rounded-lg shadow-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-br from-rose-500 to-rose-700 rounded-lg">
+                            <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-4 bg-gradient-to-r from-transparent via-amber-400 to-transparent" aria-hidden="true"></div>
+                        </div>
+                    </div>
+                    <div id="gift-lid" class="absolute -top-4 left-1/2 -translate-x-1/2 w-40 h-10 origin-bottom">
+                        <div class="w-full h-full bg-gradient-to-br from-rose-400 to-rose-600 rounded-lg shadow-xl">
+                            <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-4 bg-gradient-to-r from-transparent via-amber-400 to-transparent" aria-hidden="true"></div>
+                        </div>
+                    </div>
+                    <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 w-5 h-24 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 rounded-sm shadow-lg z-10" aria-hidden="true">
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-10 bg-amber-400 rounded-b-full"></div>
+                    </div>
+                    <svg id="gift-ribbon" class="absolute -top-8 left-1/2 -translate-x-1/2 w-24 h-12" viewBox="0 0 80 40" aria-hidden="true">
+                        <path d="M10 35 Q20 5 40 15 Q60 5 70 35" stroke="#FBBF24" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+                    <span class="gift-sparkle sparkle-1 absolute w-3 h-3 bg-amber-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-2 absolute w-2 h-2 bg-rose-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-3 absolute w-3 h-3 bg-amber-400 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-4 absolute w-2 h-2 bg-rose-400 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-5 absolute w-3 h-3 bg-amber-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-6 absolute w-2 h-2 bg-rose-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-7 absolute w-2 h-2 bg-amber-400 rounded-full"></span>
+                </div>
+                <p id="gift-hint" class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-amber-400/60 text-xs whitespace-nowrap opacity-0 transition-opacity">👆 Click pentru a deschide</p>
+            </div>
+            <div id="reveal-content" aria-live="polite">
+                <div class="mb-8">
+                    <span class="text-rose-400 text-xs tracking-[0.6em] uppercase font-light">Dar adevărata minune...</span>
+                </div>
+                <div class="mt-8">
+                    <h2 id="reveal-title" class="font-serif text-3xl md:text-6xl text-white leading-tight font-light">
+                        Pe <span class="text-gold-gradient font-semibold">3 Martie 2006</span>,<br>
+                        Dumnezeu a decis că lumea<br>
+                        are nevoie de mai multă <span class="italic text-rose-300">lumină</span>.
+                    </h2>
+                </div>
+                <div class="mt-12">
+                    <p class="font-serif text-3xl md:text-5xl text-gray-200 italic">
+                        Așa că te-a creat pe tine,<br>
+                        <span id="bianca-name" class="text-gold-gradient not-italic font-bold text-6xl md:text-8xl block mt-6">Bianca</span>
+                    </p>
+                </div>
+                <button id="celebrate-btn" class="btn-celebrate cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                    <span aria-hidden="true">🥳</span>
+                    <span>Celebrează momentul</span>
+                    <i class="fas fa-sparkles" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div id="confetti-container" aria-hidden="true"></div>
+            <div id="light-rays-container" aria-hidden="true"></div>
+        </div>
+        <div id="gift-particles" aria-hidden="true"></div>
+    </section>
+
+    <!-- SECTION 4: MESSAGE -->
+    <section id="message" aria-labelledby="message-title">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,_rgba(212,175,55,0.1),_transparent_60%)]" aria-hidden="true"></div>
+        <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+            <div class="message-anim opacity-0 transform scale-95">
+                <div class="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-br from-rose-400/20 to-yellow-400/20 flex items-center justify-center border border-rose-400/30">
+                    <i class="fas fa-heart text-rose-300 text-3xl" aria-hidden="true"></i>
+                </div>
+                <blockquote class="font-serif text-3xl md:text-5xl text-white leading-relaxed mb-6 font-light">
+                    „Te laud că sunt o <span class="text-gold-gradient font-normal">făptură</span><br>
+                    atât de minunată!"
+                </blockquote>
+                <cite class="text-rose-300/80 text-sm tracking-[0.3em] uppercase not-italic">Psalmul 139:14</cite>
+            </div>
+            <div class="mt-16 message-anim opacity-0 transform translate-y-8">
+                <div class="glass-panel rounded-3xl p-10 md:p-16 relative overflow-hidden">
+                    <div class="absolute inset-0 shimmer opacity-20" aria-hidden="true"></div>
+                    <div class="relative z-10">
+                        <p class="text-gray-200 text-lg md:text-xl leading-relaxed font-light">
+                            La <span class="text-gold-gradient font-semibold text-2xl">20 de ani</span>, nu este doar o schimbare de prefix.<br>
+                            Este împlinirea unei <span class="text-rose-300">promisiuni divine</span> —<br>
+                            <span class="block mt-4 text-white/90">20 de ani de binecuvântări, de har, și de lumină<br>pe care ai adus-o în lume.</span>
+                        </p>
+                        <div class="mt-10 flex justify-center gap-6 text-4xl" aria-hidden="true">
+                            <span class="animate-bounce" style="animation-delay: 0s">✨</span>
+                            <span class="animate-bounce" style="animation-delay: 0.2s">🌹</span>
+                            <span class="animate-bounce" style="animation-delay: 0.4s">✨</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: TIMERS -->
+    <section id="timers" aria-labelledby="timers-title">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 id="timers-title" class="text-center font-serif text-4xl text-gold-gradient mb-4">Timpul și Minunea</h2>
+            <div class="w-32 h-px bg-gradient-to-r from-transparent via-rose-400/50 to-transparent mx-auto mb-16" aria-hidden="true"></div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="timer-box glass-panel rounded-3xl p-8 text-center opacity-0 transform translate-y-8 border border-rose-400/10" role="group">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-rose-400/10 to-transparent flex items-center justify-center border border-rose-400/20">
+                        <i class="fas fa-hourglass-half text-rose-400 text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-gray-400 text-xs uppercase tracking-[0.3em] mb-8">De când există minunea</h3>
+                    <div class="grid grid-cols-4 gap-3">
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-gold-gradient font-serif" id="years">0</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Ani</div>
+                        </div>
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-gold-gradient font-serif" id="months">0</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Luni</div>
+                        </div>
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-gold-gradient font-serif" id="days">0</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Zile</div>
+                        </div>
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-rose-400 font-serif" id="seconds">0</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Sec</div>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-rose-300/40 text-xs" aria-hidden="true">03.03.2006</div>
+                </div>
+                <div class="timer-box glass-panel rounded-3xl p-8 text-center opacity-0 transform translate-y-8 border border-yellow-400/10" role="group">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-yellow-400/10 to-transparent flex items-center justify-center border border-yellow-400/20">
+                        <i class="fas fa-gift text-gold text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-gray-400 text-xs uppercase tracking-[0.3em] mb-8">Până la următoarea aniversare</h3>
+                    <div class="grid grid-cols-4 gap-3">
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-gold-gradient font-serif" id="cd-days">00</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Zile</div>
+                        </div>
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-gold-gradient font-serif" id="cd-hours">00</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Ore</div>
+                        </div>
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-gold-gradient font-serif" id="cd-minutes">00</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Min</div>
+                        </div>
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-rose-400 font-serif" id="cd-seconds">00</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Sec</div>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-yellow-300/40 text-xs" id="next-date" aria-live="polite">Următoarea aniversare</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: JOKE -->
+    <section id="joke" aria-labelledby="joke-title">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(212,175,55,0.05),_transparent_70%)]" aria-hidden="true"></div>
+        <div class="max-w-2xl mx-auto px-6 text-center relative z-10">
+            <div class="glass-panel rounded-2xl p-8 md:p-12 border-l-4 border-yellow-400">
+                <i class="far fa-lightbulb text-yellow-400/40 text-3xl mb-4 block" aria-hidden="true"></i>
+                <h3 id="joke-title" class="font-serif text-2xl text-gold-gradient mb-4">O mică confesiune...</h3>
+                <p class="text-gray-300 text-lg mb-4 leading-relaxed">Mi-a venit ideea cam târziu, dar am zis că merită...</p>
+                <p class="text-rose-300 text-base mb-6 font-light">Surprizele vin atunci când nu te aștepți 😂</p>
+                <div class="flex justify-center gap-3 text-3xl" aria-hidden="true">
+                    <span>⏰</span><span>💡</span><span>🎁</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: SECRET -->
+    <section id="secret" aria-labelledby="secret-title">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(138, 43, 226, 0.1),_transparent_70%)]" aria-hidden="true"></div>
+        <div class="max-w-2xl mx-auto px-6 text-center relative z-10">
+            <h2 id="secret-title" class="font-serif text-2xl md:text-4xl text-gold-gradient mb-8 opacity-0 transform translate-y-4">
+                Mai este ceva...
+            </h2>
+            <button id="secret-btn" class="secret-button cursor-pointer" aria-label="Deschide mesajul secret">
+                <div class="secret-icon">🔒</div>
+                <div class="text-white font-semibold text-lg">Mesaj Secret</div>
+                <div class="text-gray-500 text-sm mt-2">Tap pentru a descoperi</div>
+            </button>
+        </div>
+    </section>
+
+    <!-- SECTION 8: REVIEW -->
+    <section id="review" aria-labelledby="review-title">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(183,110,121,0.05),_transparent_70%)]" aria-hidden="true"></div>
+        <div class="max-w-2xl mx-auto px-6 text-center relative z-10">
+            <span class="text-4xl mb-6 block">🤔</span>
+            <h2 id="review-title" class="font-serif text-3xl md:text-4xl text-white mb-12">Cum ți s-a părut surpriza?</h2>
+            <div class="flex justify-center gap-2" id="star-container" role="radiogroup" aria-label="Evaluare cu stele">
+                <button class="star-btn text-5xl md:text-6xl p-2" data-rating="1" aria-label="1 stea" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+                <button class="star-btn text-5xl md:text-6xl p-2" data-rating="2" aria-label="2 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+                <button class="star-btn text-5xl md:text-6xl p-2" data-rating="3" aria-label="3 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+                <button class="star-btn text-5xl md:text-6xl p-2" data-rating="4" aria-label="4 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+                <button class="star-btn text-5xl md:text-6xl p-2" data-rating="5" aria-label="5 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+            </div>
+            <div id="review-message" class="min-h-[120px] flex items-center justify-center px-4 mt-8" role="status" aria-live="polite">
+                <p class="text-gray-500 italic font-light">Apasă pe stele pentru a spune cum te-ai simțit...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-12 text-gray-600 text-sm border-t border-white/5 relative z-10">
+        <p class="font-serif text-lg text-gray-500 mb-2">Cu drag, pentru tine</p>
+        <div class="flex justify-center gap-2 text-2xl" aria-hidden="true"><span>🤗</span><span>✨</span><span>🤗</span></div>
+    </footer>
+
+    <!-- Warning Overlay -->
+    <div id="warning-overlay" class="warning-overlay" role="dialog" aria-modal="true" aria-labelledby="warning-title">
+        <div class="warning-modal">
+            <div class="warning-icon">🤫</div>
+            <h3 id="warning-title" class="warning-title">Pst... vrei să vezi ceva?</h3>
+            <p class="warning-text">Dacă apeși pe <strong>Deschide</strong>, vei vedea un mesaj special.</p>
+            <div class="warning-buttons">
+                <button id="btn-open-secret" class="btn-warning btn-warning-open">🔓 Deschide</button>
+                <button id="btn-cancel-warning" class="btn-warning btn-warning-cancel">Poate mai târziu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Secret Message Container -->
+    <div id="secret-message-container" class="secret-message-container" role="dialog" aria-modal="true">
+        <div class="secret-message-content">
+            <div class="secret-message-icon">🧐</div>
+            <div class="secret-message-body">
+                <p>Acum aproape un an am venit <span class="highlight">prima dată la voi la biserică</span>, unde am fost surprins de atmosfera și de colectiv, și cum a "sarit" Alex pe mine să facem cunoștință <span class="emoji">😂</span>.</p>
+                <p>Contextul pentru care am venit nu a fost tocmai placut, dar chiar nu îmi pare rău, altfel nu cred că vă cunoșteam.</p>
+                <p>Una din primele activități pe care le-am făcut cu voi a fost să împărțim pliante cu <span class="highlight">Memo</span>, când am făcut amândoi echipă, tu mă împingeai să prezint oamenilor evenimentul și mie îmi era rușine să întreb cât e ceasul ,dar să le mai prezint evenimentul <span class="emoji">🤣</span>.(dar tot am fost pe locul 2 parcă cu cele mai multe pliante împărțite)</p>
+                <p>Când mai lipseam mă "certai" nu foloseai metoda sandwich <span class="emoji">🥪</span>, dar scăpam ușor,din ce mi s-a spus putea să fie si mai rău<span class="emoji">👊🤕</span> ,veneam de frica ta😂 ,sau faza cu capacul de presiune 🍲, de care s-a făcut misto cam 2 săptămâni.</p>
+                <p>Mă bucur că ne-am cunoscut, altfel nu cred că aveam vreo șansă să îl văd pe Memo live <span class="emoji">😂🤖</span>. Cu toate că nu ne-am mai văzut, tot ești pe listă în "camera de război".</p>
+                <p>Chiar ești o <span class="highlight">minune</span> și o <span class="highlight">binecuvântare</span> pentru cei din jurul tău timp de 2 decenii.</p>
+                <p class="text-center text-xl"><strong class="text-gold-gradient">GBU Bianca!</strong> <span class="emoji">😇🤗</span></p>
+            </div>
+            <div class="secret-message-footer">
+                <button id="btn-close-secret" class="secret-message-close">Închide mesajul</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.matchMedia('(pointer: coarse)').matches;
+
+        // ==================== CSS STAR PARTICLES ====================
+        class CSSStarParticleSystem {
+            constructor() {
+                this.container = document.getElementById('particles-container');
+                this.stars = [];
+                this.floatAnimations = ['animate-float-1', 'animate-float-2', 'animate-float-3', 'animate-float-4', 'animate-float-5', 'animate-float-6'];
+                this.delayClasses = ['delay-1', 'delay-2', 'delay-3', 'delay-4', 'delay-5'];
+                this.init();
+            }
+
+            init() {
+                if (prefersReducedMotion) return;
+                const starCount = isMobile ? 70 : 120;
+                for (let i = 0; i < starCount; i++) this.createStar();
+            }
+
+            createStar() {
+                const star = document.createElement('div');
+                star.className = 'css-star';
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const types = ['gold', 'rose', 'white', 'dust'];
+                const weights = [0.25, 0.2, 0.35, 0.2];
+                let random = Math.random(), typeIndex = 0, cumulative = 0;
+                for (let i = 0; i < weights.length; i++) { cumulative += weights[i]; if (random < cumulative) { typeIndex = i; break; } }
+                const type = types[typeIndex];
+                star.classList.add(type);
+                let size;
+                if (type === 'gold') size = Math.random() * 20 + 14;
+                else if (type === 'rose') size = Math.random() * 18 + 12;
+                else if (type === 'white') size = Math.random() * 12 + 6;
+                else size = Math.random() * 8 + 3;
+                const baseOpacity = Math.random() * 0.3 + 0.7;
+                const floatAnimation = this.floatAnimations[Math.floor(Math.random() * this.floatAnimations.length)];
+                const driftDuration = 18 + Math.random() * 30;
+                const delayClass = this.delayClasses[Math.floor(Math.random() * this.delayClasses.length)];
+                const shouldTwinkle = Math.random() > 0.5;
+                const twinkleDuration = 1.5 + Math.random() * 2.5;
+                const shouldSizePulse = Math.random() > 0.7;
+                const pulseDuration = 3 + Math.random() * 3;
+                const isMegaGlow = (type === 'gold' || type === 'rose') && size > 24;
+                star.style.cssText = `left: ${x}%; top: ${y}%; width: ${size}px; height: ${size}px; opacity: ${baseOpacity}; --drift-duration: ${driftDuration}s; --twinkle-duration: ${twinkleDuration}s; --pulse-duration: ${pulseDuration}s;`;
+                star.classList.add(floatAnimation);
+                star.classList.add(delayClass);
+                if (shouldTwinkle) star.classList.add('animate-twinkle');
+                if (isMegaGlow) star.classList.add('mega-glow', 'animate-mega-glow');
+                else if (shouldSizePulse && !shouldTwinkle) star.classList.add('animate-size-pulse');
+                this.container.appendChild(star);
+                this.stars.push(star);
+            }
+
+            destroy() {
+                this.stars.forEach(star => { if (star.parentNode) star.parentNode.removeChild(star); });
+                this.stars = [];
+            }
+        }
+        const cssStarParticles = new CSSStarParticleSystem();
+
+        // ==================== TOUCH SPARKLES - DOAR SUB DEGET ====================
+        class TouchSparkleSystem {
+            constructor() {
+                this.container = document.getElementById('touch-sparkles');
+                this.particles = [];
+                this.maxParticles = 50;
+                this.colors = ['rgba(255, 215, 0, 1)', 'rgba(212, 175, 55, 1)', 'rgba(255, 182, 193, 1)', 'rgba(255, 255, 255, 1)', 'rgba(255, 105, 180, 1)', 'rgba(255, 255, 240, 1)'];
+                this.isActive = true;
+                this.lastFrameTime = 0;
+                this.frameInterval = 1000 / 60;
+                this.mouseDown = false;
+                this.touchActive = false;
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.startLoop();
+            }
+
+            bindEvents() {
+                // Touch events - TOATE particulele sunt create EXACT la coordonatele touch-ului
+                document.addEventListener('touchstart', (e) => {
+                    if (prefersReducedMotion || !this.isActive) return;
+                    this.touchActive = true;
+                    Array.from(e.touches).forEach(touch => {
+                        if (this.isValidCoord(touch.clientX, touch.clientY)) {
+                            this.createSparkleBurst(touch.clientX, touch.clientY, 12);
+                        }
+                    });
+                }, { passive: true });
+
+                document.addEventListener('touchmove', (e) => {
+                    if (prefersReducedMotion || !this.isActive) return;
+                    Array.from(e.touches).forEach(touch => {
+                        if (this.isValidCoord(touch.clientX, touch.clientY)) {
+                            this.createTrackingSparkle(touch.clientX, touch.clientY);
+                            if (Math.random() > 0.6) this.createSparkleBurst(touch.clientX, touch.clientY, 3);
+                        }
+                    });
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    if (prefersReducedMotion || !this.isActive) return;
+                    this.touchActive = false;
+                    Array.from(e.changedTouches).forEach(touch => {
+                        if (this.isValidCoord(touch.clientX, touch.clientY)) {
+                            this.createSparkleBurst(touch.clientX, touch.clientY, 8);
+                        }
+                    });
+                }, { passive: true });
+
+                // Mouse events - DOAR când mouse-ul este apăsat
+                document.addEventListener('mousedown', (e) => {
+                    if (prefersReducedMotion || !this.isActive) return;
+                    this.mouseDown = true;
+                    if (this.isValidCoord(e.clientX, e.clientY)) {
+                        this.createSparkleBurst(e.clientX, e.clientY, 12);
+                    }
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (prefersReducedMotion || !this.isActive || !this.mouseDown) return;
+                    if (this.isValidCoord(e.clientX, e.clientY)) {
+                        this.createTrackingSparkle(e.clientX, e.clientY);
+                        if (Math.random() > 0.75) this.createSparkleBurst(e.clientX, e.clientY, 2);
+                    }
+                });
+
+                document.addEventListener('mouseup', () => { this.mouseDown = false; });
+                document.addEventListener('mouseleave', () => { this.mouseDown = false; });
+
+                document.addEventListener('visibilitychange', () => {
+                    this.isActive = !document.hidden;
+                    if (this.isActive) this.startLoop();
+                });
+            }
+
+            isValidCoord(x, y) {
+                return typeof x === 'number' && typeof y === 'number' && !isNaN(x) && !isNaN(y) && x >= 0 && y >= 0 && x <= window.innerWidth && y <= window.innerHeight;
+            }
+
+            createTrackingSparkle(x, y) {
+                if (this.particles.length >= this.maxParticles) this.recycleParticle();
+                const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+                const size = 3 + Math.random() * 6;
+                const particle = document.createElement('div');
+                particle.style.cssText = `position: absolute; left: ${x}px; top: ${y}px; width: ${size}px; height: ${size}px; background: radial-gradient(circle, ${color} 0%, transparent 70%); border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); will-change: transform, opacity; box-shadow: 0 0 ${size * 2}px ${color}, 0 0 ${size * 4}px ${color.replace('1)', '0.5)')}; z-index: 9999;`;
+                this.container.appendChild(particle);
+                this.particles.push({
+                    element: particle, x: x, y: y,
+                    vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2 - 1,
+                    life: 0, maxLife: 25 + Math.random() * 15, size: size, color: color, type: 'tracking'
+                });
+            }
+
+            createSparkleBurst(x, y, count) {
+                if (!this.isValidCoord(x, y)) return;
+                for (let i = 0; i < count; i++) {
+                    if (this.particles.length >= this.maxParticles) this.recycleParticle();
+                    const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+                    const size = 2 + Math.random() * 7;
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = 1 + Math.random() * 3;
+                    const particle = document.createElement('div');
+                    particle.style.cssText = `position: absolute; left: ${x}px; top: ${y}px; width: ${size}px; height: ${size}px; background: radial-gradient(circle, ${color} 0%, transparent 70%); border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%) scale(0); will-change: transform, opacity; box-shadow: 0 0 ${size * 2}px ${color}; z-index: 9999;`;
+                    this.container.appendChild(particle);
+                    this.particles.push({
+                        element: particle, x: x, y: y,
+                        vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 1.5,
+                        life: 0, maxLife: 30 + Math.random() * 20, size: size, color: color, type: 'burst'
+                    });
+                }
+            }
+
+            recycleParticle() {
+                const oldest = this.particles.shift();
+                if (oldest && oldest.element.parentNode) oldest.element.remove();
+            }
+
+            startLoop() {
+                if (!this.isActive) return;
+                const loop = (timestamp) => {
+                    if (!this.isActive) return;
+                    if (timestamp - this.lastFrameTime >= this.frameInterval) {
+                        this.lastFrameTime = timestamp;
+                        this.update();
+                    }
+                    requestAnimationFrame(loop);
+                };
+                requestAnimationFrame(loop);
+            }
+
+            update() {
+                this.particles = this.particles.filter(p => {
+                    p.life++;
+                    const lifeRatio = p.life / p.maxLife;
+                    const opacity = Math.max(0, 1 - lifeRatio);
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.type === 'burst') { p.vy += 0.05; p.vx *= 0.98; p.vy *= 0.98; }
+                    let scale = 1;
+                    if (lifeRatio < 0.1) scale = lifeRatio / 0.1;
+                    else if (lifeRatio > 0.7) scale = 1 - ((lifeRatio - 0.7) / 0.3);
+                    p.element.style.transform = `translate(-50%, -50%) scale(${Math.max(0.01, scale)})`;
+                    p.element.style.opacity = opacity;
+                    if (p.life >= p.maxLife) { p.element.remove(); return false; }
+                    return true;
+                });
+            }
+
+            destroy() {
+                this.isActive = false;
+                this.particles.forEach(p => { if (p.element.parentNode) p.element.remove(); });
+                this.particles = [];
+            }
+        }
+
+        // ==================== STAR TRAIL SYSTEM ====================
+        class StarTrailSystem {
+            constructor() {
+                this.points = [];
+                this.maxPoints = 12;
+                this.container = null;
+                this.isDrawing = false;
+                this.ctx = null;
+                this.init();
+            }
+
+            init() {
+                this.container = document.createElement('canvas');
+                this.container.id = 'star-trail-canvas';
+                this.container.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;';
+                this.resizeCanvas();
+                window.addEventListener('resize', () => this.resizeCanvas());
+                document.body.appendChild(this.container);
+                this.ctx = this.container.getContext('2d');
+                this.bindEvents();
+                this.draw();
+            }
+
+            resizeCanvas() {
+                this.container.width = window.innerWidth;
+                this.container.height = window.innerHeight;
+            }
+
+            bindEvents() {
+                document.addEventListener('touchstart', (e) => {
+                    if (prefersReducedMotion) return;
+                    this.isDrawing = true;
+                    const touch = e.touches[0];
+                    if (this.isValidCoord(touch.clientX, touch.clientY)) this.addPoint(touch.clientX, touch.clientY);
+                }, { passive: true });
+
+                document.addEventListener('touchmove', (e) => {
+                    if (prefersReducedMotion || !this.isDrawing) return;
+                    const touch = e.touches[0];
+                    if (this.isValidCoord(touch.clientX, touch.clientY)) this.addPoint(touch.clientX, touch.clientY);
+                }, { passive: true });
+
+                document.addEventListener('touchend', () => { this.isDrawing = false; });
+
+                document.addEventListener('mousedown', (e) => {
+                    if (prefersReducedMotion) return;
+                    this.isDrawing = true;
+                    if (this.isValidCoord(e.clientX, e.clientY)) this.addPoint(e.clientX, e.clientY);
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (prefersReducedMotion || !this.isDrawing) return;
+                    if (this.isValidCoord(e.clientX, e.clientY)) this.addPoint(e.clientX, e.clientY);
+                });
+
+                document.addEventListener('mouseup', () => { this.isDrawing = false; });
+                document.addEventListener('mouseleave', () => { this.isDrawing = false; });
+
+                document.addEventListener('visibilitychange', () => { if (document.hidden) this.points = []; });
+            }
+
+            isValidCoord(x, y) {
+                return typeof x === 'number' && typeof y === 'number' && !isNaN(x) && !isNaN(y) && x >= 0 && y >= 0;
+            }
+
+            addPoint(x, y) {
+                this.points.push({ x, y, life: 1, size: 3 + Math.random() * 4, hue: Math.random() > 0.5 ? 45 : 330 });
+                if (this.points.length > this.maxPoints) this.points.shift();
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.container.width, this.container.height);
+                this.points.forEach((point) => {
+                    point.life -= 0.03;
+                    if (point.life <= 0) return;
+                    const alpha = point.life;
+                    const size = point.size * point.life;
+                    const gradient = this.ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, size * 3);
+                    gradient.addColorStop(0, `hsla(${point.hue}, 100%, 70%, ${alpha})`);
+                    gradient.addColorStop(0.3, `hsla(${point.hue}, 100%, 50%, ${alpha * 0.6})`);
+                    gradient.addColorStop(1, `hsla(${point.hue}, 100%, 50%, 0)`);
+                    this.ctx.beginPath();
+                    this.ctx.arc(point.x, point.y, size * 3, 0, Math.PI * 2);
+                    this.ctx.fillStyle = gradient;
+                    this.ctx.fill();
+                    this.ctx.beginPath();
+                    this.ctx.arc(point.x, point.y, size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `hsla(${point.hue}, 100%, 90%, ${alpha})`;
+                    this.ctx.fill();
+                });
+                this.points = this.points.filter(p => p.life > 0);
+                requestAnimationFrame(() => this.draw());
+            }
+
+            destroy() {
+                if (this.container && this.container.parentNode) this.container.remove();
+            }
+        }
+
+        // ==================== SOUND SYSTEM ====================
+        class SoundSystem {
+            constructor() { this.audioContext = null; this.isMuted = false; this.masterGain = null; this.initialized = false; }
+            init() {
+                if (this.initialized) return;
+                try { this.audioContext = new (window.AudioContext || window.webkitAudioContext)(); this.masterGain = this.audioContext.createGain(); this.masterGain.connect(this.audioContext.destination); this.masterGain.gain.value = 0.4; this.initialized = true; } catch (e) {}
+            }
+            resume() { if (this.audioContext && this.audioContext.state === 'suspended') this.audioContext.resume(); }
+            setMuted(muted) { this.isMuted = muted; if (this.masterGain) this.masterGain.gain.value = muted ? 0 : 0.4; }
+            playClick() {
+                if (this.isMuted || !this.initialized) return;
+                this.resume();
+                this.createTone(600, this.audioContext.currentTime, 0.08, 0.12, 'sine');
+                setTimeout(() => this.createTone(800, this.audioContext.currentTime, 0.1, 0.08, 'sine'), 50);
+            }
+            playCelebrate() {
+                if (this.isMuted || !this.initialized) return;
+                this.resume();
+                const now = this.audioContext.currentTime;
+                [523.25, 659.25, 783.99, 1046.50].forEach(freq => this.createTone(freq, now, 0.6, 0.1, 'sine'));
+                setTimeout(() => [1318.51, 1567.98, 2093].forEach((freq, i) => setTimeout(() => this.createTone(freq, this.audioContext.currentTime, 0.4, 0.08, 'sine'), i * 80)), 200);
+            }
+            playStarRating(rating) {
+                if (this.isMuted || !this.initialized) return;
+                this.resume();
+                const baseFreqs = { 1: 523.25, 2: 587.33, 3: 659.25, 4: 783.99, 5: 880 };
+                const baseFreq = baseFreqs[rating] || 523.25;
+                const now = this.audioContext.currentTime;
+                this.createTone(baseFreq, now, 0.4, 0.15, 'sine');
+                this.createTone(baseFreq * 2, now, 0.35, 0.1, 'sine');
+                this.createTone(baseFreq * 1.5, now + 0.05, 0.3, 0.08, 'sine');
+                this.createTone(baseFreq * 4, now + 0.1, 0.25, 0.06, 'sine');
+                if (rating >= 3) setTimeout(() => [2637, 3136, 3951, 4698].forEach((freq, i) => setTimeout(() => this.createTone(freq, this.audioContext.currentTime, 0.3, 0.05, 'sine'), i * 40)), 100);
+                if (rating === 5) {
+                    setTimeout(() => [1046.50, 1318.51, 1567.98, 2093].forEach((freq, i) => setTimeout(() => this.createTone(freq, this.audioContext.currentTime, 0.5, 0.08, 'triangle'), i * 50)), 200);
+                    setTimeout(() => [4186, 5274, 6272].forEach((freq, i) => setTimeout(() => this.createTone(freq, this.audioContext.currentTime, 0.4, 0.04, 'sine'), i * 30)), 400);
+                }
+            }
+            createTone(frequency, startTime, duration, volume, type = 'sine') {
+                if (!this.initialized) return;
+                const osc = this.audioContext.createOscillator();
+                const gain = this.audioContext.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(frequency, startTime);
+                gain.gain.setValueAtTime(volume, startTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+                osc.connect(gain);
+                gain.connect(this.masterGain);
+                osc.start(startTime);
+                osc.stop(startTime + duration);
+            }
+            destroy() { if (this.audioContext) { this.audioContext.close(); this.audioContext = null; this.initialized = false; } }
+        }
+
+        const soundSystem = new SoundSystem();
+
+        document.getElementById('sound-toggle').addEventListener('click', function() {
+            soundSystem.init();
+            soundSystem.isMuted = !soundSystem.isMuted;
+            soundSystem.setMuted(soundSystem.isMuted);
+            this.classList.toggle('muted', soundSystem.isMuted);
+            this.innerHTML = soundSystem.isMuted ? '<i class="fas fa-volume-mute" aria-hidden="true"></i>' : '<i class="fas fa-volume-up" aria-hidden="true"></i>';
+        });
+
+        document.addEventListener('click', () => soundSystem.init(), { once: true });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') soundSystem.init(); }, { once: true });
+
+        // Initialize touch sparkle system
+        let touchSparkleSystem = null;
+        let starTrailSystem = null;
+
+        if (!prefersReducedMotion) {
+            touchSparkleSystem = new TouchSparkleSystem();
+            const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches;
+            if (hasTouchScreen) starTrailSystem = new StarTrailSystem();
+        }
+
+        // ==================== SECRET MESSAGE SYSTEM ====================
+        const warningOverlay = document.getElementById('warning-overlay');
+        const secretMessageContainer = document.getElementById('secret-message-container');
+
+        document.getElementById('secret-btn').addEventListener('click', function() {
+            soundSystem.init();
+            soundSystem.playClick();
+            warningOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        document.getElementById('btn-open-secret').addEventListener('click', function() {
+            soundSystem.playClick();
+            warningOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => { secretMessageContainer.classList.add('active'); document.body.style.overflow = 'hidden'; }, 300);
+        });
+
+        document.getElementById('btn-cancel-warning').addEventListener('click', function() {
+            soundSystem.playClick();
+            warningOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        document.getElementById('btn-close-secret').addEventListener('click', function() {
+            soundSystem.playClick();
+            secretMessageContainer.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // ==================== CONFETTI ====================
+        function createStarConfetti(rating) {
+            const container = document.getElementById('star-confetti-container');
+            if (!container || prefersReducedMotion) return;
+            const colors = { 1: ['#B76E79', '#F9A8D4', '#FF6B6B'], 2: ['#B76E79', '#F9A8D4', '#FF69B4', '#FFB6C1'], 3: ['#D4AF37', '#F4E8C1', '#FFD700', '#FFA500'], 4: ['#FFD700', '#FFA500', '#FF69B4', '#87CEEB', '#98FB98'], 5: ['#FFD700', '#FFA500', '#FF69B4', '#FF6B6B', '#87CEEB', '#DDA0DD', '#98FB98', '#FDFCF0', '#FFB6C1'] };
+            const emojis = { 1: ['✨', '💫'], 2: ['✨', '💫', '⭐'], 3: ['✨', '⭐', '🌟'], 4: ['✨', '⭐', '🌟', '💫', '🎉'], 5: ['✨', '⭐', '🌟', '💫', '🎉', '🎊', '🌠', '💖', '💛'] };
+            const config = { 1: { count: 15, emojiChance: 0.2 }, 2: { count: 25, emojiChance: 0.3 }, 3: { count: 40, emojiChance: 0.4 }, 4: { count: 60, emojiChance: 0.5 }, 5: { count: 100, emojiChance: 0.6 } }[rating];
+            const selectedColors = colors[rating];
+            const selectedEmojis = emojis[rating];
+            let created = 0;
+            const batchSize = isMobile ? 10 : 20;
+            function createBatch() {
+                const batch = Math.min(batchSize, config.count - created);
+                for (let i = 0; i < batch; i++) {
+                    const confetti = document.createElement('div');
+                    const isEmoji = Math.random() < config.emojiChance;
+                    const color = selectedColors[Math.floor(Math.random() * selectedColors.length)];
+                    if (isEmoji) { confetti.textContent = selectedEmojis[Math.floor(Math.random() * selectedEmojis.length)]; confetti.style.fontSize = `${Math.random() * 20 + 16}px`; confetti.style.filter = `drop-shadow(0 0 10px ${color})`; }
+                    else { const size = Math.random() * 12 + 6; confetti.style.cssText = `width: ${size}px; height: ${size * 0.6}px; background: ${color}; border-radius: ${Math.random() > 0.5 ? '50%' : '2px'}; box-shadow: 0 0 ${size}px ${color}80;`; }
+                    confetti.style.cssText += `position: absolute; left: 50%; top: 50%;`;
+                    container.appendChild(confetti);
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = Math.random() * 400 + 200 + rating * 50;
+                    const vx = Math.cos(angle) * velocity;
+                    const vy = Math.sin(angle) * velocity - 200 - rating * 30;
+                    const rotation = Math.random() * 1080 - 540;
+                    const duration = 2000 + Math.random() * 1000;
+                    confetti.animate([{ transform: 'translate(-50%, -50%) scale(0) rotate(0deg)', opacity: 1 }, { transform: `translate(calc(-50% + ${vx * 0.2}px), calc(-50% + ${vy * 0.2 + 50}px)) scale(1.2) rotate(${rotation * 0.2}deg)`, opacity: 1, offset: 0.15 }, { transform: `translate(calc(-50% + ${vx * 0.5}px), calc(-50% + ${vy * 0.5 + 150}px)) scale(1) rotate(${rotation * 0.5}deg)`, opacity: 0.8, offset: 0.5 }, { transform: `translate(calc(-50% + ${vx}px), calc(-50% + ${vy + 300}px)) scale(0) rotate(${rotation}deg)`, opacity: 0 }], { duration: duration, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', delay: created * 15 }).onfinish = () => confetti.remove();
+                    created++;
+                }
+                if (created < config.count) requestAnimationFrame(createBatch);
+            }
+            createBatch();
+            if (rating === 5) setTimeout(() => {
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => {
+                        const emoji = document.createElement('div');
+                        emoji.textContent = selectedEmojis[Math.floor(Math.random() * selectedEmojis.length)];
+                        emoji.style.cssText = `position: fixed; left: 50%; top: 50%; font-size: 40px; transform: translate(-50%, -50%);`;
+                        container.appendChild(emoji);
+                        const angle = (i / 20) * Math.PI * 2;
+                        const distance = 400 + Math.random() * 200;
+                        emoji.animate([{ transform: 'translate(-50%, -50%) scale(0)', opacity: 1 }, { transform: `translate(calc(-50% + ${Math.cos(angle) * distance * 0.5}px), calc(-50% + ${Math.sin(angle) * distance * 0.5}px)) scale(1.5)`, opacity: 1, offset: 0.3 }, { transform: `translate(calc(-50% + ${Math.cos(angle) * distance}px), calc(-50% + ${Math.sin(angle) * distance}px)) scale(0)`, opacity: 0 }], { duration: 2500, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' }).onfinish = () => emoji.remove();
+                    }, i * 50);
+                }
+            }, 300);
+        }
+
+        function createCelebrateConfetti() {
+            const container = document.getElementById('celebrate-confetti-container');
+            if (!container || prefersReducedMotion) return;
+            const colors = ['#D4AF37', '#B76E79', '#FFD700', '#FF69B4', '#87CEEB', '#F4E8C1', '#FF6B6B'];
+            const emojis = ['✨', '⭐', '🌟', '💫', '🎉', '🎊'];
+            const particleCount = isMobile ? 50 : 80;
+            let created = 0;
+            const batchSize = isMobile ? 12 : 20;
+            function createBatch() {
+                if (created >= particleCount) return;
+                const batch = Math.min(batchSize, particleCount - created);
+                for (let i = 0; i < batch; i++) {
+                    const confetti = document.createElement('div');
+                    const isEmoji = Math.random() > 0.5;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    if (isEmoji) { confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)]; confetti.style.fontSize = `${Math.random() * 18 + 14}px`; }
+                    else { const size = Math.random() * 10 + 5; confetti.style.cssText = `width: ${size}px; height: ${size * 0.6}px; background: ${color}; border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};`; }
+                    const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 150;
+                    const startY = window.innerHeight * 0.6;
+                    confetti.style.cssText += `position: absolute; left: ${startX}px; top: ${startY}px;`;
+                    container.appendChild(confetti);
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = Math.random() * 350 + 250;
+                    const vx = Math.cos(angle) * velocity;
+                    const vy = -Math.abs(Math.sin(angle) * velocity) - 250;
+                    const rotation = Math.random() * 720 - 360;
+                    confetti.animate([{ transform: 'translate(-50%, -50%) scale(0)', opacity: 1 }, { transform: `translate(calc(-50% + ${vx * 0.3}px), calc(-50% + ${vy * 0.3 + 80}px)) scale(1) rotate(${rotation * 0.3}deg)`, opacity: 1, offset: 0.1 }, { transform: `translate(calc(-50% + ${vx * 0.6}px), calc(-50% + ${vy * 0.6 + 200}px)) scale(0.8) rotate(${rotation * 0.6}deg)`, opacity: 0.7, offset: 0.4 }, { transform: `translate(calc(-50% + ${vx}px), calc(-50% + ${vy + 400}px)) scale(0) rotate(${rotation}deg)`, opacity: 0 }], { duration: 2500 + Math.random() * 1000, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', delay: created * 20 }).onfinish = () => confetti.remove();
+                    created++;
+                }
+                if (created < particleCount) requestAnimationFrame(createBatch);
+            }
+            createBatch();
+        }
+
+        // ==================== CADOU REVEAL ====================
+        gsap.registerPlugin(ScrollTrigger);
+        let giftAnimationTriggered = false, giftClicked = false, giftTimeline = null;
+
+        function startConfettiEffects() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2 - 50;
+            createLightRays(centerX, centerY, 20);
+            createConfetti(centerX, centerY - 30, 100);
+        }
+
+        function createLightRays(x, y, count = 16) {
+            const container = document.getElementById('light-rays-container');
+            if (!container || prefersReducedMotion) return;
+            for (let i = 0; i < count; i++) {
+                const ray = document.createElement('div');
+                ray.setAttribute('aria-hidden', 'true');
+                const angle = (i / count) * Math.PI * 2;
+                ray.style.cssText = `position: absolute; left: ${x}px; top: ${y}px; width: 4px; height: ${Math.random() * 150 + 150}px; background: linear-gradient(to bottom, rgba(212,175,55,0.8), transparent); transform: rotate(${angle}rad); transform-origin: top center;`;
+                container.appendChild(ray);
+                ray.animate([{ transform: `rotate(${angle}rad) scaleY(0)`, opacity: 1 }, { transform: `rotate(${angle}rad) scaleY(1)`, opacity: 1, offset: 0.3 }, { transform: `rotate(${angle}rad) scaleY(0.3)`, opacity: 0 }], { duration: 1200, easing: 'ease-out' }).onfinish = () => ray.remove();
+            }
+        }
+
+        function createConfetti(x, y, count = 80) {
+            const container = document.getElementById('confetti-container');
+            if (!container) return;
+            const colors = ['#D4AF37', '#B76E79', '#F4E8C1', '#FFD700', '#FF6B6B', '#87CEEB', '#FF69B4'];
+            const actualCount = isMobile ? Math.floor(count / 2) : count;
+            for (let i = 0; i < actualCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.setAttribute('aria-hidden', 'true');
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.cssText = `position: absolute; left: ${x}px; top: ${y}px; width: ${Math.random() * 14 + 6}px; height: ${Math.random() * 10 + 4}px; background: ${color}; border-radius: ${Math.random() > 0.5 ? '50%' : '2px'}; box-shadow: 0 0 15px ${color}60;`;
+                container.appendChild(confetti);
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 500 + 300;
+                const duration = prefersReducedMotion ? 500 : 3000;
+                confetti.animate([{ transform: `translate(0, 0) scale(0)`, opacity: 0 }, { transform: `translate(${Math.cos(angle) * velocity * 0.3}px, ${Math.sin(angle) * velocity * 0.3 - 120}px) scale(1)`, opacity: 1, offset: 0.1 }, { transform: `translate(${Math.cos(angle) * velocity}px, ${Math.sin(angle) * velocity + 300}px) scale(0)`, opacity: 0 }], { duration: duration, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', delay: Math.random() * 100 }).onfinish = () => confetti.remove();
+            }
+        }
+
+        function revealText() {
+            const revealContent = document.getElementById('reveal-content');
+            const darkness = document.getElementById('reveal-darkness');
+            soundSystem.playCelebrate();
+            darkness.classList.add('fade-out');
+            revealContent.classList.add('visible');
+            setTimeout(() => document.querySelectorAll('.text-gold-gradient').forEach(el => el.classList.add('glowing')), 500);
+        }
+
+        function animateGiftOpen() {
+            const giftBox = document.getElementById('gift-box');
+            const giftLid = document.getElementById('gift-lid');
+            const giftRibbon = document.getElementById('gift-ribbon');
+            const giftHint = document.getElementById('gift-hint');
+            const giftGlow = document.getElementById('gift-glow');
+            const giftBoxBody = document.getElementById('gift-box-body');
+            soundSystem.playClick();
+            if (prefersReducedMotion) {
+                giftBox.style.opacity = '1'; giftBox.style.transform = 'scale(1)'; giftHint.style.opacity = '1'; giftGlow.style.opacity = '1'; giftLid.style.transform = 'translateY(-50px)'; giftLid.style.opacity = '0.5'; giftRibbon.style.opacity = '0';
+                setTimeout(() => { startConfettiEffects(); revealText(); }, 300);
+                return;
+            }
+            giftTimeline = gsap.timeline({ onComplete: () => gsap.to(giftBox, { opacity: 0, scale: 0, duration: 0.5, ease: 'power2.in' }) });
+            giftTimeline.to(giftBox, { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.7)' });
+            giftTimeline.to(giftHint, { opacity: 1, duration: 0.5 }, '-=0.3');
+            giftTimeline.to('.gift-sparkle', { opacity: 1, scale: 1.5, duration: 0.3, stagger: 0.1, ease: 'power2.out' }, '-=0.3');
+            giftTimeline.to(giftGlow, { opacity: 1, duration: 0.4 }, '-=0.5');
+            giftTimeline.to(giftBox, { y: -20, scale: 1.08, duration: 0.7, ease: 'bounce.out' }, '+=0.4');
+            giftTimeline.to(giftBoxBody, { filter: 'brightness(1.5) drop-shadow(0 0 50px rgba(212,175,55,1))', duration: 0.5 }, '-=0.5');
+            giftTimeline.to(giftLid, { y: -100, rotationX: -180, opacity: 0.5, duration: 0.8, ease: 'back.out(2.5)' }, '+=0.1');
+            giftTimeline.to(giftRibbon, { scale: 2.5, opacity: 0, duration: 0.5 }, '-=0.6');
+            giftTimeline.to(giftHint, { opacity: 0, duration: 0.3 }, '-=0.5');
+            giftTimeline.add(() => startConfettiEffects(), '+=0.2');
+            giftTimeline.add(() => revealText(), '+=1.5');
+        }
+
+        const giftBoxElement = document.getElementById('gift-box');
+        giftBoxElement.addEventListener('click', function() {
+            if (!giftClicked) { giftClicked = true; giftAnimationTriggered = true; gsap.to('#gift-hint', { opacity: 0, duration: 0.3 }); animateGiftOpen(); }
+        });
+        giftBoxElement.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!giftClicked) { giftClicked = true; giftAnimationTriggered = true; gsap.to('#gift-hint', { opacity: 0, duration: 0.3 }); animateGiftOpen(); } }
+        });
+
+        ScrollTrigger.create({ trigger: '#reveal', start: 'top 80%', onEnter: () => {
+            if (!giftAnimationTriggered && !giftClicked) {
+                if (prefersReducedMotion) { giftBoxElement.style.opacity = '1'; giftBoxElement.style.transform = 'scale(1)'; }
+                else { gsap.to('#gift-box', { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.7)' }); gsap.to('#gift-hint', { opacity: 1, duration: 0.5, delay: 0.5 }); gsap.to('.gift-sparkle', { opacity: 0.5, scale: 1, duration: 0.3, stagger: 0.1 }); }
+            }
+        }});
+
+        document.getElementById('celebrate-btn').addEventListener('click', function() { soundSystem.playCelebrate(); createCelebrateConfetti(); this.style.transform = 'scale(0.95)'; setTimeout(() => this.style.transform = '', 150); });
+
+        // ==================== RATING STARS ====================
+        const stars = document.querySelectorAll('.star-btn');
+        let currentRating = 0;
+
+        function updateStars(rating) {
+            currentRating = rating;
+            stars.forEach((s, i) => { s.classList.remove('active', 'rating-high'); if (i < rating) { s.classList.add('active'); if (rating >= 4) s.classList.add('rating-high'); } });
+        }
+
+        function highlightStars(count) {
+            stars.forEach((s, i) => { s.classList.remove('hover-active'); if (i < count) { s.classList.add('hover-active'); if (count >= 4) s.classList.add('rating-high'); else s.classList.remove('rating-high'); } });
+        }
+
+        stars.forEach((star) => {
+            star.addEventListener('click', function() {
+                const rating = parseInt(this.dataset.rating);
+                soundSystem.playStarRating(rating);
+                createStarConfetti(rating);
+                updateStars(rating);
+                stars.forEach((s, i) => s.setAttribute('aria-checked', i < rating ? 'true' : 'false'));
+                const reviewMessage = document.getElementById('review-message');
+                if (rating >= 4) reviewMessage.innerHTML = `<div class="text-center"><p class="text-gold-gradient text-xl font-serif">${rating === 5 ? 'Wow,chiar atât de mult ți-a plăcut!' : 'Sunt atât de bucuros că ți-a plăcut!'}</p><p class="text-rose-300/70 text-xs mt-3 italic">„La mulți ani, Bianca!"</p></div>`;
+                else { const msg = { 1: { text: 'Ok, e un început!', sub: 'Măcar ai deschis!' }, 2: { text: 'Hmm, sigur?', sub: 'Poate mai ai nevoie de timp...' }, 3: { text: 'E ok!', sub: 'Feedback onest = apreciat!' } }; reviewMessage.innerHTML = `<div class="text-center"><p class="text-rose-400 text-lg font-serif">${msg[rating].text}</p><p class="text-gray-400 text-sm">${msg[rating].sub}</p></div>`; }
+                this.classList.add('star-animating');
+                setTimeout(() => this.classList.remove('star-animating'), 500);
+            });
+            if (!isMobile) { star.addEventListener('mouseenter', () => { if (currentRating === 0) highlightStars(parseInt(star.dataset.rating)); }); star.addEventListener('mouseleave', () => { if (currentRating === 0) stars.forEach(s => s.classList.remove('hover-active')); }); }
+            star.addEventListener('keydown', function(e) { if (e.key === 'ArrowRight' && this.nextElementSibling) this.nextElementSibling.focus(); else if (e.key === 'ArrowLeft' && this.previousElementSibling) this.previousElementSibling.focus(); });
+        });
+
+        // ==================== ANIMAȚII SCROLL ====================
+        window.addEventListener('load', () => {
+            if (prefersReducedMotion) document.querySelectorAll('.intro-text').forEach(el => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
+            else gsap.to('.intro-text', { opacity: 1, y: 0, duration: 1.2, stagger: 0.2, ease: 'power3.out' });
+        });
+
+        gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+            if (prefersReducedMotion) item.style.opacity = '1';
+            else gsap.to(item, { opacity: 1, duration: 1, delay: i * 0.2, ease: 'power3.out', scrollTrigger: { trigger: item, start: 'top 85%', once: true } });
+        });
+
+        gsap.utils.toArray('.message-anim').forEach((el, i) => {
+            if (prefersReducedMotion) el.style.opacity = '1';
+            else gsap.to(el, { opacity: 1, scale: 1, y: 0, duration: 1, delay: i * 0.2, ease: 'power3.out', scrollTrigger: { trigger: '#message', start: 'top 75%', once: true } });
+        });
+
+        gsap.utils.toArray('.timer-box').forEach((box, i) => {
+            if (prefersReducedMotion) box.style.opacity = '1';
+            else gsap.to(box, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.2, ease: 'power3.out', scrollTrigger: { trigger: '#timers', start: 'top 80%', once: true } });
+        });
+
+        gsap.to('#secret-title', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '#secret', start: 'top 80%', once: true } });
+
+        window.addEventListener('resize', () => { clearTimeout(window.resizeTimeout); window.resizeTimeout = setTimeout(() => ScrollTrigger.refresh(), 250); });
+
+        // ==================== TIMERE ====================
+        const birthDate = new Date('2006-03-03T00:00:00');
+
+        function updateTimers() {
+            const now = new Date();
+            let years = now.getFullYear() - birthDate.getFullYear();
+            let months = now.getMonth() - birthDate.getMonth();
+            let days = now.getDate() - birthDate.getDate();
+            if (days < 0) { months--; const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0); days += prevMonth.getDate(); }
+            if (months < 0) { years--; months += 12; }
+            document.getElementById('years').textContent = years;
+            document.getElementById('months').textContent = months;
+            document.getElementById('days').textContent = days;
+            document.getElementById('seconds').textContent = now.getSeconds().toString().padStart(2, '0');
+            let nextBirthday = new Date(now.getFullYear(), 2, 3);
+            if (now > nextBirthday) nextBirthday = new Date(now.getFullYear() + 1, 2, 3);
+            const diff = nextBirthday - now;
+            document.getElementById('cd-days').textContent = Math.floor(diff / 86400000).toString().padStart(2, '0');
+            document.getElementById('cd-hours').textContent = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
+            document.getElementById('cd-minutes').textContent = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+            document.getElementById('cd-seconds').textContent = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+            document.getElementById('next-date').textContent = `Următoarea: 3 Martie ${nextBirthday.getFullYear()}`;
+        }
+
+        setInterval(updateTimers, 1000);
+        updateTimers();
+
+        function smoothScrollTo(id) { document.getElementById(id).scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' }); }
+        window.smoothScrollTo = smoothScrollTo;
+
+        // ==================== CLEANUP ====================
+        window.addEventListener('beforeunload', () => {
+            ScrollTrigger.getAll().forEach(t => t.kill());
+            soundSystem.destroy();
+            cssStarParticles.destroy();
+            if (touchSparkleSystem) touchSparkleSystem.destroy();
+            if (starTrailSystem) starTrailSystem.destroy();
+        });
+    </script>
+</body>
+</html>
