@@ -53,7 +53,7 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: 0;
+            z-index: 1;
             overflow: hidden;
         }
 
@@ -64,18 +64,8 @@
         }
 
         /* ============================================
-           PARTICULE ANIMATE - MULTE SI DIFERITE
+           PARTICULE ANIMATE
            ============================================ */
-        
-        /* Container pentru toate particulele */
-        .particles-layer {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        /* Stelute aurii clipitoare */
         .particle-star {
             position: absolute;
             border-radius: 50%;
@@ -126,70 +116,32 @@
                 0 0 12px 3px rgba(255, 182, 193, 0.7);
         }
 
-        /* Animații pentru stele */
-        .star-twinkle {
-            animation: star-twinkle 3s ease-in-out infinite !important;
-        }
-
-        .star-twinkle-fast {
-            animation: star-twinkle 2s ease-in-out infinite !important;
-        }
-
-        .star-twinkle-slow {
-            animation: star-twinkle 4s ease-in-out infinite !important;
-        }
+        .star-twinkle { animation: star-twinkle 3s ease-in-out infinite !important; }
+        .star-twinkle-fast { animation: star-twinkle 2s ease-in-out infinite !important; }
+        .star-twinkle-slow { animation: star-twinkle 4s ease-in-out infinite !important; }
 
         @keyframes star-twinkle {
-            0%, 100% { 
-                opacity: 0.4; 
-                transform: translateZ(0) scale(1); 
-            }
-            50% { 
-                opacity: 1; 
-                transform: translateZ(0) scale(1.3); 
-            }
+            0%, 100% { opacity: 0.4; transform: translateZ(0) scale(1); }
+            50% { opacity: 1; transform: translateZ(0) scale(1.3); }
         }
 
-        .star-float {
-            animation: star-float 8s ease-in-out infinite !important;
-        }
+        .star-float { animation: star-float 8s ease-in-out infinite !important; }
 
         @keyframes star-float {
-            0%, 100% { 
-                transform: translateZ(0) translate(0, 0); 
-            }
-            25% { 
-                transform: translateZ(0) translate(10px, -15px); 
-            }
-            75% { 
-                transform: translateZ(0) translate(-8px, 10px); 
-            }
+            0%, 100% { transform: translateZ(0) translate(0, 0); }
+            25% { transform: translateZ(0) translate(10px, -15px); }
+            75% { transform: translateZ(0) translate(-8px, 10px); }
         }
 
-        .star-firefly {
-            animation: star-firefly 5s ease-in-out infinite !important;
-        }
+        .star-firefly { animation: star-firefly 5s ease-in-out infinite !important; }
 
         @keyframes star-firefly {
-            0%, 100% { 
-                opacity: 0.2; 
-                transform: translateZ(0) scale(0.7); 
-            }
-            25% { 
-                opacity: 1; 
-                transform: translateZ(0) scale(1.2); 
-            }
-            50% { 
-                opacity: 0.3; 
-                transform: translateZ(0) scale(0.9); 
-            }
-            75% { 
-                opacity: 0.9; 
-                transform: translateZ(0) scale(1.1); 
-            }
+            0%, 100% { opacity: 0.2; transform: translateZ(0) scale(0.7); }
+            25% { opacity: 1; transform: translateZ(0) scale(1.2); }
+            50% { opacity: 0.3; transform: translateZ(0) scale(0.9); }
+            75% { opacity: 0.9; transform: translateZ(0) scale(1.1); }
         }
 
-        /* Particule de praf auriu */
         .particle-dust {
             position: absolute;
             border-radius: 50%;
@@ -201,51 +153,24 @@
             will-change: transform, opacity;
         }
 
-        .dust-float {
-            animation: dust-float linear infinite !important;
-        }
+        .dust-float { animation: dust-float linear infinite !important; }
 
         @keyframes dust-float {
-            0% { 
-                transform: translateY(100vh) translateX(0) rotate(0deg); 
-                opacity: 0; 
-            }
-            5% { 
-                opacity: 0.6; 
-            }
-            95% { 
-                opacity: 0.6; 
-            }
-            100% { 
-                transform: translateY(-100px) translateX(50px) rotate(360deg); 
-                opacity: 0; 
-            }
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            5% { opacity: 0.6; }
+            95% { opacity: 0.6; }
+            100% { transform: translateY(-100px) translateX(50px) rotate(360deg); opacity: 0; }
         }
 
-        .dust-drift {
-            animation: dust-drift 15s ease-in-out infinite !important;
-        }
+        .dust-drift { animation: dust-drift 15s ease-in-out infinite !important; }
 
         @keyframes dust-drift {
-            0%, 100% { 
-                transform: translateZ(0) translate(0, 0); 
-                opacity: 0.4; 
-            }
-            25% { 
-                transform: translateZ(0) translate(20px, -10px); 
-                opacity: 0.7; 
-            }
-            50% { 
-                transform: translateZ(0) translate(-10px, 15px); 
-                opacity: 0.5; 
-            }
-            75% { 
-                transform: translateZ(0) translate(-15px, -5px); 
-                opacity: 0.8; 
-            }
+            0%, 100% { transform: translateZ(0) translate(0, 0); opacity: 0.4; }
+            25% { transform: translateZ(0) translate(20px, -10px); opacity: 0.7; }
+            50% { transform: translateZ(0) translate(-10px, 15px); opacity: 0.5; }
+            75% { transform: translateZ(0) translate(-15px, -5px); opacity: 0.8; }
         }
 
-        /* Orbs ambient */
         .ambient-orb {
             position: absolute;
             border-radius: 50%;
@@ -255,33 +180,22 @@
         }
 
         .orb-gold {
-            background: radial-gradient(circle, 
-                rgba(212, 175, 55, 0.15) 0%, 
-                rgba(212, 175, 55, 0.05) 40%, 
-                transparent 70%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 40%, transparent 70%);
             animation: orb-float-1 20s ease-in-out infinite !important;
         }
 
         .orb-rose {
-            background: radial-gradient(circle, 
-                rgba(183, 110, 121, 0.12) 0%, 
-                rgba(183, 110, 121, 0.03) 40%, 
-                transparent 70%);
+            background: radial-gradient(circle, rgba(183, 110, 121, 0.12) 0%, rgba(183, 110, 121, 0.03) 40%, transparent 70%);
             animation: orb-float-2 25s ease-in-out infinite !important;
         }
 
         .orb-purple {
-            background: radial-gradient(circle, 
-                rgba(138, 43, 226, 0.08) 0%, 
-                rgba(138, 43, 226, 0.02) 40%, 
-                transparent 70%);
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.08) 0%, rgba(138, 43, 226, 0.02) 40%, transparent 70%);
             animation: orb-float-3 18s ease-in-out infinite !important;
         }
 
         .orb-center {
-            background: radial-gradient(circle, 
-                rgba(212, 175, 55, 0.08) 0%, 
-                transparent 60%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
             animation: orb-pulse 12s ease-in-out infinite !important;
         }
 
@@ -337,33 +251,12 @@
         #star-confetti-container { z-index: 500 !important; }
         #celebrate-confetti-container { z-index: 500 !important; }
 
-        #star-trail-canvas {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            pointer-events: none !important;
-            z-index: 9999 !important;
-            background: transparent !important;
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            display: block !important;
-            transform: translateZ(0);
-            contain: strict !important;
-        }
-
         #touch-sparkles {
             position: fixed !important;
             top: 0 !important;
             left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
+            width: 100vw !important;
+            height: 100vh !important;
             margin: 0 !important;
             padding: 0 !important;
             pointer-events: none !important;
@@ -399,7 +292,7 @@
         }
 
         /* ============================================
-           SECTIUNI - CU MIN-HEIGHT MARE
+           SECTIUNI
            ============================================ */
         section {
             position: relative;
@@ -437,11 +330,10 @@
         }
         
         /* ============================================
-           REVEAL SECTION - CORECTAT!
+           REVEAL SECTION
            ============================================ */
         #reveal { 
             background: transparent !important; 
-            /* REDUS de la 180vh la 100vh */
             min-height: 100vh;
             min-height: 100dvh;
             padding: 40px 16px;
@@ -451,7 +343,6 @@
             overflow: visible;
         }
         
-        /* Background solid pentru a acoperi continutul de dedesubt */
         #reveal-bg {
             position: absolute;
             inset: 0;
@@ -463,8 +354,6 @@
             z-index: -2;
         }
         
-        /* Overlay pentru a ascunde continutul cand cadoul e inchis */
-        /* CORECTAT: Particulele au nevoie de z-index mai mare ca masca */
         #reveal-mask {
             position: absolute;
             inset: 0;
@@ -473,7 +362,7 @@
                 rgba(10, 8, 8, 0.95) 15%, 
                 rgba(10, 8, 8, 0.95) 85%, 
                 #050505 100%);
-            z-index: 3; /* Redus de la 4 pentru a permite particulelor sa se vada */
+            z-index: 3;
             pointer-events: none;
             transition: opacity 1s ease;
         }
@@ -484,17 +373,6 @@
         
         #reveal::before { 
             background: transparent !important;
-        }
-        
-        /* Continutul din reveal trebuie sa fie centrat pe Gift */
-        #reveal > *:not(#reveal-bg):not(#reveal-mask):not(#reveal-darkness) {
-            position: relative;
-            z-index: 10;
-        }
-        
-        /* Z-Index pentru a asigura ca particulele sunt vizibile peste masca */
-        #main-background {
-            z-index: 1 !important; /* Crestut de la 0 la 1, acum e peste mask (z-index 3) */
         }
         
         #message { 
@@ -721,71 +599,121 @@
             }
         }
 
-        .reveal-subtitle {
-            font-size: 1rem !important;
-            line-height: 1.5 !important;
+        /* ============================================
+           REVEAL TEXT - MĂRIT SI ANIMAT DE SUS IN JOS
+           ============================================ */
+        
+        /* Container pentru text revelat - umple tot slide-ul */
+        #reveal-text-content {
+            display: none;
+            width: 100%;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 16px;
+            margin-top: 0;
         }
         
-        @media (min-width: 768px) {
-            .reveal-subtitle {
-                font-size: 2rem !important;
-                line-height: 1.4 !important;
-            }
+        #reveal-text-content.hidden {
+            display: none;
         }
-
+        
+        #reveal-text-content.visible {
+            display: flex;
+        }
+        
+        /* Titlul principal - MĂRIT */
         .reveal-main-text {
-            font-size: 1.2rem !important;
-            line-height: 1.5 !important;
+            font-size: 1.5rem !important;
+            line-height: 1.6 !important;
+            margin-bottom: 32px !important;
         }
         
         @media (min-width: 768px) {
             .reveal-main-text {
-                font-size: 2.2rem !important;
-                line-height: 1.3 !important;
+                font-size: 2.8rem !important;
+                line-height: 1.4 !important;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .reveal-main-text {
+                font-size: 3.2rem !important;
             }
         }
 
+        /* Subtitlul - MĂRIT */
+        .reveal-subtitle {
+            font-size: 1.3rem !important;
+            line-height: 1.6 !important;
+            margin-bottom: 24px !important;
+        }
+        
+        @media (min-width: 768px) {
+            .reveal-subtitle {
+                font-size: 2.2rem !important;
+                line-height: 1.5 !important;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .reveal-subtitle {
+                font-size: 2.6rem !important;
+            }
+        }
+
+        /* Numele Bianca - MĂRIT */
         .bianca-name {
-            font-size: 3rem !important;
+            font-size: 4rem !important;
             line-height: 1.1 !important;
+            margin: 24px 0 !important;
         }
         
         @media (min-width: 768px) {
             .bianca-name {
-                font-size: 5.5rem !important;
+                font-size: 6.5rem !important;
                 line-height: 1 !important;
             }
         }
+        
+        @media (min-width: 1024px) {
+            .bianca-name {
+                font-size: 8rem !important;
+            }
+        }
 
+        /* Butonul Celebrate */
         .btn-celebrate {
             position: relative;
             background: linear-gradient(135deg, rgba(183, 110, 121, 0.9), rgba(212, 175, 55, 0.9));
             border: 3px solid #ffffff;
             border-radius: 9999px;
-            padding: 14px 24px;
+            padding: 16px 28px;
             color: white;
             font-weight: 500;
             letter-spacing: 0.03em;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            min-width: 220px;
+            min-width: 240px;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 1.1rem;
             box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.4), 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
             z-index: 10;
             cursor: pointer;
-            margin-top: 32px;
+            margin-top: 48px;
         }
         
         @media (min-width: 768px) {
             .btn-celebrate {
-                padding: 18px 36px;
-                min-width: 280px;
-                font-size: 1.125rem;
-                gap: 12px;
-                margin-top: 72px;
+                padding: 20px 40px;
+                min-width: 300px;
+                font-size: 1.25rem;
+                gap: 14px;
+                margin-top: 64px;
             }
         }
 
@@ -803,54 +731,28 @@
         .btn-celebrate:active { transform: scale(0.98); }
 
         /* ============================================
-           ANIMATII PENTRU TEXTUL REVEAL - NOU!
+           ANIMATII REVEAL TEXT - LENTE SI DRAMATICE
            ============================================ */
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        
+        /* Initial state - invizibil si sus */
+        .reveal-text-item {
+            opacity: 0;
+            transform: translateY(-60px);
+            will-change: transform, opacity;
         }
-
-        @keyframes fadeInScale {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes glowPulse {
+        
+        /* Animatia de glow */
+        @keyframes textGlow {
             0%, 100% {
-                text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.6), 0 0 30px rgba(212, 175, 55, 0.4);
+                filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8));
             }
             50% {
-                text-shadow: 0 0 20px rgba(212, 175, 55, 1), 0 0 40px rgba(212, 175, 55, 0.8), 0 0 60px rgba(212, 175, 55, 0.6);
+                filter: drop-shadow(0 0 30px rgba(212, 175, 55, 1)) drop-shadow(0 0 50px rgba(212, 175, 55, 0.6));
             }
         }
-
-        .reveal-text-animated {
-            opacity: 0;
-        }
-
-        .reveal-subtitle-animated {
-            opacity: 0;
-        }
-
-        .bianca-name-animated {
-            opacity: 0;
-            animation: none;
-        }
-
-        .reveal-subtitle-animated.glowing {
-            animation: glowPulse 2s ease-in-out infinite;
+        
+        .bianca-name-glow {
+            animation: textGlow 2s ease-in-out infinite;
         }
 
         /* ============================================
@@ -1313,20 +1215,16 @@
 
     <a href="#main-content" class="skip-link">Sari la conținut</a>
 
-    <!-- BACKGROUND ANIMAT - CU MULTE PARTICULE -->
+    <!-- BACKGROUND ANIMAT -->
     <div id="main-background" aria-hidden="true">
         <div class="bg-base"></div>
         
-        <!-- Orburi animati -->
         <div class="ambient-orb orb-gold" style="width: 100vw; height: 100vw; top: -30%; left: -30%;"></div>
         <div class="ambient-orb orb-rose" style="width: 90vw; height: 90vw; top: 40%; right: -35%; animation-delay: -8s;"></div>
         <div class="ambient-orb orb-purple" style="width: 80vw; height: 80vw; bottom: 20%; left: -25%; animation-delay: -15s;"></div>
         <div class="ambient-orb orb-center" style="width: 120vw; height: 120vh; top: 0; left: -10vw;"></div>
         
-        <!-- Container pentru stele -->
         <div class="stars-container" id="stars-container" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none;"></div>
-        
-        <!-- Container pentru praf -->
         <div class="dust-container" id="dust-container" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none;"></div>
     </div>
 
@@ -1393,19 +1291,15 @@
         </div>
     </section>
 
-    <!-- SECTION 3: REVEAL - CORECTAT -->
+    <!-- SECTION 3: REVEAL -->
     <section id="reveal" aria-labelledby="reveal-title">
-        <!-- Background solid -->
         <div id="reveal-bg" aria-hidden="true"></div>
-        
-        <!-- Mask pentru a ascunde continutul -->
         <div id="reveal-mask" aria-hidden="true"></div>
         
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,_rgba(183,110,121,0.2),_transparent_50%)]" aria-hidden="true"></div>
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,_rgba(212,175,55,0.15),_transparent_50%)]" aria-hidden="true"></div>
         <div id="reveal-darkness" aria-hidden="true"></div>
         
-        <!-- Continut revelat -->
         <div id="reveal-content" aria-live="polite">
             <div class="mb-6">
                 <span class="text-rose-400 text-xs tracking-[0.4em] uppercase font-light">Dar adevărata minune...</span>
@@ -1446,24 +1340,25 @@
                 <p id="gift-hint" class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-amber-400/70 text-sm whitespace-nowrap opacity-0 transition-opacity">👆 Apasă pentru a deschide</p>
             </div>
             
-            <!-- Text revelat (apare dupa deschidere) - CU ANIMATII -->
-            <div id="reveal-text-content" class="hidden mt-8 px-4">
+            <!-- Text revelat - ANIMAT SI MĂRIT -->
+            <div id="reveal-text-content" class="hidden">
                 <!-- Text 1: Mesajul principal -->
-                <h2 id="reveal-title" class="reveal-main-text font-serif text-white leading-tight font-light mb-6 reveal-text-animated">
+                <h2 id="reveal-title" class="reveal-main-text font-serif text-white leading-tight font-light reveal-text-item">
                     Pe <span class="text-gold-gradient font-semibold">3 Martie 2006</span>,<br>
                     Dumnezeu a decis că lumea<br>
                     are nevoie de mai multă <span class="italic text-rose-300">lumină</span>.
                 </h2>
                 
                 <!-- Text 2: Subtitlu -->
-                <p class="font-serif text-xl md:text-4xl text-gray-200 italic reveal-subtitle-animated mb-6">
+                <p class="font-serif text-xl md:text-4xl text-gray-200 italic reveal-subtitle reveal-text-item">
                     Așa că te-a creat pe tine,<br>
-                    <!-- Text 3: Numele cu animatie speciala -->
-                    <span class="bianca-name text-gold-gradient not-italic font-bold block mt-4 bianca-name-animated">Bianca</span>
                 </p>
                 
-                <!-- Butonul cu animatie -->
-                <button id="celebrate-btn" class="btn-celebrate cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white reveal-text-animated">
+                <!-- Text 3: Numele Bianca - animatie speciala -->
+                <span class="bianca-name text-gold-gradient not-italic font-bold block reveal-text-item">Bianca</span>
+                
+                <!-- Butonul Celebrate -->
+                <button id="celebrate-btn" class="btn-celebrate cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white reveal-text-item">
                     <span aria-hidden="true">🥳</span>
                     <span>Celebrează</span>
                     <i class="fas fa-sparkles" aria-hidden="true"></i>
@@ -1644,32 +1539,32 @@
         </div>
     </div>
 
-   <!-- Secret Message Container -->
-<div id="secret-message-container" class="secret-message-container" role="dialog" aria-modal="true">
-    <div class="secret-message-content">
-        <div class="secret-message-icon">🧐</div>
-        <div class="secret-message-body">
-            <p>Acum aproape un an am venit <span class="highlight">prima dată la voi la biserică</span>, unde am fost surprins de atmosferă și de colectiv, și cum a "sarit" Alex pe mine să facem cunoștință <span class="emoji">😂</span>.</p>
-            
-            <p>Contextul pentru care am venit nu a fost tocmai plăcut, dar chiar nu îmi pare rău, altfel nu cred că vă cunoșteam.</p>
-            
-            <p>Una din primele activități pe care le-am făcut cu voi a fost să împărțim pliante cu <span class="highlight">Memo</span>, când am făcut amândoi echipă, tu mă împingeai să prezint oamenilor evenimentul și mie îmi era rușine să întreb cât e ceasul <span class="emoji">🤣</span>.</p>
-            
-            <p>Când mai lipseam mă "certai" dar din câte mi s-au spus putea să fie și mai rău <span class="emoji">👊🤕</span>, veneam de frica ta 🤣, sau faza cu capacul de presiune 🍲, de care s-a făcut mișto cam 2 săptămâni.</p>
-            
-            <p>Mă bucur că ne-am cunoscut, altfel nu cred că aveam vreo șansă să îl văd pe <span class="highlight">Memo</span> live <span class="emoji">😂🤖</span>. Cu toate că nu ne-am mai văzut, tot ești pe listă în "camera de război"🍦.</p>
-            
-            <p>Chiar ești o <span class="highlight">minune</span> și o <span class="highlight">binecuvântare</span> pentru cei din jurul tău timp de 2 decenii.</p>
-            
-            <p style="text-align: center; font-size: 1.2rem; margin-top: 24px;">
-                <strong class="text-gold-gradient">GBU Bianca!</strong> <span class="emoji">😇🤗</span>
-            </p>
-        </div>
-        <div class="secret-message-footer">
-            <button id="btn-close-secret" class="secret-message-close">Închide mesajul</button>
+    <!-- Secret Message Container - CU MESAJUL COMPLET -->
+    <div id="secret-message-container" class="secret-message-container" role="dialog" aria-modal="true">
+        <div class="secret-message-content">
+            <div class="secret-message-icon">🧐</div>
+            <div class="secret-message-body">
+                <p>Acum aproape un an am venit <span class="highlight">prima dată la voi la biserică</span>, unde am fost surprins de atmosferă și de colectiv, și cum a "sarit" Alex pe mine să facem cunoștință <span class="emoji">😂</span>.</p>
+                
+                <p>Contextul pentru care am venit nu a fost tocmai plăcut, dar chiar nu îmi pare rău, altfel nu cred că vă cunoșteam.</p>
+                
+                <p>Una din primele activități pe care le-am făcut cu voi a fost să împărțim pliante cu <span class="highlight">Memo</span>, când am făcut amândoi echipă, tu mă împingeai să prezint oamenilor evenimentul și mie îmi era rușine să întreb cât e ceasul <span class="emoji">🤣</span>.</p>
+                
+                <p>Când mai lipseam mă "certai" dar din câte mi s-au spus putea să fie și mai rău <span class="emoji">👊🤕</span>, veneam de frica ta 🤣, sau faza cu capacul de presiune 🍲, de care s-a făcut mișto cam 2 săptămâni.</p>
+                
+                <p>Mă bucur că ne-am cunoscut, altfel nu cred că aveam vreo șansă să îl văd pe <span class="highlight">Memo</span> live <span class="emoji">😂🤖</span>. Cu toate că nu ne-am mai văzut, tot ești pe listă în "camera de război"🍦.</p>
+                
+                <p>Chiar ești o <span class="highlight">minune</span> și o <span class="highlight">binecuvântare</span> pentru cei din jurul tău timp de 2 decenii.</p>
+                
+                <p style="text-align: center; font-size: 1.2rem; margin-top: 24px;">
+                    <strong class="text-gold-gradient">GBU Bianca!</strong> <span class="emoji">😇🤗</span>
+                </p>
+            </div>
+            <div class="secret-message-footer">
+                <button id="btn-close-secret" class="secret-message-close">Închide mesajul</button>
+            </div>
         </div>
     </div>
-</div>
 
     <script>
         // ============================================
@@ -1691,7 +1586,7 @@
         };
 
         // ============================================
-        // INIT BACKGROUND PARTICLES - MULTE SI DIFERITE
+        // INIT BACKGROUND PARTICLES
         // ============================================
         function initBackgroundParticles() {
             if (CONFIG.prefersReducedMotion) return;
@@ -1699,7 +1594,6 @@
             const starsContainer = document.getElementById('stars-container');
             const dustContainer = document.getElementById('dust-container');
             
-            // Creare stele multiple - diferite marimi si tipuri
             const starCount = CONFIG.isMobile ? 50 : 80;
             const starTypes = ['small', 'medium', 'large'];
             const starColors = ['', 'rose'];
@@ -1735,7 +1629,6 @@
                 starsContainer.appendChild(star);
             }
             
-            // Creare particule de praf - miscatoare
             const dustCount = CONFIG.isMobile ? 30 : 50;
             const dustAnimations = ['dust-float', 'dust-drift'];
             
@@ -2258,7 +2151,7 @@
             createBatch();
         }
 
-        // CADOU REVEAL - CU ANIMATII TEXT CORECTATE
+        // CADOU REVEAL - CU ANIMATII LENTE SI DRAMATICE
         gsap.registerPlugin(ScrollTrigger);
         let giftAnimationTriggered = false, giftClicked = false;
 
@@ -2306,7 +2199,7 @@
             }
         }
 
-        // CORECTAT: Functia revealText cu animatii pentru fiecare element
+        // NOUA FUNCTIE revealText - CU ANIMATII LENTE SI DRAMATICE
         function revealText() {
             const revealContent = document.getElementById('reveal-content');
             const revealTextContent = document.getElementById('reveal-text-content');
@@ -2317,56 +2210,95 @@
             darkness.classList.add('fade-out');
             revealMask.classList.add('hidden');
             
-            // Arata textul
+            // Arata containerul
             revealContent.classList.add('visible');
             revealTextContent.classList.remove('hidden');
-            revealTextContent.classList.add('animate-fade-in');
+            revealTextContent.classList.add('visible');
             
-            // ANIMATII: Textul apare cu staggered animation
+            // Ascundem cadoul
+            const giftBox = document.getElementById('gift-box');
+            if (giftBox) giftBox.style.display = 'none';
+            
+            // ANIMATII LENTE SI DRAMATICE - DE SUS IN JOS
             if (CONFIG.prefersReducedMotion) {
                 // Daca prefers-reduced-motion, arata totul imediat
-                document.querySelectorAll('.reveal-text-animated, .reveal-subtitle-animated, .bianca-name-animated').forEach(el => {
+                document.querySelectorAll('.reveal-text-item').forEach(el => {
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
                 });
             } else {
-                // Animație GSAP pentru fiecare element text
-                const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+                // Obtinem toate elementele text in ordine
+                const textItems = [
+                    document.getElementById('reveal-title'),
+                    document.querySelector('.reveal-subtitle'),
+                    document.querySelector('.bianca-name'),
+                    document.getElementById('celebrate-btn')
+                ];
                 
-                // Text 1: Mesajul principal (fade in + rise up)
+                // Seteaza pozitia initiala pentru toate
+                textItems.forEach(item => {
+                    if (item) {
+                        gsap.set(item, {
+                            opacity: 0,
+                            y: -80,
+                            filter: 'blur(10px)'
+                        });
+                    }
+                });
+                
+                // Timeline cu animatii lente si dramatice
+                const tl = gsap.timeline({
+                    defaults: { 
+                        ease: 'power3.out',
+                        duration: 1.2 // Durata mai lunga pentru fiecare element
+                    }
+                });
+                
+                // Text 1: Mesajul principal (apare primul)
                 tl.to('#reveal-title', {
                     opacity: 1,
                     y: 0,
-                    duration: 0.8
-                }, 0.3);
+                    filter: 'blur(0px)',
+                    duration: 1.5,
+                    ease: 'power2.out'
+                }, 0.5);
                 
-                // Text 2: Subtitlul (fade in + rise up, cu delay)
-                tl.to('.reveal-subtitle-animated', {
+                // Text 2: Subtitlul (dupa 1.5s)
+                tl.to('.reveal-subtitle', {
                     opacity: 1,
                     y: 0,
-                    duration: 0.8
-                }, 0.6);
+                    filter: 'blur(0px)',
+                    duration: 1.5,
+                    ease: 'power2.out'
+                }, 1.8);
                 
-                // Text 3: Numele Bianca (scale up + glow)
-                tl.to('.bianca-name-animated', {
+                // Text 3: Numele Bianca (dupa 3.3s) - cu efect special
+                tl.to('.bianca-name', {
                     opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
                     scale: 1,
-                    duration: 1,
-                    ease: 'back.out(1.7)'
-                }, 0.9);
+                    duration: 2,
+                    ease: 'back.out(1.2)' // Usor bounce
+                }, 3.3);
                 
-                // Butonul (fade in + rise up)
+                // Adauga glow effect la Bianca dupa ce apare
+                tl.add(() => {
+                    const biancaName = document.querySelector('.bianca-name');
+                    if (biancaName) {
+                        biancaName.classList.add('bianca-name-glow');
+                        biancaName.classList.add('glowing');
+                    }
+                }, '+=0.3');
+                
+                // Butonul Celebrate (ultimul, dupa 5.3s)
                 tl.to('#celebrate-btn', {
                     opacity: 1,
                     y: 0,
-                    duration: 0.6
-                }, 1.2);
-                
-                // Adauga glow effect dupa ce textul e vizibil
-                tl.add(() => {
-                    document.querySelectorAll('.text-gold-gradient').forEach(el => el.classList.add('glowing'));
-                    document.querySelector('.reveal-subtitle-animated').classList.add('glowing');
-                }, '+=0.3');
+                    filter: 'blur(0px)',
+                    duration: 1.2,
+                    ease: 'power2.out'
+                }, 5.5);
             }
         }
 
