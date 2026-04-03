@@ -437,16 +437,17 @@
         }
         
         /* ============================================
-           REVEAL SECTION - CU INALTIME MARE SI MASKING
+           REVEAL SECTION - CORECTAT!
            ============================================ */
         #reveal { 
             background: transparent !important; 
-            min-height: 180vh;
-            min-height: 180dvh;
-            padding: 80px 16px;
+            /* REDUS de la 180vh la 100vh */
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 40px 16px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             overflow: visible;
         }
         
@@ -463,15 +464,16 @@
         }
         
         /* Overlay pentru a ascunde continutul cand cadoul e inchis */
+        /* CORECTAT: Particulele au nevoie de z-index mai mare ca masca */
         #reveal-mask {
             position: absolute;
             inset: 0;
             background: linear-gradient(180deg, 
                 #050505 0%, 
-                rgba(10, 8, 8, 0.99) 15%, 
-                rgba(10, 8, 8, 0.99) 85%, 
+                rgba(10, 8, 8, 0.95) 15%, 
+                rgba(10, 8, 8, 0.95) 85%, 
                 #050505 100%);
-            z-index: 4;
+            z-index: 3; /* Redus de la 4 pentru a permite particulelor sa se vada */
             pointer-events: none;
             transition: opacity 1s ease;
         }
@@ -488,6 +490,11 @@
         #reveal > *:not(#reveal-bg):not(#reveal-mask):not(#reveal-darkness) {
             position: relative;
             z-index: 10;
+        }
+        
+        /* Z-Index pentru a asigura ca particulele sunt vizibile peste masca */
+        #main-background {
+            z-index: 1 !important; /* Crestut de la 0 la 1, acum e peste mask (z-index 3) */
         }
         
         #message { 
@@ -794,6 +801,57 @@
 
         .btn-celebrate:hover { transform: translateY(-3px) scale(1.02); }
         .btn-celebrate:active { transform: scale(0.98); }
+
+        /* ============================================
+           ANIMATII PENTRU TEXTUL REVEAL - NOU!
+           ============================================ */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.6), 0 0 30px rgba(212, 175, 55, 0.4);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(212, 175, 55, 1), 0 0 40px rgba(212, 175, 55, 0.8), 0 0 60px rgba(212, 175, 55, 0.6);
+            }
+        }
+
+        .reveal-text-animated {
+            opacity: 0;
+        }
+
+        .reveal-subtitle-animated {
+            opacity: 0;
+        }
+
+        .bianca-name-animated {
+            opacity: 0;
+            animation: none;
+        }
+
+        .reveal-subtitle-animated.glowing {
+            animation: glowPulse 2s ease-in-out infinite;
+        }
 
         /* ============================================
            STAR BUTTONS
@@ -1335,7 +1393,7 @@
         </div>
     </section>
 
-    <!-- SECTION 3: REVEAL - CU INALTIME MARE -->
+    <!-- SECTION 3: REVEAL - CORECTAT -->
     <section id="reveal" aria-labelledby="reveal-title">
         <!-- Background solid -->
         <div id="reveal-bg" aria-hidden="true"></div>
@@ -1388,18 +1446,24 @@
                 <p id="gift-hint" class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-amber-400/70 text-sm whitespace-nowrap opacity-0 transition-opacity">👆 Apasă pentru a deschide</p>
             </div>
             
-            <!-- Text revelat (apare dupa deschidere) -->
+            <!-- Text revelat (apare dupa deschidere) - CU ANIMATII -->
             <div id="reveal-text-content" class="hidden mt-8 px-4">
-                <h2 id="reveal-title" class="reveal-main-text font-serif text-white leading-tight font-light mb-6">
+                <!-- Text 1: Mesajul principal -->
+                <h2 id="reveal-title" class="reveal-main-text font-serif text-white leading-tight font-light mb-6 reveal-text-animated">
                     Pe <span class="text-gold-gradient font-semibold">3 Martie 2006</span>,<br>
                     Dumnezeu a decis că lumea<br>
                     are nevoie de mai multă <span class="italic text-rose-300">lumină</span>.
                 </h2>
-                <p class="font-serif text-xl md:text-4xl text-gray-200 italic reveal-subtitle mb-6">
+                
+                <!-- Text 2: Subtitlu -->
+                <p class="font-serif text-xl md:text-4xl text-gray-200 italic reveal-subtitle-animated mb-6">
                     Așa că te-a creat pe tine,<br>
-                    <span class="bianca-name text-gold-gradient not-italic font-bold block mt-4">Bianca</span>
+                    <!-- Text 3: Numele cu animatie speciala -->
+                    <span class="bianca-name text-gold-gradient not-italic font-bold block mt-4 bianca-name-animated">Bianca</span>
                 </p>
-                <button id="celebrate-btn" class="btn-celebrate cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                
+                <!-- Butonul cu animatie -->
+                <button id="celebrate-btn" class="btn-celebrate cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white reveal-text-animated">
                     <span aria-hidden="true">🥳</span>
                     <span>Celebrează</span>
                     <i class="fas fa-sparkles" aria-hidden="true"></i>
@@ -2186,7 +2250,7 @@
             createBatch();
         }
 
-        // CADOU REVEAL
+        // CADOU REVEAL - CU ANIMATII TEXT CORECTATE
         gsap.registerPlugin(ScrollTrigger);
         let giftAnimationTriggered = false, giftClicked = false;
 
@@ -2234,6 +2298,7 @@
             }
         }
 
+        // CORECTAT: Functia revealText cu animatii pentru fiecare element
         function revealText() {
             const revealContent = document.getElementById('reveal-content');
             const revealTextContent = document.getElementById('reveal-text-content');
@@ -2249,7 +2314,52 @@
             revealTextContent.classList.remove('hidden');
             revealTextContent.classList.add('animate-fade-in');
             
-            setTimeout(() => document.querySelectorAll('.text-gold-gradient').forEach(el => el.classList.add('glowing')), 600);
+            // ANIMATII: Textul apare cu staggered animation
+            if (CONFIG.prefersReducedMotion) {
+                // Daca prefers-reduced-motion, arata totul imediat
+                document.querySelectorAll('.reveal-text-animated, .reveal-subtitle-animated, .bianca-name-animated').forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                });
+            } else {
+                // Animație GSAP pentru fiecare element text
+                const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+                
+                // Text 1: Mesajul principal (fade in + rise up)
+                tl.to('#reveal-title', {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8
+                }, 0.3);
+                
+                // Text 2: Subtitlul (fade in + rise up, cu delay)
+                tl.to('.reveal-subtitle-animated', {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8
+                }, 0.6);
+                
+                // Text 3: Numele Bianca (scale up + glow)
+                tl.to('.bianca-name-animated', {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 1,
+                    ease: 'back.out(1.7)'
+                }, 0.9);
+                
+                // Butonul (fade in + rise up)
+                tl.to('#celebrate-btn', {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6
+                }, 1.2);
+                
+                // Adauga glow effect dupa ce textul e vizibil
+                tl.add(() => {
+                    document.querySelectorAll('.text-gold-gradient').forEach(el => el.classList.add('glowing'));
+                    document.querySelector('.reveal-subtitle-animated').classList.add('glowing');
+                }, '+=0.3');
+            }
         }
 
         function animateGiftOpen() {
