@@ -47,7 +47,7 @@
         button:focus:not(:focus-visible) { outline: none; }
 
         /* ============================================
-           BACKGROUND ANIMAT - PARTICULE SI ORBS
+           BACKGROUND ANIMAT - PARTICULE MULTIPLE
            ============================================ */
         #main-background {
             position: fixed;
@@ -64,8 +64,188 @@
         }
 
         /* ============================================
-           AMBIENT ORBS ANIMATI
+           PARTICULE ANIMATE - MULTE SI DIFERITE
            ============================================ */
+        
+        /* Container pentru toate particulele */
+        .particles-layer {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Stelute aurii clipitoare */
+        .particle-star {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            will-change: transform, opacity;
+        }
+
+        .particle-star::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 1) 0%, 
+                rgba(255, 215, 0, 0.8) 30%, 
+                rgba(212, 175, 55, 0.3) 60%, 
+                transparent 100%);
+        }
+
+        .particle-star.small::before {
+            box-shadow: 
+                0 0 4px 1px rgba(255, 255, 255, 0.8),
+                0 0 8px 2px rgba(255, 215, 0, 0.6);
+        }
+
+        .particle-star.medium::before {
+            box-shadow: 
+                0 0 6px 2px rgba(255, 255, 255, 0.9),
+                0 0 12px 4px rgba(255, 215, 0, 0.7),
+                0 0 18px 6px rgba(212, 175, 55, 0.4);
+        }
+
+        .particle-star.large::before {
+            box-shadow: 
+                0 0 8px 2px rgba(255, 255, 255, 1),
+                0 0 16px 5px rgba(255, 215, 0, 0.8),
+                0 0 24px 8px rgba(212, 175, 55, 0.5);
+        }
+
+        .particle-star.rose::before {
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 1) 0%, 
+                rgba(255, 182, 193, 0.9) 30%, 
+                rgba(183, 110, 121, 0.4) 60%, 
+                transparent 100%);
+            box-shadow: 
+                0 0 6px 2px rgba(255, 255, 255, 0.9),
+                0 0 12px 3px rgba(255, 182, 193, 0.7);
+        }
+
+        /* Animații pentru stele */
+        .star-twinkle {
+            animation: star-twinkle 3s ease-in-out infinite !important;
+        }
+
+        .star-twinkle-fast {
+            animation: star-twinkle 2s ease-in-out infinite !important;
+        }
+
+        .star-twinkle-slow {
+            animation: star-twinkle 4s ease-in-out infinite !important;
+        }
+
+        @keyframes star-twinkle {
+            0%, 100% { 
+                opacity: 0.4; 
+                transform: translateZ(0) scale(1); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: translateZ(0) scale(1.3); 
+            }
+        }
+
+        .star-float {
+            animation: star-float 8s ease-in-out infinite !important;
+        }
+
+        @keyframes star-float {
+            0%, 100% { 
+                transform: translateZ(0) translate(0, 0); 
+            }
+            25% { 
+                transform: translateZ(0) translate(10px, -15px); 
+            }
+            75% { 
+                transform: translateZ(0) translate(-8px, 10px); 
+            }
+        }
+
+        .star-firefly {
+            animation: star-firefly 5s ease-in-out infinite !important;
+        }
+
+        @keyframes star-firefly {
+            0%, 100% { 
+                opacity: 0.2; 
+                transform: translateZ(0) scale(0.7); 
+            }
+            25% { 
+                opacity: 1; 
+                transform: translateZ(0) scale(1.2); 
+            }
+            50% { 
+                opacity: 0.3; 
+                transform: translateZ(0) scale(0.9); 
+            }
+            75% { 
+                opacity: 0.9; 
+                transform: translateZ(0) scale(1.1); 
+            }
+        }
+
+        /* Particule de praf auriu */
+        .particle-dust {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                rgba(255, 215, 0, 0.6) 0%, 
+                rgba(212, 175, 55, 0.3) 50%, 
+                transparent 100%);
+            pointer-events: none;
+            will-change: transform, opacity;
+        }
+
+        .dust-float {
+            animation: dust-float linear infinite !important;
+        }
+
+        @keyframes dust-float {
+            0% { 
+                transform: translateY(100vh) translateX(0) rotate(0deg); 
+                opacity: 0; 
+            }
+            5% { 
+                opacity: 0.6; 
+            }
+            95% { 
+                opacity: 0.6; 
+            }
+            100% { 
+                transform: translateY(-100px) translateX(50px) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        .dust-drift {
+            animation: dust-drift 15s ease-in-out infinite !important;
+        }
+
+        @keyframes dust-drift {
+            0%, 100% { 
+                transform: translateZ(0) translate(0, 0); 
+                opacity: 0.4; 
+            }
+            25% { 
+                transform: translateZ(0) translate(20px, -10px); 
+                opacity: 0.7; 
+            }
+            50% { 
+                transform: translateZ(0) translate(-10px, 15px); 
+                opacity: 0.5; 
+            }
+            75% { 
+                transform: translateZ(0) translate(-15px, -5px); 
+                opacity: 0.8; 
+            }
+        }
+
+        /* Orbs ambient */
         .ambient-orb {
             position: absolute;
             border-radius: 50%;
@@ -76,143 +256,56 @@
 
         .orb-gold {
             background: radial-gradient(circle, 
-                rgba(212, 175, 55, 0.12) 0%, 
-                rgba(212, 175, 55, 0.03) 40%, 
+                rgba(212, 175, 55, 0.15) 0%, 
+                rgba(212, 175, 55, 0.05) 40%, 
                 transparent 70%);
             animation: orb-float-1 20s ease-in-out infinite !important;
         }
 
         .orb-rose {
             background: radial-gradient(circle, 
-                rgba(183, 110, 121, 0.1) 0%, 
-                rgba(183, 110, 121, 0.02) 40%, 
+                rgba(183, 110, 121, 0.12) 0%, 
+                rgba(183, 110, 121, 0.03) 40%, 
                 transparent 70%);
             animation: orb-float-2 25s ease-in-out infinite !important;
         }
 
         .orb-purple {
             background: radial-gradient(circle, 
-                rgba(138, 43, 226, 0.06) 0%, 
-                rgba(138, 43, 226, 0.01) 40%, 
+                rgba(138, 43, 226, 0.08) 0%, 
+                rgba(138, 43, 226, 0.02) 40%, 
                 transparent 70%);
             animation: orb-float-3 18s ease-in-out infinite !important;
         }
 
         .orb-center {
             background: radial-gradient(circle, 
-                rgba(212, 175, 55, 0.05) 0%, 
+                rgba(212, 175, 55, 0.08) 0%, 
                 transparent 60%);
             animation: orb-pulse 12s ease-in-out infinite !important;
         }
 
-        /* ============================================
-           DUST PARTICLES - USOARE SI FRUMOASE
-           ============================================ */
-        .dust-container {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .dust-particle {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            will-change: transform, opacity;
-            animation: dust-float linear infinite !important;
-        }
-
-        @keyframes dust-float {
-            0% { 
-                transform: translateY(100vh) translateX(0) scale(1); 
-                opacity: 0; 
-            }
-            10% { opacity: 0.4; }
-            90% { opacity: 0.4; }
-            100% { 
-                transform: translateY(-50px) translateX(30px) scale(0.5); 
-                opacity: 0; 
-            }
-        }
-
-        /* ============================================
-           TWINKLING STARS - MAI DISCRETE
-           ============================================ */
-        .star-bg {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 0.8) 0%, 
-                rgba(255, 215, 0, 0.4) 50%, 
-                transparent 100%);
-            pointer-events: none;
-            will-change: opacity;
-            animation: star-twinkle ease-in-out infinite !important;
-        }
-
-        @keyframes star-twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.8; }
-        }
-
-        /* ============================================
-           ANIMATII ORBS - GPU ACCELERATED
-           ============================================ */
         @keyframes orb-float-1 {
-            0%, 100% { 
-                transform: translateZ(0) translate(0, 0) scale(1); 
-                opacity: 0.5; 
-            }
-            25% { 
-                transform: translateZ(0) translate(5%, 3%) scale(1.1); 
-                opacity: 0.7; 
-            }
-            50% { 
-                transform: translateZ(0) translate(-3%, 6%) scale(1.05); 
-                opacity: 0.6; 
-            }
-            75% { 
-                transform: translateZ(0) translate(-6%, -3%) scale(1.15); 
-                opacity: 0.8; 
-            }
+            0%, 100% { transform: translateZ(0) translate(0, 0) scale(1); opacity: 0.5; }
+            25% { transform: translateZ(0) translate(5%, 3%) scale(1.1); opacity: 0.7; }
+            50% { transform: translateZ(0) translate(-3%, 6%) scale(1.05); opacity: 0.6; }
+            75% { transform: translateZ(0) translate(-6%, -3%) scale(1.15); opacity: 0.8; }
         }
 
         @keyframes orb-float-2 {
-            0%, 100% { 
-                transform: translateZ(0) translate(0, 0) scale(1); 
-                opacity: 0.4; 
-            }
-            33% { 
-                transform: translateZ(0) translate(-5%, 4%) scale(1.08); 
-                opacity: 0.6; 
-            }
-            66% { 
-                transform: translateZ(0) translate(3%, -5%) scale(0.95); 
-                opacity: 0.5; 
-            }
+            0%, 100% { transform: translateZ(0) translate(0, 0) scale(1); opacity: 0.4; }
+            33% { transform: translateZ(0) translate(-5%, 4%) scale(1.08); opacity: 0.6; }
+            66% { transform: translateZ(0) translate(3%, -5%) scale(0.95); opacity: 0.5; }
         }
 
         @keyframes orb-float-3 {
-            0%, 100% { 
-                transform: translateZ(0) scale(1); 
-                opacity: 0.3; 
-            }
-            50% { 
-                transform: translateZ(0) scale(1.2); 
-                opacity: 0.5; 
-            }
+            0%, 100% { transform: translateZ(0) scale(1); opacity: 0.3; }
+            50% { transform: translateZ(0) scale(1.2); opacity: 0.5; }
         }
 
         @keyframes orb-pulse {
-            0%, 100% { 
-                transform: translateZ(0) scale(0.9); 
-                opacity: 0.4; 
-            }
-            50% { 
-                transform: translateZ(0) scale(1.1); 
-                opacity: 0.6; 
-            }
+            0%, 100% { transform: translateZ(0) scale(0.9); opacity: 0.4; }
+            50% { transform: translateZ(0) scale(1.1); opacity: 0.6; }
         }
 
         /* ============================================
@@ -306,16 +399,17 @@
         }
 
         /* ============================================
-           SECTIUNI
+           SECTIUNI - CU MIN-HEIGHT MARE
            ============================================ */
         section {
             position: relative;
             z-index: 10;
-            min-height: auto;
+            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 50px 0;
+            padding: 60px 0;
         }
         
         section::before {
@@ -337,17 +431,23 @@
         
         #timeline { 
             background: rgba(23, 23, 23, 0.5) !important; 
-            padding: 50px 16px;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 60px 16px;
         }
         
         /* ============================================
-           REVEAL SECTION - CU MASKING CORECT
+           REVEAL SECTION - CU INALTIME MARE SI MASKING
            ============================================ */
         #reveal { 
             background: transparent !important; 
-            padding: 50px 16px;
-            min-height: auto;
-            overflow: hidden;
+            min-height: 180vh;
+            min-height: 180dvh;
+            padding: 80px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: visible;
         }
         
         /* Background solid pentru a acoperi continutul de dedesubt */
@@ -368,12 +468,12 @@
             inset: 0;
             background: linear-gradient(180deg, 
                 #050505 0%, 
-                rgba(10, 8, 8, 0.98) 15%, 
-                rgba(10, 8, 8, 0.98) 85%, 
+                rgba(10, 8, 8, 0.99) 15%, 
+                rgba(10, 8, 8, 0.99) 85%, 
                 #050505 100%);
-            z-index: 3;
+            z-index: 4;
             pointer-events: none;
-            transition: opacity 0.8s ease;
+            transition: opacity 1s ease;
         }
         
         #reveal-mask.hidden {
@@ -384,36 +484,53 @@
             background: transparent !important;
         }
         
+        /* Continutul din reveal trebuie sa fie centrat pe Gift */
+        #reveal > *:not(#reveal-bg):not(#reveal-mask):not(#reveal-darkness) {
+            position: relative;
+            z-index: 10;
+        }
+        
         #message { 
             background: rgba(26, 8, 12, 0.5) !important; 
-            padding: 50px 16px;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 60px 16px;
         }
         
         #timers { 
             background: rgba(0, 0, 0, 0.5) !important; 
-            padding: 50px 16px;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 60px 16px;
         }
         
         #joke { 
             background: rgba(38, 38, 38, 0.5) !important; 
-            padding: 50px 16px;
+            min-height: 80vh;
+            min-height: 80dvh;
+            padding: 60px 16px;
         }
         
         #secret { 
             background: rgba(0, 0, 0, 0.5) !important; 
-            padding: 50px 16px;
+            min-height: 80vh;
+            min-height: 80dvh;
+            padding: 60px 16px;
         }
         
         #review { 
             background: rgba(0, 0, 0, 0.5) !important; 
-            padding: 50px 16px;
+            min-height: 80vh;
+            min-height: 80dvh;
+            padding: 60px 16px;
         }
         
         footer { 
             background: rgba(0, 0, 0, 0.7) !important; 
-            padding: 32px 20px; 
+            padding: 40px 20px; 
             text-align: center; 
             border-top: 1px solid rgba(255, 255, 255, 0.05); 
+            min-height: auto;
         }
 
         /* ============================================
@@ -450,7 +567,7 @@
             display: none; 
             width: 100%; 
             text-align: center; 
-            margin-top: 30px; 
+            margin-top: 40px; 
         }
         #reveal-content.visible { display: block; }
 
@@ -458,7 +575,7 @@
             width: 100%; 
             max-width: 100%; 
             margin: 0 auto; 
-            padding: 10px 16px; 
+            padding: 20px 16px; 
             text-align: center; 
             position: relative; 
             z-index: 10; 
@@ -471,15 +588,15 @@
             transform: scale(0.5);
             position: relative;
             z-index: 20;
-            width: 130px;
-            height: 130px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto;
         }
         
         @media (min-width: 768px) {
             #gift-box {
-                width: 192px;
-                height: 192px;
+                width: 200px;
+                height: 200px;
             }
         }
 
@@ -493,8 +610,8 @@
 
         #gift-glow {
             position: absolute;
-            inset: -30px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
+            inset: -40px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.5) 0%, transparent 70%);
             border-radius: 50%;
             z-index: -1;
             animation: gift-glow 2s ease-in-out infinite;
@@ -504,7 +621,7 @@
 
         @keyframes gift-glow { 
             0%, 100% { transform: scale(1); opacity: 0.5; } 
-            50% { transform: scale(1.2); opacity: 0.8; } 
+            50% { transform: scale(1.3); opacity: 0.9; } 
         }
 
         #confetti-container, #light-rays-container {
@@ -538,15 +655,6 @@
 
         #reveal-darkness.fade-out { opacity: 0; }
 
-        .light-ray {
-            position: absolute;
-            width: 4px;
-            height: 100px;
-            background: linear-gradient(to bottom, rgba(212, 175, 55, 0.8), transparent);
-            transform-origin: top center;
-            pointer-events: none;
-        }
-
         .sparkle-1 { top: 5%; left: 0%; }
         .sparkle-2 { top: 15%; right: 5%; }
         .sparkle-3 { bottom: 25%; left: 5%; }
@@ -559,85 +667,85 @@
             bottom: 0; 
             left: 50%; 
             transform: translateX(-50%);
-            width: 90px !important;
-            height: 70px !important;
+            width: 100px !important;
+            height: 80px !important;
         }
         
         @media (min-width: 768px) {
             #gift-box-body {
-                width: 144px !important;
-                height: 112px !important;
+                width: 160px !important;
+                height: 120px !important;
             }
         }
 
         #gift-lid {
-            width: 100px !important;
-            height: 28px !important;
+            width: 110px !important;
+            height: 30px !important;
         }
         
         @media (min-width: 768px) {
             #gift-lid {
-                width: 160px !important;
-                height: 40px !important;
+                width: 175px !important;
+                height: 45px !important;
             }
         }
 
         .gift-ribbon-vertical {
-            width: 18px !important;
-            height: 60px !important;
+            width: 20px !important;
+            height: 70px !important;
         }
         
         @media (min-width: 768px) {
             .gift-ribbon-vertical {
-                width: 25px !important;
-                height: 96px !important;
+                width: 28px !important;
+                height: 110px !important;
             }
         }
 
         #gift-ribbon {
-            width: 50px !important;
-            height: 35px !important;
+            width: 60px !important;
+            height: 40px !important;
         }
         
         @media (min-width: 768px) {
             #gift-ribbon {
-                width: 96px !important;
-                height: 48px !important;
+                width: 100px !important;
+                height: 55px !important;
             }
         }
 
         .reveal-subtitle {
-            font-size: 0.95rem !important;
+            font-size: 1rem !important;
             line-height: 1.5 !important;
         }
         
         @media (min-width: 768px) {
             .reveal-subtitle {
-                font-size: 1.875rem !important;
+                font-size: 2rem !important;
                 line-height: 1.4 !important;
             }
         }
 
         .reveal-main-text {
-            font-size: 1.1rem !important;
+            font-size: 1.2rem !important;
             line-height: 1.5 !important;
         }
         
         @media (min-width: 768px) {
             .reveal-main-text {
-                font-size: 2rem !important;
+                font-size: 2.2rem !important;
                 line-height: 1.3 !important;
             }
         }
 
         .bianca-name {
-            font-size: 2.5rem !important;
+            font-size: 3rem !important;
             line-height: 1.1 !important;
         }
         
         @media (min-width: 768px) {
             .bianca-name {
-                font-size: 5rem !important;
+                font-size: 5.5rem !important;
                 line-height: 1 !important;
             }
         }
@@ -647,30 +755,30 @@
             background: linear-gradient(135deg, rgba(183, 110, 121, 0.9), rgba(212, 175, 55, 0.9));
             border: 3px solid #ffffff;
             border-radius: 9999px;
-            padding: 12px 20px;
+            padding: 14px 24px;
             color: white;
             font-weight: 500;
             letter-spacing: 0.03em;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            min-width: 200px;
+            gap: 10px;
+            min-width: 220px;
             justify-content: center;
-            font-size: 0.875rem;
+            font-size: 1rem;
             box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.4), 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
             z-index: 10;
             cursor: pointer;
-            margin-top: 24px;
+            margin-top: 32px;
         }
         
         @media (min-width: 768px) {
             .btn-celebrate {
-                padding: 16px 32px;
-                min-width: 260px;
+                padding: 18px 36px;
+                min-width: 280px;
                 font-size: 1.125rem;
                 gap: 12px;
-                margin-top: 64px;
+                margin-top: 72px;
             }
         }
 
@@ -696,13 +804,13 @@
             background: none;
             border: none;
             color: #374151;
-            font-size: 2rem !important;
-            padding: 6px !important;
+            font-size: 2.2rem !important;
+            padding: 8px !important;
         }
         
         @media (min-width: 768px) {
             .star-btn {
-                font-size: 3rem !important;
+                font-size: 3.5rem !important;
                 padding: 12px !important;
             }
         }
@@ -753,32 +861,22 @@
 
         #sound-toggle {
             position: fixed;
-            bottom: 16px;
-            right: 16px;
-            width: 46px;
-            height: 46px;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(212, 175, 55, 0.3);
             color: #D4AF37;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-        }
-        
-        @media (min-width: 768px) {
-            #sound-toggle {
-                bottom: 20px;
-                right: 20px;
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
         }
 
         #sound-toggle:hover { background: rgba(212, 175, 55, 0.2); transform: scale(1.1); }
@@ -820,7 +918,7 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
             border: 2px solid transparent;
             border-radius: 16px;
-            padding: 16px 28px;
+            padding: 20px 36px;
             cursor: pointer;
             overflow: hidden;
             transition: all 0.4s ease;
@@ -859,14 +957,14 @@
         }
 
         .secret-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
             animation: secret-pulse 2s ease-in-out infinite;
         }
 
         @keyframes secret-pulse {
             0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5)); }
-            50% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8)); }
+            50% { transform: scale(1.15); filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.9)); }
         }
 
         /* ============================================
@@ -875,12 +973,12 @@
         .warning-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 10000;
             display: none;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
         .warning-overlay.active {
@@ -889,32 +987,32 @@
 
         .warning-modal {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 20px;
-            padding: 24px 20px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 24px;
+            padding: 32px 28px;
             max-width: 90%;
             margin: 20px;
             text-align: center;
             position: relative;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-            animation: modal-appear 0.3s ease-out;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.2);
+            animation: modal-appear 0.4s ease-out;
         }
 
         @keyframes modal-appear {
-            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            0% { opacity: 0; transform: scale(0.85) translateY(30px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        .warning-icon { font-size: 2.5rem; margin-bottom: 12px; }
-        .warning-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #D4AF37; margin-bottom: 10px; }
-        .warning-text { color: #b0b0b0; font-size: 0.85rem; line-height: 1.6; margin-bottom: 16px; }
+        .warning-icon { font-size: 3rem; margin-bottom: 16px; }
+        .warning-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #D4AF37; margin-bottom: 14px; }
+        .warning-text { color: #c0c0c0; font-size: 1rem; line-height: 1.7; margin-bottom: 24px; }
         .warning-text strong { color: #D4AF37; }
-        .warning-buttons { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-        .btn-warning { padding: 10px 18px; border-radius: 25px; font-weight: 500; cursor: pointer; transition: all 0.3s ease; border: none; font-size: 0.85rem; }
+        .warning-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn-warning { padding: 14px 24px; border-radius: 30px; font-weight: 500; cursor: pointer; transition: all 0.3s ease; border: none; font-size: 1rem; }
         .btn-warning-open { background: linear-gradient(135deg, #D4AF37, #B8962E); color: #1a1a2e; }
-        .btn-warning-open:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
-        .btn-warning-cancel { background: rgba(255, 255, 255, 0.05); color: #888; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .btn-warning-cancel:hover { background: rgba(255, 255, 255, 0.1); color: #bbb; }
+        .btn-warning-open:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(212, 175, 55, 0.5); }
+        .btn-warning-cancel { background: rgba(255, 255, 255, 0.08); color: #999; border: 1px solid rgba(255, 255, 255, 0.15); }
+        .btn-warning-cancel:hover { background: rgba(255, 255, 255, 0.15); color: #ccc; }
 
         /* ============================================
            SECRET MESSAGE
@@ -922,13 +1020,12 @@
         .secret-message-container {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.96);
             z-index: 10001;
             display: none;
             align-items: flex-start;
             justify-content: center;
-            padding: 20px;
-            padding-top: 30px;
+            padding: 30px 20px;
             overflow-y: auto;
         }
 
@@ -936,46 +1033,46 @@
 
         .secret-message-content {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a0a2e 100%);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 20px;
-            padding: 20px 16px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 24px;
+            padding: 32px 24px;
             max-width: 100%;
             width: 100%;
             overflow-y: auto;
             position: relative;
-            box-shadow: 0 0 80px rgba(212, 175, 55, 0.15);
+            box-shadow: 0 0 100px rgba(212, 175, 55, 0.2);
         }
 
         .secret-message-content::-webkit-scrollbar { width: 6px; }
         .secret-message-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
         .secret-message-content::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
-        .secret-message-icon { font-size: 2.5rem; margin-bottom: 12px; text-align: center; }
-        .secret-message-body { color: #e0e0e0; font-size: 0.9rem; line-height: 1.7; text-align: left; }
-        .secret-message-body p { margin-bottom: 12px; }
+        .secret-message-icon { font-size: 3rem; margin-bottom: 16px; text-align: center; }
+        .secret-message-body { color: #e8e8e8; font-size: 1.05rem; line-height: 1.9; text-align: left; }
+        .secret-message-body p { margin-bottom: 16px; }
         .secret-message-body .highlight { color: #D4AF37; font-weight: 500; }
         .secret-message-body .emoji { font-size: 1.2em; vertical-align: middle; }
-        .secret-message-footer { text-align: center; margin-top: 20px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .secret-message-footer { text-align: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
         .secret-message-close {
-            background: rgba(255, 255, 255, 0.1);
-            color: #999;
-            padding: 10px 18px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.12);
+            color: #bbb;
+            padding: 14px 28px;
+            border-radius: 25px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.85rem;
+            font-size: 1rem;
         }
-        .secret-message-close:hover { background: rgba(255, 255, 255, 0.2); color: white; }
+        .secret-message-close:hover { background: rgba(255, 255, 255, 0.22); color: white; }
 
         /* ============================================
            TIMELINE
            ============================================ */
         .timeline-content {
-            padding-left: 36px !important;
+            padding-left: 44px !important;
         }
         
         .timeline-dot {
-            left: 10px !important;
+            left: 14px !important;
         }
         
         .timeline-icon {
@@ -983,7 +1080,7 @@
         }
         
         .timeline-year {
-            font-size: 1.75rem !important;
+            font-size: 2rem !important;
             line-height: 1.2 !important;
         }
         
@@ -1001,71 +1098,72 @@
             }
             
             .timeline-year {
-                font-size: 3.5rem !important;
+                font-size: 4rem !important;
             }
         }
 
         .timeline-line {
-            left: 14px !important;
-            width: 1px;
+            left: 18px !important;
+            width: 2px;
         }
         
         @media (min-width: 768px) {
             .timeline-line {
                 left: 50% !important;
+                width: 1px;
             }
         }
 
         .timeline-title {
-            font-size: 1.25rem !important;
+            font-size: 1.5rem !important;
         }
 
         /* ============================================
            MESSAGE SECTION
            ============================================ */
         .message-quote {
-            font-size: 1.1rem !important;
+            font-size: 1.3rem !important;
             line-height: 1.5 !important;
         }
         
         @media (min-width: 768px) {
             .message-quote {
-                font-size: 1.875rem !important;
-                line-height: 1.4 !important;
+                font-size: 2.2rem !important;
+                line-height: 1.35 !important;
             }
         }
         
         .message-text {
-            font-size: 0.9rem !important;
-            line-height: 1.65 !important;
+            font-size: 1.05rem !important;
+            line-height: 1.75 !important;
         }
         
         @media (min-width: 768px) {
             .message-text {
-                font-size: 1.125rem !important;
-                line-height: 1.8 !important;
+                font-size: 1.25rem !important;
+                line-height: 1.85 !important;
             }
         }
         
         .message-age {
-            font-size: 1.1rem !important;
+            font-size: 1.3rem !important;
         }
         
         @media (min-width: 768px) {
             .message-age {
-                font-size: 1.5rem !important;
+                font-size: 1.75rem !important;
             }
         }
 
         .glass-panel {
-            padding: 20px 14px !important;
-            border-radius: 16px !important;
+            padding: 28px 20px !important;
+            border-radius: 20px !important;
         }
         
         @media (min-width: 768px) {
             .glass-panel {
-                padding: 40px 32px !important;
-                border-radius: 24px !important;
+                padding: 48px 40px !important;
+                border-radius: 28px !important;
             }
         }
 
@@ -1074,57 +1172,57 @@
            ============================================ */
         .timer-grid {
             grid-template-columns: repeat(4, 1fr) !important;
-            gap: 6px !important;
+            gap: 8px !important;
         }
         
         .timer-number {
-            font-size: 1.25rem !important;
+            font-size: 1.5rem !important;
         }
         
         .timer-box-inner {
-            padding: 8px 4px !important;
+            padding: 12px 6px !important;
         }
         
         @media (min-width: 768px) {
             .timer-grid {
-                gap: 12px !important;
+                gap: 14px !important;
             }
             
             .timer-number {
-                font-size: 1.875rem !important;
+                font-size: 2.2rem !important;
             }
             
             .timer-box-inner {
-                padding: 16px !important;
+                padding: 20px !important;
             }
         }
         
         .timer-box {
-            padding: 16px 10px !important;
+            padding: 20px 14px !important;
         }
 
         /* ============================================
            JOKE SECTION
            ============================================ */
         .joke-panel {
-            padding: 16px 12px !important;
+            padding: 24px 18px !important;
         }
         
         @media (min-width: 768px) {
             .joke-panel {
-                padding: 32px 48px !important;
+                padding: 40px 56px !important;
             }
         }
         
         .joke-title {
-            font-size: 1.1rem !important;
+            font-size: 1.3rem !important;
         }
 
         /* ============================================
            SECRET SECTION
            ============================================ */
         .secret-title {
-            font-size: 1.25rem !important;
+            font-size: 1.5rem !important;
             line-height: 1.4 !important;
         }
 
@@ -1132,24 +1230,24 @@
            REVIEW SECTION
            ============================================ */
         .review-title {
-            font-size: 1.25rem !important;
-            margin-bottom: 16px !important;
+            font-size: 1.5rem !important;
+            margin-bottom: 24px !important;
             line-height: 1.4 !important;
         }
         
         .review-message {
-            min-height: 70px !important;
+            min-height: 100px !important;
         }
 
         /* ============================================
            FOOTER
            ============================================ */
         footer {
-            padding: 28px 16px !important;
+            padding: 48px 20px !important;
         }
         
         footer .font-serif {
-            font-size: 0.95rem !important;
+            font-size: 1.2rem !important;
         }
     </style>
 </head>
@@ -1157,21 +1255,21 @@
 
     <a href="#main-content" class="skip-link">Sari la conținut</a>
 
-    <!-- BACKGROUND ANIMAT -->
+    <!-- BACKGROUND ANIMAT - CU MULTE PARTICULE -->
     <div id="main-background" aria-hidden="true">
         <div class="bg-base"></div>
         
         <!-- Orburi animati -->
-        <div class="ambient-orb orb-gold" style="width: 80vw; height: 80vw; top: -20%; left: -20%;"></div>
-        <div class="ambient-orb orb-rose" style="width: 70vw; height: 70vw; top: 30%; right: -25%; animation-delay: -8s;"></div>
-        <div class="ambient-orb orb-purple" style="width: 60vw; height: 60vw; bottom: 10%; left: -15%; animation-delay: -15s;"></div>
-        <div class="ambient-orb orb-center" style="width: 100vw; height: 100vh; top: 0; left: 0;"></div>
+        <div class="ambient-orb orb-gold" style="width: 100vw; height: 100vw; top: -30%; left: -30%;"></div>
+        <div class="ambient-orb orb-rose" style="width: 90vw; height: 90vw; top: 40%; right: -35%; animation-delay: -8s;"></div>
+        <div class="ambient-orb orb-purple" style="width: 80vw; height: 80vw; bottom: 20%; left: -25%; animation-delay: -15s;"></div>
+        <div class="ambient-orb orb-center" style="width: 120vw; height: 120vh; top: 0; left: -10vw;"></div>
         
-        <!-- Dust particles container -->
-        <div class="dust-container" id="dust-container"></div>
-        
-        <!-- Stars container -->
+        <!-- Container pentru stele -->
         <div class="stars-container" id="stars-container" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none;"></div>
+        
+        <!-- Container pentru praf -->
+        <div class="dust-container" id="dust-container" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none;"></div>
     </div>
 
     <div id="star-confetti-container" class="particle-container" aria-hidden="true"></div>
@@ -1188,10 +1286,10 @@
     <section id="intro" aria-labelledby="intro-title">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-rose-900/20 via-black to-black" aria-hidden="true"></div>
         <div id="main-content" class="relative z-10 max-w-xl mx-auto px-5 text-center w-full">
-            <h1 id="intro-title" class="intro-text font-serif text-gray-100 mb-6 opacity-0 px-2">
+            <h1 id="intro-title" class="intro-text font-serif text-gray-100 mb-8 opacity-0 px-2">
                 Istoria este plină de momente mari...
             </h1>
-            <button onclick="smoothScrollTo('timeline')" class="intro-text px-5 py-2.5 rounded-full bg-white/5 border border-white/20 text-white/80 hover:bg-white/10 hover:border-rose-400/50 transition-all opacity-0 backdrop-blur-sm cursor-pointer text-sm">
+            <button onclick="smoothScrollTo('timeline')" class="intro-text px-6 py-3 rounded-full bg-white/5 border border-white/20 text-white/80 hover:bg-white/10 hover:border-rose-400/50 transition-all opacity-0 backdrop-blur-sm cursor-pointer text-base">
                 Descoperă <i class="fas fa-arrow-down ml-2 text-rose-400" aria-hidden="true"></i>
             </button>
         </div>
@@ -1199,113 +1297,115 @@
 
     <!-- SECTION 2: TIMELINE -->
     <section id="timeline" aria-labelledby="timeline-title">
-        <div class="max-w-4xl mx-auto w-full px-4">
-            <div class="text-center mb-8">
-                <h2 id="timeline-title" class="font-serif timeline-title text-gold-gradient mb-2">3 Martie în Istorie</h2>
+        <div class="max-w-4xl mx-auto w-full px-5">
+            <div class="text-center mb-12">
+                <h2 id="timeline-title" class="font-serif timeline-title text-gold-gradient mb-3">3 Martie în Istorie</h2>
                 <p class="text-rose-300/60 text-xs tracking-widest uppercase">Momente care au definit lumea</p>
             </div>
-            <div class="relative space-y-8" role="list">
-                <div class="timeline-line absolute top-0 bottom-0 bg-gradient-to-b from-transparent via-rose-400/50 to-transparent shadow-[0_0_10px_rgba(244,63,94,0.3)]" aria-hidden="true"></div>
+            <div class="relative space-y-12" role="list">
+                <div class="timeline-line absolute top-0 bottom-0 bg-gradient-to-b from-transparent via-rose-400/50 to-transparent shadow-[0_0_15px_rgba(244,63,94,0.4)]" aria-hidden="true"></div>
                 
                 <div class="timeline-item relative timeline-content opacity-0 group" role="listitem">
                     <div>
-                        <span class="timeline-year font-serif text-rose-400/80 font-bold block mb-1">1847</span>
-                        <h3 class="text-base text-white font-light">Alexander Graham Bell</h3>
-                        <p class="text-gray-400 text-xs mt-1 leading-relaxed">Inventatorul telefonului se naște.</p>
+                        <span class="timeline-year font-serif text-rose-400/80 font-bold block mb-2">1847</span>
+                        <h3 class="text-lg text-white font-light">Alexander Graham Bell</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">Inventatorul telefonului se naște.</p>
                     </div>
-                    <div class="timeline-dot absolute top-1 w-2.5 h-2.5 bg-rose-400 rounded-full shadow-[0_0_10px_rgba(244,63,94,0.8)] ring-3 ring-rose-900/50 -translate-x-1/2" aria-hidden="true"></div>
+                    <div class="timeline-dot absolute top-2 w-3 h-3 bg-rose-400 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.8)] ring-4 ring-rose-900/50 -translate-x-1/2" aria-hidden="true"></div>
                 </div>
                 
                 <div class="timeline-item relative timeline-content opacity-0 group" role="listitem">
                     <div>
-                        <span class="timeline-year font-serif text-rose-400/80 font-bold block mb-1">1923</span>
-                        <h3 class="text-base text-white font-light">Revista TIME</h3>
-                        <p class="text-gray-400 text-xs mt-1 leading-relaxed">Primul număr al celei mai influente publicații.</p>
+                        <span class="timeline-year font-serif text-rose-400/80 font-bold block mb-2">1923</span>
+                        <h3 class="text-lg text-white font-light">Revista TIME</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">Primul număr al celei mai influente publicații.</p>
                     </div>
-                    <div class="timeline-dot absolute top-1 w-2.5 h-2.5 bg-rose-400 rounded-full shadow-[0_0_10px_rgba(244,63,94,0.8)] ring-3 ring-rose-900/50 -translate-x-1/2" aria-hidden="true"></div>
+                    <div class="timeline-dot absolute top-2 w-3 h-3 bg-rose-400 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.8)] ring-4 ring-rose-900/50 -translate-x-1/2" aria-hidden="true"></div>
                 </div>
                 
                 <div class="timeline-item relative timeline-content opacity-0 group" role="listitem">
                     <div>
-                        <span class="timeline-year font-serif text-rose-400/80 font-bold block mb-1">1931</span>
-                        <h3 class="text-base text-white font-light">The Star-Spangled Banner</h3>
-                        <p class="text-gray-400 text-xs mt-1 leading-relaxed">Devine imnul național al SUA.</p>
+                        <span class="timeline-year font-serif text-rose-400/80 font-bold block mb-2">1931</span>
+                        <h3 class="text-lg text-white font-light">The Star-Spangled Banner</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">Devine imnul național al SUA.</p>
                     </div>
-                    <div class="timeline-dot absolute top-1 w-2.5 h-2.5 bg-rose-400 rounded-full shadow-[0_0_10px_rgba(244,63,94,0.8)] ring-3 ring-rose-900/50 -translate-x-1/2" aria-hidden="true"></div>
+                    <div class="timeline-dot absolute top-2 w-3 h-3 bg-rose-400 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.8)] ring-4 ring-rose-900/50 -translate-x-1/2" aria-hidden="true"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 3: REVEAL - CU MASKING -->
+    <!-- SECTION 3: REVEAL - CU INALTIME MARE -->
     <section id="reveal" aria-labelledby="reveal-title">
-        <!-- Background solid pentru a acoperi continutul -->
+        <!-- Background solid -->
         <div id="reveal-bg" aria-hidden="true"></div>
         
-        <!-- Mask pentru a ascunde continutul cand cadoul e inchis -->
+        <!-- Mask pentru a ascunde continutul -->
         <div id="reveal-mask" aria-hidden="true"></div>
         
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,_rgba(183,110,121,0.15),_transparent_50%)]" aria-hidden="true"></div>
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,_rgba(212,175,55,0.1),_transparent_50%)]" aria-hidden="true"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,_rgba(183,110,121,0.2),_transparent_50%)]" aria-hidden="true"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,_rgba(212,175,55,0.15),_transparent_50%)]" aria-hidden="true"></div>
         <div id="reveal-darkness" aria-hidden="true"></div>
+        
+        <!-- Continut revelat -->
+        <div id="reveal-content" aria-live="polite">
+            <div class="mb-6">
+                <span class="text-rose-400 text-xs tracking-[0.4em] uppercase font-light">Dar adevărata minune...</span>
+            </div>
+        </div>
+        
         <div id="gift-container">
             <!-- Cutia de cadou -->
             <div id="gift-box" role="button" aria-label="Deschide cadoul" tabindex="0">
                 <div id="gift-glow" aria-hidden="true"></div>
                 <div id="gift-box-body" class="absolute bottom-0 left-1/2 -translate-x-1/2">
-                    <div class="absolute bottom-0 w-full h-full bg-gradient-to-br from-rose-500 to-rose-700 rounded-lg shadow-2xl">
-                        <div class="absolute inset-0 bg-gradient-to-br from-rose-500 to-rose-700 rounded-lg">
-                            <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-amber-400 to-transparent" aria-hidden="true"></div>
+                    <div class="absolute bottom-0 w-full h-full bg-gradient-to-br from-rose-500 to-rose-700 rounded-xl shadow-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-br from-rose-500 to-rose-700 rounded-xl">
+                            <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-3 bg-gradient-to-r from-transparent via-amber-400 to-transparent" aria-hidden="true"></div>
                         </div>
                     </div>
-                    <div id="gift-lid" class="absolute -top-1 left-1/2 -translate-x-1/2 origin-bottom">
-                        <div class="w-full h-full bg-gradient-to-br from-rose-400 to-rose-600 rounded-lg shadow-xl">
-                            <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-amber-400 to-transparent" aria-hidden="true"></div>
+                    <div id="gift-lid" class="absolute -top-2 left-1/2 -translate-x-1/2 origin-bottom">
+                        <div class="w-full h-full bg-gradient-to-br from-rose-400 to-rose-600 rounded-xl shadow-xl">
+                            <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-3 bg-gradient-to-r from-transparent via-amber-400 to-transparent" aria-hidden="true"></div>
                         </div>
                     </div>
                     <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 gift-ribbon-vertical bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 rounded-sm shadow-lg z-10" aria-hidden="true">
-                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-5 bg-amber-400 rounded-b-full"></div>
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-6 bg-amber-400 rounded-b-full"></div>
                     </div>
-                    <svg id="gift-ribbon" class="absolute -top-3 left-1/2 -translate-x-1/2" viewBox="0 0 80 40" aria-hidden="true">
+                    <svg id="gift-ribbon" class="absolute -top-4 left-1/2 -translate-x-1/2" viewBox="0 0 80 40" aria-hidden="true">
                         <path d="M10 35 Q20 5 40 15 Q60 5 70 35" stroke="#FBBF24" stroke-width="4" fill="none" stroke-linecap="round"/>
                     </svg>
                 </div>
                 <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-                    <span class="gift-sparkle sparkle-1 absolute w-1.5 h-1.5 bg-amber-300 rounded-full"></span>
-                    <span class="gift-sparkle sparkle-2 absolute w-1 h-1 bg-rose-300 rounded-full"></span>
-                    <span class="gift-sparkle sparkle-3 absolute w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
-                    <span class="gift-sparkle sparkle-4 absolute w-1 h-1 bg-rose-400 rounded-full"></span>
-                    <span class="gift-sparkle sparkle-5 absolute w-1.5 h-1.5 bg-amber-300 rounded-full"></span>
-                    <span class="gift-sparkle sparkle-6 absolute w-1 h-1 bg-rose-300 rounded-full"></span>
-                    <span class="gift-sparkle sparkle-7 absolute w-1 h-1 bg-amber-400 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-1 absolute w-2 h-2 bg-amber-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-2 absolute w-1.5 h-1.5 bg-rose-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-3 absolute w-2 h-2 bg-amber-400 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-4 absolute w-1.5 h-1.5 bg-rose-400 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-5 absolute w-2 h-2 bg-amber-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-6 absolute w-1.5 h-1.5 bg-rose-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-7 absolute w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
                 </div>
-                <p id="gift-hint" class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-amber-400/60 text-xs whitespace-nowrap opacity-0 transition-opacity">👆 Click pentru a deschide</p>
+                <p id="gift-hint" class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-amber-400/70 text-sm whitespace-nowrap opacity-0 transition-opacity">👆 Apasă pentru a deschide</p>
             </div>
             
-            <!-- Continut revelat -->
-            <div id="reveal-content" aria-live="polite">
-                <div class="mb-4">
-                    <span class="text-rose-400 text-xs tracking-[0.3em] uppercase font-light">Dar adevărata minune...</span>
-                </div>
-                <div class="mt-4">
-                    <h2 id="reveal-title" class="reveal-main-text font-serif text-white leading-tight font-light">
-                        Pe <span class="text-gold-gradient font-semibold">3 Martie 2006</span>,<br>
-                        Dumnezeu a decis că lumea<br>
-                        are nevoie de mai multă <span class="italic text-rose-300">lumină</span>.
-                    </h2>
-                </div>
-                <div class="mt-6">
-                    <p class="font-serif text-lg md:text-3xl text-gray-200 italic reveal-subtitle">
-                        Așa că te-a creat pe tine,<br>
-                        <span class="bianca-name text-gold-gradient not-italic font-bold block mt-3">Bianca</span>
-                    </p>
-                </div>
+            <!-- Text revelat (apare dupa deschidere) -->
+            <div id="reveal-text-content" class="hidden mt-8 px-4">
+                <h2 id="reveal-title" class="reveal-main-text font-serif text-white leading-tight font-light mb-6">
+                    Pe <span class="text-gold-gradient font-semibold">3 Martie 2006</span>,<br>
+                    Dumnezeu a decis că lumea<br>
+                    are nevoie de mai multă <span class="italic text-rose-300">lumină</span>.
+                </h2>
+                <p class="font-serif text-xl md:text-4xl text-gray-200 italic reveal-subtitle mb-6">
+                    Așa că te-a creat pe tine,<br>
+                    <span class="bianca-name text-gold-gradient not-italic font-bold block mt-4">Bianca</span>
+                </p>
                 <button id="celebrate-btn" class="btn-celebrate cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
                     <span aria-hidden="true">🥳</span>
                     <span>Celebrează</span>
                     <i class="fas fa-sparkles" aria-hidden="true"></i>
                 </button>
             </div>
+            
             <div id="confetti-container" aria-hidden="true"></div>
             <div id="light-rays-container" aria-hidden="true"></div>
         </div>
@@ -1314,29 +1414,29 @@
 
     <!-- SECTION 4: MESSAGE -->
     <section id="message" aria-labelledby="message-title">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,_rgba(212,175,55,0.1),_transparent_60%)]" aria-hidden="true"></div>
-        <div class="max-w-3xl mx-auto px-4 text-center relative z-10 w-full">
-            <div class="message-anim opacity-0 transform scale-95 mb-8">
-                <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-gradient-to-br from-rose-400/20 to-yellow-400/20 flex items-center justify-center border border-rose-400/30">
-                    <i class="fas fa-heart text-rose-300 text-xl" aria-hidden="true"></i>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,_rgba(212,175,55,0.15),_transparent_60%)]" aria-hidden="true"></div>
+        <div class="max-w-3xl mx-auto px-5 text-center relative z-10 w-full">
+            <div class="message-anim opacity-0 transform scale-95 mb-10">
+                <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-rose-400/20 to-yellow-400/20 flex items-center justify-center border border-rose-400/30">
+                    <i class="fas fa-heart text-rose-300 text-2xl" aria-hidden="true"></i>
                 </div>
-                <blockquote class="message-quote font-serif text-white leading-relaxed mb-3 font-light">
+                <blockquote class="message-quote font-serif text-white leading-relaxed mb-4 font-light">
                     „Te laud că sunt o <span class="text-gold-gradient font-normal">făptură</span><br>
                     atât de minunată!"
                 </blockquote>
-                <cite class="text-rose-300/80 text-xs tracking-[0.15em] uppercase not-italic">Psalmul 139:14</cite>
+                <cite class="text-rose-300/80 text-xs tracking-[0.2em] uppercase not-italic">Psalmul 139:14</cite>
             </div>
             
-            <div class="message-anim opacity-0 transform translate-y-4">
+            <div class="message-anim opacity-0 transform translate-y-6">
                 <div class="glass-panel relative overflow-hidden">
                     <div class="absolute inset-0 shimmer opacity-20" aria-hidden="true"></div>
                     <div class="relative z-10">
                         <p class="message-text text-gray-200 leading-relaxed font-light">
                             La <span class="text-gold-gradient font-semibold message-age">20 de ani</span>, nu este doar o schimbare de prefix.<br>
                             Este împlinirea unei <span class="text-rose-300">promisiuni divine</span> —<br>
-                            <span class="block mt-2 text-white/90">20 de ani de binecuvântări, de har, și de lumină pe care ai adus-o în lume.</span>
+                            <span class="block mt-3 text-white/90">20 de ani de binecuvântări, de har, și de lumină pe care ai adus-o în lume.</span>
                         </p>
-                        <div class="mt-4 flex justify-center gap-4 text-2xl" aria-hidden="true">
+                        <div class="mt-6 flex justify-center gap-5 text-3xl" aria-hidden="true">
                             <span class="animate-bounce" style="animation-delay: 0s">✨</span>
                             <span class="animate-bounce" style="animation-delay: 0.2s">🌹</span>
                             <span class="animate-bounce" style="animation-delay: 0.4s">✨</span>
@@ -1349,60 +1449,60 @@
 
     <!-- SECTION 5: TIMERS -->
     <section id="timers" aria-labelledby="timers-title">
-        <div class="max-w-5xl mx-auto px-3 w-full">
-            <h2 id="timers-title" class="text-center font-serif text-xl md:text-3xl text-gold-gradient mb-2">Timpul și Minunea</h2>
-            <div class="w-20 md:w-32 h-px bg-gradient-to-r from-transparent via-rose-400/50 to-transparent mx-auto mb-6" aria-hidden="true"></div>
-            <div class="space-y-4 md:grid md:grid-cols-2 md:gap-4 md:space-y-0">
-                <div class="timer-box glass-panel rounded-xl text-center opacity-0 transform translate-y-4 border border-rose-400/10" role="group">
-                    <div class="w-10 h-10 md:w-14 md:h-14 mx-auto mb-3 rounded-xl bg-gradient-to-br from-rose-400/10 to-transparent flex items-center justify-center border border-rose-400/20">
-                        <i class="fas fa-hourglass-half text-rose-400 text-sm md:text-xl" aria-hidden="true"></i>
+        <div class="max-w-5xl mx-auto px-4 w-full">
+            <h2 id="timers-title" class="text-center font-serif text-2xl md:text-4xl text-gold-gradient mb-3">Timpul și Minunea</h2>
+            <div class="w-28 md:w-40 h-px bg-gradient-to-r from-transparent via-rose-400/50 to-transparent mx-auto mb-10" aria-hidden="true"></div>
+            <div class="space-y-6 md:grid md:grid-cols-2 md:gap-6 md:space-y-0">
+                <div class="timer-box glass-panel rounded-2xl text-center opacity-0 transform translate-y-6 border border-rose-400/10" role="group">
+                    <div class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-rose-400/10 to-transparent flex items-center justify-center border border-rose-400/20">
+                        <i class="fas fa-hourglass-half text-rose-400 text-lg md:text-2xl" aria-hidden="true"></i>
                     </div>
-                    <h3 class="text-gray-400 text-[10px] uppercase tracking-[0.15em] mb-3">De când există minunea</h3>
+                    <h3 class="text-gray-400 text-[11px] uppercase tracking-[0.2em] mb-5">De când există minunea</h3>
                     <div class="timer-grid">
-                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                        <div class="timer-box-inner bg-black/40 rounded-xl border border-white/5">
                             <div class="timer-number font-bold text-gold-gradient font-serif" id="years">0</div>
-                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Ani</div>
+                            <div class="text-[9px] text-gray-500 mt-1 uppercase">Ani</div>
                         </div>
-                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                        <div class="timer-box-inner bg-black/40 rounded-xl border border-white/5">
                             <div class="timer-number font-bold text-gold-gradient font-serif" id="months">0</div>
-                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Luni</div>
+                            <div class="text-[9px] text-gray-500 mt-1 uppercase">Luni</div>
                         </div>
-                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                        <div class="timer-box-inner bg-black/40 rounded-xl border border-white/5">
                             <div class="timer-number font-bold text-gold-gradient font-serif" id="days">0</div>
-                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Zile</div>
+                            <div class="text-[9px] text-gray-500 mt-1 uppercase">Zile</div>
                         </div>
-                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                        <div class="timer-box-inner bg-black/40 rounded-xl border border-white/5">
                             <div class="timer-number font-bold text-rose-400 font-serif" id="seconds">0</div>
-                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Sec</div>
+                            <div class="text-[9px] text-gray-500 mt-1 uppercase">Sec</div>
                         </div>
                     </div>
-                    <div class="mt-2 text-rose-300/40 text-[10px]" aria-hidden="true">03.03.2006</div>
+                    <div class="mt-3 text-rose-300/40 text-xs" aria-hidden="true">03.03.2006</div>
                 </div>
                 
-                <div class="timer-box glass-panel rounded-xl text-center opacity-0 transform translate-y-4 border border-yellow-400/10" role="group">
-                    <div class="w-10 h-10 md:w-14 md:h-14 mx-auto mb-3 rounded-xl bg-gradient-to-br from-yellow-400/10 to-transparent flex items-center justify-center border border-yellow-400/20">
-                        <i class="fas fa-gift text-gold text-sm md:text-xl" aria-hidden="true"></i>
+                <div class="timer-box glass-panel rounded-2xl text-center opacity-0 transform translate-y-6 border border-yellow-400/10" role="group">
+                    <div class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-yellow-400/10 to-transparent flex items-center justify-center border border-yellow-400/20">
+                        <i class="fas fa-gift text-gold text-lg md:text-2xl" aria-hidden="true"></i>
                     </div>
-                    <h3 class="text-gray-400 text-[10px] uppercase tracking-[0.15em] mb-3">Până la următoarea</h3>
+                    <h3 class="text-gray-400 text-[11px] uppercase tracking-[0.2em] mb-5">Până la următoarea</h3>
                     <div class="timer-grid">
-                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                        <div class="timer-box-inner bg-black/40 rounded-xl border border-white/5">
                             <div class="timer-number font-bold text-gold-gradient font-serif" id="cd-days">00</div>
-                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Zile</div>
+                            <div class="text-[9px] text-gray-500 mt-1 uppercase">Zile</div>
                         </div>
-                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                        <div class="timer-box-inner bg-black/40 rounded-xl border border-white/5">
                             <div class="timer-number font-bold text-gold-gradient font-serif" id="cd-hours">00</div>
-                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Ore</div>
+                            <div class="text-[9px] text-gray-500 mt-1 uppercase">Ore</div>
                         </div>
-                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                        <div class="timer-box-inner bg-black/40 rounded-xl border border-white/5">
                             <div class="timer-number font-bold text-gold-gradient font-serif" id="cd-minutes">00</div>
-                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Min</div>
+                            <div class="text-[9px] text-gray-500 mt-1 uppercase">Min</div>
                         </div>
-                        <div class="timer-box-inner bg-black/40 rounded-lg border border-white/5">
+                        <div class="timer-box-inner bg-black/40 rounded-xl border border-white/5">
                             <div class="timer-number font-bold text-rose-400 font-serif" id="cd-seconds">00</div>
-                            <div class="text-[8px] text-gray-500 mt-0.5 uppercase">Sec</div>
+                            <div class="text-[9px] text-gray-500 mt-1 uppercase">Sec</div>
                         </div>
                     </div>
-                    <div class="mt-2 text-yellow-300/40 text-[10px]" id="next-date" aria-live="polite">Următoarea aniversare</div>
+                    <div class="mt-3 text-yellow-300/40 text-xs" id="next-date" aria-live="polite">Următoarea aniversare</div>
                 </div>
             </div>
         </div>
@@ -1410,14 +1510,14 @@
 
     <!-- SECTION 6: JOKE -->
     <section id="joke" aria-labelledby="joke-title">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(212,175,55,0.05),_transparent_70%)]" aria-hidden="true"></div>
-        <div class="max-w-2xl mx-auto px-4 text-center relative z-10 w-full">
-            <div class="glass-panel rounded-xl p-5 border-l-4 border-yellow-400 joke-panel">
-                <i class="far fa-lightbulb text-yellow-400/40 text-xl mb-2 block" aria-hidden="true"></i>
-                <h3 id="joke-title" class="joke-title font-serif text-gold-gradient mb-2">O mică confesiune...</h3>
-                <p class="text-gray-300 text-sm mb-2 leading-relaxed">Mi-a venit ideea cam târziu, dar am zis că merită...</p>
-                <p class="text-rose-300 text-xs mb-3 font-light">Surprizele vin când nu te aștepți 😂</p>
-                <div class="flex justify-center gap-2 text-xl" aria-hidden="true">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(212,175,55,0.08),_transparent_70%)]" aria-hidden="true"></div>
+        <div class="max-w-2xl mx-auto px-5 text-center relative z-10 w-full">
+            <div class="glass-panel rounded-2xl p-6 border-l-4 border-yellow-400 joke-panel">
+                <i class="far fa-lightbulb text-yellow-400/40 text-3xl mb-4 block" aria-hidden="true"></i>
+                <h3 id="joke-title" class="joke-title font-serif text-gold-gradient mb-3">O mică confesiune...</h3>
+                <p class="text-gray-300 text-base mb-3 leading-relaxed">Mi-a venit ideea cam târziu, dar am zis că merită...</p>
+                <p class="text-rose-300 text-sm mb-4 font-light">Surprizele vin când nu te aștepți 😂</p>
+                <div class="flex justify-center gap-3 text-2xl" aria-hidden="true">
                     <span>⏰</span><span>💡</span><span>🎁</span>
                 </div>
             </div>
@@ -1426,43 +1526,43 @@
 
     <!-- SECTION 7: SECRET -->
     <section id="secret" aria-labelledby="secret-title">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(138, 43, 226, 0.1),_transparent_70%)]" aria-hidden="true"></div>
-        <div class="max-w-2xl mx-auto px-4 text-center relative z-10 w-full">
-            <h2 id="secret-title" class="secret-title font-serif text-gold-gradient mb-5 opacity-0 transform translate-y-3">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(138, 43, 226, 0.12),_transparent_70%)]" aria-hidden="true"></div>
+        <div class="max-w-2xl mx-auto px-5 text-center relative z-10 w-full">
+            <h2 id="secret-title" class="secret-title font-serif text-gold-gradient mb-8 opacity-0 transform translate-y-4">
                 Mai este ceva...
             </h2>
             
             <button id="secret-btn" class="secret-button cursor-pointer" aria-label="Deschide mesajul secret">
                 <div class="secret-icon">🔒</div>
-                <div class="text-white font-semibold text-sm">Mesaj Secret</div>
-                <div class="text-gray-500 text-xs mt-1">Tap pentru a descoperi</div>
+                <div class="text-white font-semibold text-base">Mesaj Secret</div>
+                <div class="text-gray-500 text-sm mt-2">Tap pentru a descoperi</div>
             </button>
         </div>
     </section>
 
     <!-- SECTION 8: REVIEW -->
     <section id="review" aria-labelledby="review-title">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(183,110,121,0.05),_transparent_70%)]" aria-hidden="true"></div>
-        <div class="max-w-2xl mx-auto px-4 text-center relative z-10 w-full">
-            <span class="text-2xl mb-3 block" aria-label="thinking emoji">🤔</span>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(183,110,121,0.08),_transparent_70%)]" aria-hidden="true"></div>
+        <div class="max-w-2xl mx-auto px-5 text-center relative z-10 w-full">
+            <span class="text-3xl mb-4 block" aria-label="thinking emoji">🤔</span>
             <h2 id="review-title" class="review-title font-serif text-white">Cum ți s-a părut surpriza?</h2>
-            <div class="flex justify-center gap-0.5" id="star-container" role="radiogroup" aria-label="Evaluare cu stele">
+            <div class="flex justify-center gap-1" id="star-container" role="radiogroup" aria-label="Evaluare cu stele">
                 <button class="star-btn" data-rating="1" aria-label="1 stea" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
                 <button class="star-btn" data-rating="2" aria-label="2 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
                 <button class="star-btn" data-rating="3" aria-label="3 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
                 <button class="star-btn" data-rating="4" aria-label="4 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
                 <button class="star-btn" data-rating="5" aria-label="5 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
             </div>
-            <div id="review-message" class="review-message min-h-[70px] flex items-center justify-center px-2 mt-4" role="status" aria-live="polite">
-                <p class="text-gray-500 italic font-light text-xs">Apasă pe stele pentru a spune cum te-ai simțit...</p>
+            <div id="review-message" class="review-message min-h-[100px] flex items-center justify-center px-4 mt-6" role="status" aria-live="polite">
+                <p class="text-gray-500 italic font-light text-sm">Apasă pe stele pentru a spune cum te-ai simțit...</p>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="text-center py-8 text-gray-600 text-xs border-t border-white/5 relative z-10">
-        <p class="font-serif text-sm text-gray-500 mb-1">Cu drag, pentru tine</p>
-        <div class="flex justify-center gap-2 text-lg" aria-hidden="true"><span>🤗</span><span>✨</span><span>🤗</span></div>
+    <footer class="text-center py-10 text-gray-600 text-sm border-t border-white/5 relative z-10">
+        <p class="font-serif text-base text-gray-500 mb-2">Cu drag, pentru tine</p>
+        <div class="flex justify-center gap-3 text-2xl" aria-hidden="true"><span>🤗</span><span>✨</span><span>🤗</span></div>
     </footer>
 
     <!-- Warning Overlay -->
@@ -1491,7 +1591,7 @@
                 <p>Când mai lipseam mă "certai" dar din câte mi s-au spus putea să fie și mai rău <span class="emoji">👊🤕</span>, veneam de frica ta 🤣, sau faza cu capacul de presiune 🍲.</p>
                 <p>Mă bucur că ne-am cunoscut, altfel nu cred că aveam vreo șansă să îl văd pe <span class="highlight">Memo</span> live <span class="emoji">😂🤖</span>.</p>
                 <p>Chiar ești o <span class="highlight">minune</span> și o <span class="highlight">binecuvântare</span> pentru cei din jurul tău timp de 2 decenii.</p>
-                <p class="text-center text-base"><strong class="text-gold-gradient">GBU Bianca!</strong> <span class="emoji">😇🤗</span></p>
+                <p class="text-center text-lg"><strong class="text-gold-gradient">GBU Bianca!</strong> <span class="emoji">😇🤗</span></p>
             </div>
             <div class="secret-message-footer">
                 <button id="btn-close-secret" class="secret-message-close">Închide mesajul</button>
@@ -1508,8 +1608,8 @@
             isMobile: window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768,
             isTouchDevice: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
             
-            touchParticles: { desktop: 35, mobile: 20 },
-            scrollParticles: { desktop: 30, mobile: 15 },
+            touchParticles: { desktop: 35, mobile: 25 },
+            scrollParticles: { desktop: 30, mobile: 20 },
             
             targetFPS: window.matchMedia('(pointer: coarse)').matches ? 30 : 60,
             frameInterval: window.matchMedia('(pointer: coarse)').matches ? 1000 / 30 : 1000 / 60,
@@ -1519,48 +1619,75 @@
         };
 
         // ============================================
-        // INIT BACKGROUND EFFECTS
+        // INIT BACKGROUND PARTICLES - MULTE SI DIFERITE
         // ============================================
-        function initBackgroundEffects() {
+        function initBackgroundParticles() {
             if (CONFIG.prefersReducedMotion) return;
             
-            // Dust particles
+            const starsContainer = document.getElementById('stars-container');
             const dustContainer = document.getElementById('dust-container');
-            if (dustContainer) {
-                const dustCount = CONFIG.isMobile ? 15 : 25;
-                for (let i = 0; i < dustCount; i++) {
-                    const dust = document.createElement('div');
-                    dust.className = 'dust-particle';
-                    dust.style.cssText = `
-                        left: ${Math.random() * 100}%;
-                        width: ${2 + Math.random() * 3}px;
-                        height: ${2 + Math.random() * 3}px;
-                        background: radial-gradient(circle, rgba(255, 215, 0, ${0.3 + Math.random() * 0.3}) 0%, transparent 70%);
-                        animation-duration: ${18 + Math.random() * 12}s;
-                        animation-delay: ${Math.random() * 20}s;
-                    `;
-                    dustContainer.appendChild(dust);
-                }
+            
+            // Creare stele multiple - diferite marimi si tipuri
+            const starCount = CONFIG.isMobile ? 50 : 80;
+            const starTypes = ['small', 'medium', 'large'];
+            const starColors = ['', 'rose'];
+            const starAnimations = ['star-twinkle', 'star-twinkle-fast', 'star-twinkle-slow', 'star-float', 'star-firefly'];
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'particle-star';
+                
+                const type = starTypes[Math.floor(Math.random() * starTypes.length)];
+                const color = starColors[Math.floor(Math.random() * starColors.length)];
+                const anim = starAnimations[Math.floor(Math.random() * starAnimations.length)];
+                
+                star.classList.add(type);
+                if (color) star.classList.add(color);
+                star.classList.add(anim);
+                
+                const size = type === 'small' ? 3 + Math.random() * 4 : 
+                             type === 'medium' ? 6 + Math.random() * 5 : 
+                             10 + Math.random() * 8;
+                
+                star.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    animation-duration: ${3 + Math.random() * 4}s;
+                    animation-delay: ${Math.random() * 8}s;
+                    will-change: transform, opacity;
+                    transform: translateZ(0);
+                `;
+                
+                starsContainer.appendChild(star);
             }
             
-            // Twinkling stars
-            const starsContainer = document.getElementById('stars-container');
-            if (starsContainer) {
-                const starCount = CONFIG.isMobile ? 20 : 40;
-                for (let i = 0; i < starCount; i++) {
-                    const star = document.createElement('div');
-                    star.className = 'star-bg';
-                    const size = 2 + Math.random() * 4;
-                    star.style.cssText = `
-                        left: ${Math.random() * 100}%;
-                        top: ${Math.random() * 100}%;
-                        width: ${size}px;
-                        height: ${size}px;
-                        animation-duration: ${3 + Math.random() * 4}s;
-                        animation-delay: ${Math.random() * 5}s;
-                    `;
-                    starsContainer.appendChild(star);
-                }
+            // Creare particule de praf - miscatoare
+            const dustCount = CONFIG.isMobile ? 30 : 50;
+            const dustAnimations = ['dust-float', 'dust-drift'];
+            
+            for (let i = 0; i < dustCount; i++) {
+                const dust = document.createElement('div');
+                dust.className = 'particle-dust';
+                
+                const anim = dustAnimations[Math.floor(Math.random() * dustAnimations.length)];
+                dust.classList.add(anim);
+                
+                const size = 2 + Math.random() * 6;
+                
+                dust.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    animation-duration: ${15 + Math.random() * 20}s;
+                    animation-delay: ${Math.random() * 15}s;
+                    will-change: transform, opacity;
+                    transform: translateZ(0);
+                `;
+                
+                dustContainer.appendChild(dust);
             }
         }
 
@@ -1573,8 +1700,7 @@
                 'touch-particles-container', 
                 'scroll-particles-container',
                 'star-confetti-container',
-                'celebrate-confetti-container',
-                'star-trail-canvas'
+                'celebrate-confetti-container'
             ];
             
             containers.forEach(id => {
@@ -1699,7 +1825,7 @@
                 this.isActive = true;
                 this.mouseDown = false;
                 this.lastTouchTime = 0;
-                this.throttleMs = CONFIG.isMobile ? 16 : 8;
+                this.throttleMs = CONFIG.isMobile ? 12 : 8;
                 if (CONFIG.prefersReducedMotion) return;
                 this.init();
             }
@@ -1732,7 +1858,7 @@
             bindEvents() {
                 document.addEventListener('touchstart', (e) => {
                     if (CONFIG.prefersReducedMotion || !this.isActive) return;
-                    Array.from(e.touches).forEach(touch => this.createSparkleBurst(touch.clientX, touch.clientY, 5));
+                    Array.from(e.touches).forEach(touch => this.createSparkleBurst(touch.clientX, touch.clientY, 6));
                 }, { passive: true });
                 
                 document.addEventListener('touchmove', (e) => {
@@ -1742,19 +1868,19 @@
                     this.lastTouchTime = now;
                     Array.from(e.touches).forEach(touch => {
                         this.createTrackingSparkle(touch.clientX, touch.clientY);
-                        if (Math.random() > 0.6) this.createSparkleBurst(touch.clientX, touch.clientY, 1);
+                        if (Math.random() > 0.5) this.createSparkleBurst(touch.clientX, touch.clientY, 2);
                     });
                 }, { passive: true });
                 
                 document.addEventListener('touchend', (e) => {
                     if (CONFIG.prefersReducedMotion || !this.isActive) return;
-                    Array.from(e.changedTouches).forEach(touch => this.createSparkleBurst(touch.clientX, touch.clientY, 3));
+                    Array.from(e.changedTouches).forEach(touch => this.createSparkleBurst(touch.clientX, touch.clientY, 4));
                 }, { passive: true });
 
                 if (!CONFIG.isTouchDevice) {
                     document.addEventListener('mousedown', (e) => {
                         if (CONFIG.prefersReducedMotion || !this.isActive) return;
-                        this.createSparkleBurst(e.clientX, e.clientY, 5);
+                        this.createSparkleBurst(e.clientX, e.clientY, 6);
                         this.mouseDown = true;
                     });
                     
@@ -1772,7 +1898,7 @@
                     this.container.removeChild(this.container.firstChild);
                 }
                 const color = this.colors[Math.floor(Math.random() * this.colors.length)];
-                const size = 3 + Math.random() * 4;
+                const size = 3 + Math.random() * 5;
                 const particle = document.createElement('div');
                 particle.style.cssText = `
                     position: absolute;
@@ -1788,7 +1914,7 @@
                     box-shadow: 0 0 ${size * 2}px ${color};
                 `;
                 this.container.appendChild(particle);
-                const vx = (Math.random() - 0.5) * 50, vy = (Math.random() - 0.5) * 50 - 25, duration = 0.35 + Math.random() * 0.2;
+                const vx = (Math.random() - 0.5) * 60, vy = (Math.random() - 0.5) * 60 - 30, duration = 0.35 + Math.random() * 0.2;
                 particle.animate([
                     { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
                     { transform: `translate(calc(-50% + ${vx}px), calc(-50% + ${vy}px)) scale(0.2)`, opacity: 0 }
@@ -1802,8 +1928,8 @@
                         this.container.removeChild(this.container.firstChild);
                     }
                     const color = this.colors[Math.floor(Math.random() * this.colors.length)];
-                    const size = 2 + Math.random() * 5;
-                    const angle = Math.random() * Math.PI * 2, speed = 35 + Math.random() * 65;
+                    const size = 3 + Math.random() * 6;
+                    const angle = Math.random() * Math.PI * 2, speed = 40 + Math.random() * 80;
                     const particle = document.createElement('div');
                     particle.style.cssText = `
                         position: absolute;
@@ -1819,11 +1945,11 @@
                         box-shadow: 0 0 ${size * 2}px ${color};
                     `;
                     this.container.appendChild(particle);
-                    const vx = Math.cos(angle) * speed, vy = Math.sin(angle) * speed - 25, duration = 0.4 + Math.random() * 0.3;
+                    const vx = Math.cos(angle) * speed, vy = Math.sin(angle) * speed - 30, duration = 0.4 + Math.random() * 0.3;
                     particle.animate([
                         { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
-                        { transform: 'translate(-50%, -50%) scale(1.1)', opacity: 1, offset: 0.2 },
-                        { transform: `translate(calc(-50% + ${vx}px), calc(-50% + ${vy + 40}px)) scale(0)`, opacity: 0 }
+                        { transform: 'translate(-50%, -50%) scale(1.2)', opacity: 1, offset: 0.15 },
+                        { transform: `translate(calc(-50% + ${vx}px), calc(-50% + ${vy + 50}px)) scale(0)`, opacity: 0 }
                     ], { duration: duration * 1000, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', fill: 'forwards' })
                     .onfinish = () => { if (particle.parentNode) particle.remove(); };
                 }
@@ -1840,7 +1966,7 @@
                 this.container = document.getElementById(containerId);
                 this.particles = [];
                 this.maxParticles = maxParticles;
-                this.colors = ['#D4AF37', '#B76E79', '#FFD700'];
+                this.colors = ['#D4AF37', '#B76E79', '#FFD700', '#FF69B4'];
             }
 
             createParticle(x, y, velocityY) {
@@ -1849,7 +1975,7 @@
                     if (old) old.element.remove();
                 }
                 const particle = document.createElement('div');
-                const size = Math.random() * 4 + 3;
+                const size = Math.random() * 5 + 4;
                 const color = this.colors[Math.floor(Math.random() * this.colors.length)];
                 particle.style.cssText = `
                     position: absolute;
@@ -1864,7 +1990,7 @@
                     border-radius: 50%;
                 `;
                 this.container.appendChild(particle);
-                const vx = (Math.random() - 0.5) * 30, vy = -Math.abs(velocityY) * 0.25 + Math.random() * 30, duration = 0.4 + Math.random() * 0.2;
+                const vx = (Math.random() - 0.5) * 40, vy = -Math.abs(velocityY) * 0.3 + Math.random() * 40, duration = 0.4 + Math.random() * 0.25;
                 particle.animate([
                     { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
                     { transform: `translate(calc(-50% + ${vx}px), calc(-50% + ${vy}px)) scale(0)`, opacity: 0 }
@@ -1874,8 +2000,8 @@
             }
 
             onScroll(scrollVelocity) {
-                if (Math.abs(scrollVelocity) > 4) {
-                    const count = Math.min(Math.floor(Math.abs(scrollVelocity) / 8), 3);
+                if (Math.abs(scrollVelocity) > 5) {
+                    const count = Math.min(Math.floor(Math.abs(scrollVelocity) / 6), 4);
                     for (let i = 0; i < count; i++) {
                         this.createParticle(
                             Math.random() * window.innerWidth,
@@ -1912,7 +2038,7 @@
         // ============================================
         // INIT SISTEME
         // ============================================
-        initBackgroundEffects();
+        initBackgroundParticles();
         
         const scrollParticles = new ScrollParticleSystem(
             'scroll-particles-container',
@@ -1971,42 +2097,42 @@
             const colors = {1:['#B76E79','#F9A8D4','#FF6B6B'],2:['#B76E79','#F9A8D4','#FF69B4','#FFB6C1'],3:['#D4AF37','#F4E8C1','#FFD700','#FFA500'],4:['#FFD700','#FFA500','#FF69B4','#87CEEB','#98FB98'],5:['#FFD700','#FFA500','#FF69B4','#FF6B6B','#87CEEB','#DDA0DD','#98FB98','#FDFCF0','#FFB6C1']};
             const emojis = {1:['✨','💫'],2:['✨','💫','⭐'],3:['✨','⭐','🌟'],4:['✨','⭐','🌟','💫','🎉'],5:['✨','⭐','🌟','💫','🎉','🎊','🌠','💖','💛']};
             const particleConfig = {
-                1: { count: CONFIG.isMobile ? 10 : 15, emojiChance: 0.2 },
-                2: { count: CONFIG.isMobile ? 18 : 25, emojiChance: 0.3 },
-                3: { count: CONFIG.isMobile ? 25 : 40, emojiChance: 0.4 },
-                4: { count: CONFIG.isMobile ? 40 : 60, emojiChance: 0.5 },
-                5: { count: CONFIG.isMobile ? 55 : 80, emojiChance: 0.6 }
+                1: { count: CONFIG.isMobile ? 15 : 20, emojiChance: 0.25 },
+                2: { count: CONFIG.isMobile ? 25 : 35, emojiChance: 0.35 },
+                3: { count: CONFIG.isMobile ? 35 : 50, emojiChance: 0.45 },
+                4: { count: CONFIG.isMobile ? 50 : 70, emojiChance: 0.55 },
+                5: { count: CONFIG.isMobile ? 70 : 100, emojiChance: 0.65 }
             };
             const config = particleConfig[rating];
             let created = 0;
             
             const createBatch = () => {
-                const batch = Math.min(CONFIG.isMobile ? 6 : 12, config.count - created);
+                const batch = Math.min(CONFIG.isMobile ? 8 : 15, config.count - created);
                 for (let i = 0; i < batch; i++) {
                     const confetti = document.createElement('div');
                     const isEmoji = Math.random() < config.emojiChance;
                     const color = colors[rating][Math.floor(Math.random() * colors[rating].length)];
                     if (isEmoji) {
                         confetti.textContent = emojis[rating][Math.floor(Math.random() * emojis[rating].length)];
-                        confetti.style.fontSize = `${12 + Math.random() * 14}px`;
-                        confetti.style.filter = `drop-shadow(0 0 8px ${color})`;
+                        confetti.style.fontSize = `${14 + Math.random() * 16}px`;
+                        confetti.style.filter = `drop-shadow(0 0 10px ${color})`;
                     } else {
-                        const size = Math.random() * 8 + 5;
+                        const size = Math.random() * 10 + 6;
                         confetti.style.cssText = `width:${size}px;height:${size * 0.6}px;background:${color};border-radius:${Math.random() > 0.5 ? '50%' : '2px'};box-shadow:0 0 ${size}px ${color}60;`;
                     }
                     confetti.style.cssText += 'position:absolute;left:50%;top:50%;will-change:transform,opacity;transform:translateZ(0);';
                     container.appendChild(confetti);
                     const angle = Math.random() * Math.PI * 2;
-                    const velocity = Math.random() * 300 + 150 + rating * 30;
+                    const velocity = Math.random() * 350 + 200 + rating * 40;
                     const vx = Math.cos(angle) * velocity;
-                    const vy = Math.sin(angle) * velocity - 120 - rating * 20;
-                    const rotation = Math.random() * 720 - 360;
+                    const vy = Math.sin(angle) * velocity - 150 - rating * 30;
+                    const rotation = Math.random() * 800 - 400;
                     confetti.animate([
                         { transform: 'translate(-50%, -50%) scale(0) rotate(0deg)', opacity: 1 },
-                        { transform: `translate(calc(-50% + ${vx * 0.2}px), calc(-50% + ${vy * 0.2 + 40}px)) scale(1.1) rotate(${rotation * 0.2}deg)`, opacity: 1, offset: 0.2 },
-                        { transform: `translate(calc(-50% + ${vx * 0.6}px), calc(-50% + ${vy * 0.6 + 120}px)) scale(0.9) rotate(${rotation * 0.6}deg)`, opacity: 0.7, offset: 0.5 },
-                        { transform: `translate(calc(-50% + ${vx}px), calc(-50% + ${vy + 200}px)) scale(0) rotate(${rotation}deg)`, opacity: 0 }
-                    ], { duration: 1800 + Math.random() * 800, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', delay: created * 15, fill: 'forwards' })
+                        { transform: `translate(calc(-50% + ${vx * 0.2}px), calc(-50% + ${vy * 0.2 + 50}px)) scale(1.15) rotate(${rotation * 0.2}deg)`, opacity: 1, offset: 0.15 },
+                        { transform: `translate(calc(-50% + ${vx * 0.6}px), calc(-50% + ${vy * 0.6 + 150}px)) scale(0.9) rotate(${rotation * 0.6}deg)`, opacity: 0.7, offset: 0.45 },
+                        { transform: `translate(calc(-50% + ${vx}px), calc(-50% + ${vy + 250}px)) scale(0) rotate(${rotation}deg)`, opacity: 0 }
+                    ], { duration: 2000 + Math.random() * 1000, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', delay: created * 12, fill: 'forwards' })
                     .onfinish = () => confetti.remove();
                     created++;
                 }
@@ -2018,40 +2144,40 @@
         function createCelebrateConfetti() {
             const container = document.getElementById('celebrate-confetti-container');
             if (!container || CONFIG.prefersReducedMotion) return;
-            const colors = ['#D4AF37','#B76E79','#FFD700','#FF69B4','#87CEEB','#F4E8C1','#FF6B6B'];
-            const emojis = ['✨','⭐','🌟','💫','🎉','🎊'];
-            const particleCount = CONFIG.isMobile ? 30 : 60;
+            const colors = ['#D4AF37','#B76E79','#FFD700','#FF69B4','#87CEEB','#F4E8C1','#FF6B6B','#DDA0DD'];
+            const emojis = ['✨','⭐','🌟','💫','🎉','🎊','🌠','💖'];
+            const particleCount = CONFIG.isMobile ? 50 : 80;
             let created = 0;
             
             const createBatch = () => {
                 if (created >= particleCount) return;
-                const batch = Math.min(CONFIG.isMobile ? 8 : 12, particleCount - created);
+                const batch = Math.min(CONFIG.isMobile ? 10 : 15, particleCount - created);
                 for (let i = 0; i < batch; i++) {
                     const confetti = document.createElement('div');
-                    const isEmoji = Math.random() > 0.5;
+                    const isEmoji = Math.random() > 0.4;
                     const color = colors[Math.floor(Math.random() * colors.length)];
                     if (isEmoji) {
                         confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                        confetti.style.fontSize = `${12 + Math.random() * 12}px`;
+                        confetti.style.fontSize = `${14 + Math.random() * 16}px`;
                     } else {
-                        const size = Math.random() * 6 + 4;
+                        const size = Math.random() * 8 + 5;
                         confetti.style.cssText = `width:${size}px;height:${size * 0.6}px;background:${color};border-radius:${Math.random() > 0.5 ? '50%' : '2px'};`;
                     }
-                    const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 120;
-                    const startY = window.innerHeight * 0.55;
+                    const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 150;
+                    const startY = window.innerHeight * 0.5;
                     confetti.style.cssText += `position:absolute;left:${startX}px;top:${startY}px;will-change:transform,opacity;transform:translateZ(0);`;
                     container.appendChild(confetti);
                     const angle = Math.random() * Math.PI * 2;
-                    const velocity = Math.random() * 250 + 180;
+                    const velocity = Math.random() * 300 + 220;
                     const vx = Math.cos(angle) * velocity;
-                    const vy = -Math.abs(Math.sin(angle) * velocity) - 180;
-                    const rotation = Math.random() * 540 - 270;
+                    const vy = -Math.abs(Math.sin(angle) * velocity) - 220;
+                    const rotation = Math.random() * 600 - 300;
                     confetti.animate([
                         { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
-                        { transform: `translate(calc(-50% + ${vx * 0.3}px), calc(-50% + ${vy * 0.3 + 60}px)) scale(1) rotate(${rotation * 0.3}deg)`, opacity: 1, offset: 0.1 },
-                        { transform: `translate(calc(-50% + ${vx * 0.6}px), calc(-50% + ${vy * 0.6 + 150}px)) scale(0.8) rotate(${rotation * 0.6}deg)`, opacity: 0.6, offset: 0.4 },
-                        { transform: `translate(calc(-50% + ${vx}px), calc(-50% + ${vy + 280}px)) scale(0) rotate(${rotation}deg)`, opacity: 0 }
-                    ], { duration: 2200 + Math.random() * 800, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', delay: created * 18, fill: 'forwards' })
+                        { transform: `translate(calc(-50% + ${vx * 0.3}px), calc(-50% + ${vy * 0.3 + 80}px)) scale(1) rotate(${rotation * 0.3}deg)`, opacity: 1, offset: 0.1 },
+                        { transform: `translate(calc(-50% + ${vx * 0.6}px), calc(-50% + ${vy * 0.6 + 180}px)) scale(0.8) rotate(${rotation * 0.6}deg)`, opacity: 0.6, offset: 0.4 },
+                        { transform: `translate(calc(-50% + ${vx}px), calc(-50% + ${vy + 350}px)) scale(0) rotate(${rotation}deg)`, opacity: 0 }
+                    ], { duration: 2500 + Math.random() * 1000, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', delay: created * 15, fill: 'forwards' })
                     .onfinish = () => confetti.remove();
                     created++;
                 }
@@ -2067,58 +2193,63 @@
         function startConfettiEffects() {
             const centerX = window.innerWidth / 2;
             const centerY = window.innerHeight / 2 - 50;
-            createLightRays(centerX, centerY, CONFIG.isMobile ? 10 : 16);
-            createConfetti(centerX, centerY - 30, CONFIG.isMobile ? 45 : 70);
+            createLightRays(centerX, centerY, CONFIG.isMobile ? 12 : 20);
+            createConfetti(centerX, centerY - 30, CONFIG.isMobile ? 60 : 90);
         }
 
-        function createLightRays(x, y, count = 12) {
+        function createLightRays(x, y, count = 15) {
             const container = document.getElementById('light-rays-container');
             if (!container || CONFIG.prefersReducedMotion) return;
             for (let i = 0; i < count; i++) {
                 const ray = document.createElement('div');
                 const angle = (i / count) * Math.PI * 2;
-                ray.style.cssText = `position:absolute;left:${x}px;top:${y}px;width:4px;height:${80 + Math.random() * 80}px;background:linear-gradient(to bottom,rgba(212,175,55,0.8),transparent);transform:rotate(${angle}rad);transform-origin:top center;will-change:transform,opacity;`;
+                ray.style.cssText = `position:absolute;left:${x}px;top:${y}px;width:4px;height:${100 + Math.random() * 100}px;background:linear-gradient(to bottom,rgba(212,175,55,0.9),transparent);transform:rotate(${angle}rad);transform-origin:top center;will-change:transform,opacity;`;
                 container.appendChild(ray);
                 ray.animate([
                     { transform: `rotate(${angle}rad) scaleY(0)`, opacity: 1 },
-                    { transform: `rotate(${angle}rad) scaleY(1)`, opacity: 1, offset: 0.3 },
-                    { transform: `rotate(${angle}rad) scaleY(0.3)`, opacity: 0 }
-                ], { duration: 1000, easing: 'ease-out', fill: 'forwards' })
+                    { transform: `rotate(${angle}rad) scaleY(1)`, opacity: 1, offset: 0.25 },
+                    { transform: `rotate(${angle}rad) scaleY(0.2)`, opacity: 0 }
+                ], { duration: 1200, easing: 'ease-out', fill: 'forwards' })
                 .onfinish = () => ray.remove();
             }
         }
 
-        function createConfetti(x, y, count = 60) {
+        function createConfetti(x, y, count = 70) {
             const container = document.getElementById('confetti-container');
             if (!container) return;
-            const colors = ['#D4AF37','#B76E79','#F4E8C1','#FFD700','#FF6B6B','#87CEEB','#FF69B4'];
+            const colors = ['#D4AF37','#B76E79','#F4E8C1','#FFD700','#FF6B6B','#87CEEB','#FF69B4','#DDA0DD'];
             for (let i = 0; i < count; i++) {
                 const confetti = document.createElement('div');
                 const color = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.cssText = `position:absolute;left:${x}px;top:${y}px;width:${Math.random() * 10 + 5}px;height:${Math.random() * 6 + 3}px;background:${color};border-radius:${Math.random() > 0.5 ? '50%' : '2px'};box-shadow:0 0 10px ${color}40;will-change:transform,opacity;transform:translateZ(0);`;
+                confetti.style.cssText = `position:absolute;left:${x}px;top:${y}px;width:${Math.random() * 12 + 6}px;height:${Math.random() * 8 + 4}px;background:${color};border-radius:${Math.random() > 0.5 ? '50%' : '2px'};box-shadow:0 0 12px ${color}50;will-change:transform,opacity;transform:translateZ(0);`;
                 container.appendChild(confetti);
                 const angle = Math.random() * Math.PI * 2;
-                const velocity = Math.random() * 350 + 220;
-                const duration = CONFIG.prefersReducedMotion ? 400 : 2200;
+                const velocity = Math.random() * 400 + 280;
                 confetti.animate([
                     { transform: `translate(0, 0) scale(0)`, opacity: 0 },
-                    { transform: `translate(${Math.cos(angle) * velocity * 0.3}px, ${Math.sin(angle) * velocity * 0.3 - 80}px) scale(1)`, opacity: 1, offset: 0.1 },
-                    { transform: `translate(${Math.cos(angle) * velocity}px, ${Math.sin(angle) * velocity + 200}px) scale(0)`, opacity: 0 }
-                ], { duration, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', delay: Math.random() * 60, fill: 'forwards' })
+                    { transform: `translate(${Math.cos(angle) * velocity * 0.3}px, ${Math.sin(angle) * velocity * 0.3 - 100}px) scale(1)`, opacity: 1, offset: 0.1 },
+                    { transform: `translate(${Math.cos(angle) * velocity}px, ${Math.sin(angle) * velocity + 250}px) scale(0)`, opacity: 0 }
+                ], { duration: CONFIG.prefersReducedMotion ? 400 : 2500, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', delay: Math.random() * 50, fill: 'forwards' })
                 .onfinish = () => confetti.remove();
             }
         }
 
         function revealText() {
             const revealContent = document.getElementById('reveal-content');
+            const revealTextContent = document.getElementById('reveal-text-content');
             const darkness = document.getElementById('reveal-darkness');
             const revealMask = document.getElementById('reveal-mask');
             
             soundSystem.playCelebrate();
             darkness.classList.add('fade-out');
-            revealMask.classList.add('hidden'); // Ascunde masca
+            revealMask.classList.add('hidden');
+            
+            // Arata textul
             revealContent.classList.add('visible');
-            setTimeout(() => document.querySelectorAll('.text-gold-gradient').forEach(el => el.classList.add('glowing')), 500);
+            revealTextContent.classList.remove('hidden');
+            revealTextContent.classList.add('animate-fade-in');
+            
+            setTimeout(() => document.querySelectorAll('.text-gold-gradient').forEach(el => el.classList.add('glowing')), 600);
         }
 
         function animateGiftOpen() {
@@ -2136,28 +2267,28 @@
                 giftBox.style.transform = 'scale(1)';
                 giftHint.style.opacity = '1';
                 giftGlow.style.opacity = '1';
-                giftLid.style.transform = 'translateY(-50px)';
-                giftLid.style.opacity = '0.5';
+                giftLid.style.transform = 'translateY(-60px)';
+                giftLid.style.opacity = '0.4';
                 giftRibbon.style.opacity = '0';
-                setTimeout(() => { startConfettiEffects(); revealText(); }, 300);
+                setTimeout(() => { startConfettiEffects(); revealText(); }, 400);
                 return;
             }
             
             const giftTimeline = gsap.timeline({
-                onComplete: () => gsap.to(giftBox, { opacity: 0, scale: 0, duration: 0.5, ease: 'power2.in' })
+                onComplete: () => gsap.to(giftBox, { opacity: 0, scale: 0, duration: 0.6, ease: 'power2.in' })
             });
             
-            giftTimeline.to(giftBox, { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.7)' });
-            giftTimeline.to(giftHint, { opacity: 1, duration: 0.5 }, '-=0.3');
-            giftTimeline.to('.gift-sparkle', { opacity: 1, scale: 1.5, duration: 0.3, stagger: 0.1, ease: 'power2.out' }, '-=0.3');
-            giftTimeline.to(giftGlow, { opacity: 1, duration: 0.4 }, '-=0.5');
-            giftTimeline.to(giftBox, { y: -20, scale: 1.08, duration: 0.7, ease: 'bounce.out' }, '+=0.4');
-            giftTimeline.to(giftBoxBody, { filter: 'brightness(1.5) drop-shadow(0 0 40px rgba(212,175,55,1))', duration: 0.5 }, '-=0.5');
-            giftTimeline.to(giftLid, { y: -100, rotationX: -180, opacity: 0.5, duration: 0.8, ease: 'back.out(2.5)' }, '+=0.1');
-            giftTimeline.to(giftRibbon, { scale: 2.5, opacity: 0, duration: 0.5 }, '-=0.6');
-            giftTimeline.to(giftHint, { opacity: 0, duration: 0.3 }, '-=0.5');
-            giftTimeline.add(() => startConfettiEffects(), '+=0.2');
-            giftTimeline.add(() => revealText(), '+=1.5');
+            giftTimeline.to(giftBox, { opacity: 1, scale: 1, duration: 0.9, ease: 'back.out(1.7)' });
+            giftTimeline.to(giftHint, { opacity: 1, duration: 0.5 }, '-=0.4');
+            giftTimeline.to('.gift-sparkle', { opacity: 1, scale: 1.6, duration: 0.35, stagger: 0.1, ease: 'power2.out' }, '-=0.35');
+            giftTimeline.to(giftGlow, { opacity: 1, duration: 0.5 }, '-=0.5');
+            giftTimeline.to(giftBox, { y: -25, scale: 1.1, duration: 0.8, ease: 'bounce.out' }, '+=0.5');
+            giftTimeline.to(giftBoxBody, { filter: 'brightness(1.6) drop-shadow(0 0 50px rgba(212,175,55,1))', duration: 0.6 }, '-=0.5');
+            giftTimeline.to(giftLid, { y: -120, rotationX: -180, opacity: 0.4, duration: 0.9, ease: 'back.out(2.5)' }, '+=0.15');
+            giftTimeline.to(giftRibbon, { scale: 3, opacity: 0, duration: 0.6 }, '-=0.7');
+            giftTimeline.to(giftHint, { opacity: 0, duration: 0.35 }, '-=0.5');
+            giftTimeline.add(() => startConfettiEffects(), '+=0.3');
+            giftTimeline.add(() => revealText(), '+=1.8');
         }
 
         const giftBoxElement = document.getElementById('gift-box');
@@ -2190,9 +2321,9 @@
                         giftBoxElement.style.opacity = '1';
                         giftBoxElement.style.transform = 'scale(1)';
                     } else {
-                        gsap.to('#gift-box', { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.7)' });
-                        gsap.to('#gift-hint', { opacity: 1, duration: 0.5, delay: 0.5 });
-                        gsap.to('.gift-sparkle', { opacity: 0.5, scale: 1, duration: 0.3, stagger: 0.1 });
+                        gsap.to('#gift-box', { opacity: 1, scale: 1, duration: 0.9, ease: 'back.out(1.7)' });
+                        gsap.to('#gift-hint', { opacity: 1, duration: 0.5, delay: 0.6 });
+                        gsap.to('.gift-sparkle', { opacity: 0.6, scale: 1.1, duration: 0.35, stagger: 0.1 });
                     }
                 }
             }
@@ -2240,10 +2371,10 @@
                 stars.forEach((s, i) => s.setAttribute('aria-checked', i < rating ? 'true' : 'false'));
                 const reviewMessage = document.getElementById('review-message');
                 if (rating >= 4) {
-                    reviewMessage.innerHTML = `<div class="text-center"><p class="text-gold-gradient text-sm md:text-xl font-serif">${rating === 5 ? 'Wow,chiar atât de mult ți-a plăcut!' : 'Sunt atât de bucuros că ți-a plăcut!'}</p><p class="text-rose-300/70 text-[10px] md:text-xs mt-1.5 italic">„La mulți ani, Bianca!"</p></div>`;
+                    reviewMessage.innerHTML = `<div class="text-center"><p class="text-gold-gradient text-base md:text-2xl font-serif">${rating === 5 ? 'Wow,chiar atât de mult ți-a plăcut!' : 'Sunt atât de bucuros că ți-a plăcut!'}</p><p class="text-rose-300/70 text-xs md:text-sm mt-2 italic">„La mulți ani, Bianca!"</p></div>`;
                 } else {
                     const msg = {1:{text:'Ok, e un început!',sub:'Măcar ai deschis!'},2:{text:'Hmm, sigur?',sub:'Poate mai ai nevoie de timp...'},3:{text:'E ok!',sub:'Feedback onest = apreciat!'}};
-                    reviewMessage.innerHTML = `<div class="text-center"><p class="text-rose-400 text-sm md:text-lg font-serif">${msg[rating].text}</p><p class="text-gray-400 text-[10px] md:text-sm">${msg[rating].sub}</p></div>`;
+                    reviewMessage.innerHTML = `<div class="text-center"><p class="text-rose-400 text-base md:text-xl font-serif">${msg[rating].text}</p><p class="text-gray-400 text-xs md:text-sm">${msg[rating].sub}</p></div>`;
                 }
                 this.classList.add('star-animating');
                 setTimeout(() => this.classList.remove('star-animating'), 500);
@@ -2274,17 +2405,17 @@
         
         gsap.utils.toArray('.timeline-item').forEach((item, i) => {
             if (CONFIG.prefersReducedMotion) item.style.opacity = '1';
-            else gsap.to(item, { opacity: 1, duration: 1, delay: i * 0.2, ease: 'power3.out', scrollTrigger: { trigger: item, start: 'top 85%', once: true } });
+            else gsap.to(item, { opacity: 1, duration: 1, delay: i * 0.25, ease: 'power3.out', scrollTrigger: { trigger: item, start: 'top 85%', once: true } });
         });
         
         gsap.utils.toArray('.message-anim').forEach((el, i) => {
             if (CONFIG.prefersReducedMotion) el.style.opacity = '1';
-            else gsap.to(el, { opacity: 1, scale: 1, y: 0, duration: 1, delay: i * 0.2, ease: 'power3.out', scrollTrigger: { trigger: '#message', start: 'top 75%', once: true } });
+            else gsap.to(el, { opacity: 1, scale: 1, y: 0, duration: 1, delay: i * 0.25, ease: 'power3.out', scrollTrigger: { trigger: '#message', start: 'top 75%', once: true } });
         });
         
         gsap.utils.toArray('.timer-box').forEach((box, i) => {
             if (CONFIG.prefersReducedMotion) box.style.opacity = '1';
-            else gsap.to(box, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.2, ease: 'power3.out', scrollTrigger: { trigger: '#timers', start: 'top 80%', once: true } });
+            else gsap.to(box, { opacity: 1, y: 0, duration: 0.9, delay: i * 0.25, ease: 'power3.out', scrollTrigger: { trigger: '#timers', start: 'top 80%', once: true } });
         });
         
         gsap.to('#secret-title', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '#secret', start: 'top 80%', once: true } });
