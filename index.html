@@ -2,8 +2,8 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Proiect LMA - Bianca</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Proiect LMA</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -16,9 +16,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ============================================
-           RESET ȘI BAZĂ
-           ============================================ */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         @media (prefers-reduced-motion: reduce) {
@@ -33,7 +30,7 @@
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #050505;
             overflow-x: hidden;
             overflow-y: auto;
@@ -41,9 +38,6 @@
             -webkit-tap-highlight-color: transparent;
             touch-action: pan-y;
             min-height: 100vh;
-            min-height: 100dvh;
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
         }
 
         .font-serif { font-family: 'Playfair Display', serif; }
@@ -179,7 +173,7 @@
         }
 
         /* ============================================
-           PARTICLE CONTAINERE
+           PARTICLE CONTAINERE - OPTIMIZATE
            ============================================ */
         .particle-container {
             position: fixed !important;
@@ -187,7 +181,6 @@
             left: 0 !important;
             width: 100vw !important;
             height: 100vh !important;
-            height: 100dvh !important;
             margin: 0 !important;
             padding: 0 !important;
             pointer-events: none !important;
@@ -203,11 +196,10 @@
             transform: translateZ(0);
         }
 
-        #star-confetti-container { z-index: 100 !important; }
-        #celebrate-confetti-container { z-index: 100 !important; }
         #particles-container { z-index: 2 !important; }
         #touch-particles-container { z-index: 1 !important; }
-        #scroll-particles-container { z-index: 1 !important; }
+        #star-confetti-container { z-index: 500 !important; }
+        #celebrate-confetti-container { z-index: 500 !important; }
 
         #star-trail-canvas {
             position: fixed !important;
@@ -322,7 +314,7 @@
                 0 0 3px 1px rgba(255, 255, 255, 0.6);
         }
 
-        /* Animații GPU-accelerated */
+        /* Animații GPU-accelerated (doar transform și opacity) */
         .star-twinkle {
             animation: twinkle-simple 3s ease-in-out infinite !important;
         }
@@ -362,7 +354,7 @@
             75% { opacity: 0.85; transform: translateZ(0) scale(1.1); }
         }
 
-        /* Orbs */
+        /* Orbs - optimizate cu blur redus */
         .bg-orb {
             position: absolute;
             border-radius: 50%;
@@ -473,7 +465,7 @@
             100% { transform: translateY(100vh) translateX(-25vw); opacity: 0; }
         }
 
-        /* Ambient glow */
+        /* Ambient glow - simplificat */
         .ambient-glow {
             position: fixed;
             top: 0;
@@ -494,7 +486,7 @@
             50% { opacity: 1; }
         }
 
-        /* Star particle (backup) */
+        /* Pentru CSS Star Particles vechi (backup) */
         .star-particle {
             position: absolute;
             pointer-events: none;
@@ -517,8 +509,13 @@
         .star-particle.white::before { width: 30%; height: 30%; box-shadow: 0 0 6px 1px rgba(255,255,255,1), 0 0 12px 3px rgba(255,255,255,0.5); }
         .star-particle.dust::before { width: 50%; height: 50%; box-shadow: 0 0 4px 1px rgba(255,255,255,0.8); }
 
-        .star-particle.twinkle { animation: twinkle-simple 2s ease-in-out infinite; }
-        .star-particle.float { animation: float-simple 8s ease-in-out infinite; }
+        .star-particle.twinkle {
+            animation: twinkle-simple 2s ease-in-out infinite;
+        }
+
+        .star-particle.float {
+            animation: float-simple 8s ease-in-out infinite;
+        }
 
         .touch-particle, .scroll-particle {
             position: absolute;
@@ -528,7 +525,6 @@
             transform: translateZ(0);
         }
 
-        /* Confetti containers */
         #rating-confetti-container, 
         #celebrate-confetti-container, 
         #star-confetti-container {
@@ -548,20 +544,12 @@
             transform: translateZ(0);
         }
 
-        /* ============================================
-           SECȚIUNI - MOBILE RESPONSIVE
-           ============================================ */
         section {
             position: relative;
             z-index: 10;
             min-height: 100vh;
             min-height: 100dvh;
-            padding: 60px 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
-
         section::before {
             content: '';
             position: absolute;
@@ -573,179 +561,28 @@
 
         #intro { background: rgba(0, 0, 0, 0.5) !important; display: flex; align-items: center; justify-content: center; }
         #intro::before { background: transparent; }
-        
-        #timeline { background: rgba(23, 23, 23, 0.5) !important; padding: 60px 16px; }
-        
-        #reveal { background: rgba(0, 0, 0, 0.6) !important; display: flex; align-items: center; justify-content: center; min-height: auto !important; padding: 80px 16px; }
+        #timeline { background: rgba(23, 23, 23, 0.5) !important; padding: 80px 0; }
+        #reveal { background: rgba(0, 0, 0, 0.6) !important; display: flex; align-items: center; justify-content: center; }
         #reveal::before { background: rgba(0, 0, 0, 0.5) !important; }
-        
         #message { background: rgba(26, 8, 12, 0.5) !important; display: flex; align-items: center; justify-content: center; }
-        
-        #timers { background: rgba(0, 0, 0, 0.5) !important; padding: 60px 16px; }
-        
-        #joke { background: rgba(38, 38, 38, 0.5) !important; padding: 60px 16px; }
-        
-        #secret { background: rgba(0, 0, 0, 0.5) !important; display: flex; align-items: center; justify-content: center; padding: 60px 16px; }
-        
+        #timers { background: rgba(0, 0, 0, 0.5) !important; padding: 80px 0; }
+        #joke { background: rgba(38, 38, 38, 0.5) !important; padding: 80px 0; }
+        #secret { background: rgba(0, 0, 0, 0.5) !important; display: flex; align-items: center; justify-content: center; padding: 80px 0; }
         #review { background: rgba(0, 0, 0, 0.5) !important; display: flex; align-items: center; justify-content: center; }
-        
-        footer { background: rgba(0, 0, 0, 0.7) !important; padding: 48px 16px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        footer { background: rgba(0, 0, 0, 0.7) !important; padding: 48px 0; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); }
 
-        /* Text gradient auriu */
         .text-gold-gradient {
             background: linear-gradient(135deg, #D4AF37 0%, #F4E8C1 50%, #D4AF37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
         .text-gold-gradient.glowing { text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.6), 0 0 30px rgba(212, 175, 55, 0.4); }
 
-        /* ============================================
-           INTRO SECTION
-           ============================================ */
-        .intro-wrapper {
-            max-width: 600px;
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
-            padding: 0 16px;
-        }
-
-        .intro-text {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.25rem, 5vw, 2.5rem);
-            color: #e5e5e5;
-            line-height: 1.5;
-            margin-bottom: 40px;
-        }
-
-        .intro-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-height: 48px;
-            backdrop-filter: blur(10px);
-        }
-
-        .intro-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(244, 63, 94, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .intro-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* ============================================
-           TIMELINE - RESPONSIVE
-           ============================================ */
-        .timeline-wrapper {
-            max-width: 500px;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        .timeline-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.75rem, 7vw, 3.5rem);
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .timeline-subtitle {
-            text-align: center;
-            color: rgba(244, 63, 94, 0.6);
-            font-size: 0.7rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 48px;
-        }
-
-        .timeline-container {
-            position: relative;
-            padding-left: 40px;
-        }
-
-        .timeline-line {
-            position: absolute;
-            left: 12px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, transparent, rgba(244,63,94,0.5) 10%, rgba(244,63,94,0.5) 90%, transparent);
-            box-shadow: 0 0 10px rgba(244, 63, 94, 0.3);
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-bottom: 48px;
-            opacity: 0;
-            transform: translateX(-20px);
-        }
-
-        .timeline-item:last-child {
-            padding-bottom: 0;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: -32px;
-            top: 10px;
-            width: 14px;
-            height: 14px;
-            background: #f472b6;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(244, 63, 94, 0.8);
-        }
-
-        .timeline-year {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 10vw, 5rem);
-            color: rgba(244, 63, 94, 0.8);
-            font-weight: 700;
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-
-        .timeline-item-title {
-            font-size: clamp(1rem, 4vw, 1.25rem);
-            color: white;
-            font-weight: 400;
-            margin-bottom: 8px;
-        }
-
-        .timeline-desc {
-            color: #9ca3af;
-            font-size: 0.875rem;
-            line-height: 1.6;
-        }
-
-        /* ============================================
-           REVEAL SECTION - CADOU
-           ============================================ */
         #reveal-content { display: none; width: 100%; text-align: center; margin-top: 60px; }
         #reveal-content.visible { display: block; }
 
-        .gift-wrapper {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px 16px;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
+        #gift-container { width: 100%; max-width: 4xl; margin: 0 auto; padding: 40px 24px; text-align: center; position: relative; z-index: 10; }
 
         #gift-box {
             perspective: 1000px;
@@ -754,20 +591,15 @@
             transform: scale(0.5);
             position: relative;
             z-index: 20;
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 60px;
-            cursor: pointer;
+            width: 192px;
+            height: 192px;
+            margin: 0 auto;
         }
 
         #gift-lid { transform-origin: bottom center; }
 
         .gift-sparkle { animation: sparkle-pulse 1.5s ease-in-out infinite; }
-        
-        @keyframes sparkle-pulse { 
-            0%, 100% { opacity: 0.3; transform: scale(0.8); } 
-            50% { opacity: 1; transform: scale(1.2); } 
-        }
+        @keyframes sparkle-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
 
         #gift-glow {
             position: absolute;
@@ -782,112 +614,17 @@
 
         @keyframes gift-glow { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 0.8; } }
 
-        .gift-body {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 90px;
+        #confetti-container, #light-rays-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 30;
+            overflow: visible;
+            background: transparent !important;
         }
 
-        .gift-body-main {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 70px;
-            background: linear-gradient(135deg, #f43f5e, #be123c);
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        .gift-body-ribbon {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 12px;
-            background: linear-gradient(to right, transparent, #fbbf24, transparent);
-            transform: translateY(-50%);
-        }
-
-        #gift-lid {
-            position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 130px;
-            height: 35px;
-        }
-
-        .gift-lid-main {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #fb7185, #e11d48);
-            border-radius: 8px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .gift-lid-ribbon {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 12px;
-            background: linear-gradient(to right, transparent, #fbbf24, transparent);
-            transform: translateY(-50%);
-        }
-
-        .gift-bow {
-            position: absolute;
-            bottom: 105px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 60px;
-        }
-
-        .gift-bow-vertical {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 14px;
-            height: 100%;
-            background: linear-gradient(to bottom, #fcd34d, #f59e0b);
-            border-radius: 6px;
-        }
-
-        .gift-bow-knot {
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 24px;
-            height: 24px;
-            background: #fbbf24;
-            border-radius: 50%;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .sparkle-1 { top: -5%; left: -5%; background: #fcd34d; }
-        .sparkle-2 { top: 10%; right: -10%; background: #fda4af; }
-        .sparkle-3 { bottom: 20%; left: -15%; background: #fde68a; }
-        .sparkle-4 { bottom: 5%; right: -5%; background: #f9a8d4; }
-        .sparkle-5 { top: -10%; right: 10%; background: #fcd34d; width: 6px; height: 6px; }
-        .sparkle-6 { bottom: -5%; left: 10%; background: #fda4af; width: 6px; height: 6px; }
-        .sparkle-7 { top: 30%; left: -20%; background: #fde68a; width: 6px; height: 6px; }
-
-        #gift-hint {
-            position: absolute;
-            bottom: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(251, 191, 36, 0.7);
-            font-size: 0.8rem;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+        #gift-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; background: transparent !important; }
 
         #reveal-darkness {
             position: absolute;
@@ -910,405 +647,159 @@
             pointer-events: none;
         }
 
-        .reveal-label {
-            color: rgba(244, 63, 94, 0.8);
-            font-size: 0.75rem;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-        }
-
-        .reveal-main-text {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.25rem, 5vw, 2.5rem);
-            color: white;
-            line-height: 1.5;
-            margin-bottom: 24px;
-        }
-
-        .reveal-highlight {
-            background: linear-gradient(135deg, #D4AF37 0%, #F4E8C1 50%, #D4AF37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
-        }
-
-        .reveal-name {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 15vw, 6rem);
-            background: linear-gradient(135deg, #D4AF37 0%, #F4E8C1 50%, #D4AF37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            font-style: italic;
-            margin-top: 24px;
-        }
+        .sparkle-1 { top: 5%; left: 0%; }
+        .sparkle-2 { top: 15%; right: 5%; }
+        .sparkle-3 { bottom: 25%; left: 5%; }
+        .sparkle-4 { top: 0%; right: 15%; }
+        .sparkle-5 { bottom: 5%; right: 0%; }
+        .sparkle-6 { top: 30%; left: -5%; }
+        .sparkle-7 { bottom: 40%; right: -5%; }
 
         .btn-celebrate {
+            position: relative;
+            background: linear-gradient(135deg, rgba(183, 110, 121, 0.9), rgba(212, 175, 55, 0.9));
+            border: 3px solid #ffffff;
+            border-radius: 9999px;
+            padding: 16px 32px;
+            color: white;
+            font-weight: 500;
+            letter-spacing: 0.05em;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 12px;
-            min-width: 240px;
-            padding: 16px 32px;
-            border-radius: 9999px;
-            background: linear-gradient(135deg, rgba(183, 110, 121, 0.9), rgba(212, 175, 55, 0.9));
-            border: 2px solid white;
-            color: white;
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 0.03em;
-            cursor: pointer;
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3), 0 8px 24px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
-            margin-top: 48px;
-            min-height: 56px;
-        }
-
-        .btn-celebrate:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.4), 0 12px 32px rgba(0, 0, 0, 0.5);
-        }
-
-        .btn-celebrate:active {
-            transform: scale(0.97);
-        }
-
-        #confetti-container, #light-rays-container {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 30;
-            overflow: visible;
-            background: transparent !important;
-        }
-
-        /* ============================================
-           MESSAGE SECTION
-           ============================================ */
-        .message-wrapper {
-            max-width: 550px;
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
-            padding: 0 16px;
-        }
-
-        .message-icon-wrapper {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 24px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(244, 63, 94, 0.2), rgba(251, 191, 36, 0.2));
-            display: flex;
-            align-items: center;
+            min-width: 260px;
             justify-content: center;
-            border: 1px solid rgba(244, 63, 94, 0.3);
+            font-size: 1.125rem;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.4), 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            z-index: 10;
+            cursor: pointer;
+            margin-top: 64px;
         }
 
-        .message-icon {
-            font-size: 1.75rem;
-            color: #fda4af;
+        .btn-celebrate::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 9999px;
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            pointer-events: none;
+            z-index: -1;
         }
 
-        .message-quote {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.5rem, 6vw, 2.5rem);
-            color: white;
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
+        .btn-celebrate:hover { transform: translateY(-3px) scale(1.02); }
+        .btn-celebrate:active { transform: scale(0.98); }
 
-        .message-cite {
-            color: rgba(251, 113, 133, 0.8);
-            font-size: 0.7rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
+        .star-btn {
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #374151;
         }
+        .star-btn:hover, .star-btn.hover-active { color: #F9A8D4; }
+        .star-btn.hover-active.rating-high, .star-btn.active.rating-high { color: #FBBF24; }
+        .star-btn.active { color: #F9A8D4; }
+        .star-btn:active { transform: scale(0.9); }
+
+        .star-animating { animation: star-bounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        @keyframes star-bounce { 0%, 100% { transform: scale(1) translateY(0); } 50% { transform: scale(1.4) translateY(-5px); } }
 
         .glass-panel {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            border-radius: 20px;
-            padding: 28px 24px;
-            margin-top: 48px;
-        }
-
-        .glass-panel-text {
-            color: #d1d5db;
-            font-size: clamp(0.95rem, 3.5vw, 1.125rem);
-            line-height: 1.7;
-        }
-
-        .glass-panel-text .highlight {
-            background: linear-gradient(135deg, #D4AF37 0%, #F4E8C1 50%, #D4AF37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 1.25em;
-            font-weight: 600;
-        }
-
-        .glass-panel-text .rose {
-            color: #fda4af;
-        }
-
-        .message-emojis {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 28px;
-            font-size: 1.75rem;
-        }
-
-        .emoji-bounce {
-            animation: bounce 1.5s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        /* ============================================
-           TIMERS SECTION
-           ============================================ */
-        .timers-wrapper {
-            max-width: 500px;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        .timers-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.75rem, 7vw, 3rem);
-            text-align: center;
-            margin-bottom: 12px;
-        }
-
-        .timers-divider {
-            width: 120px;
-            height: 2px;
-            background: linear-gradient(to right, transparent, rgba(244, 63, 94, 0.5), transparent);
-            margin: 0 auto 40px;
-        }
-
-        .timers-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
-
-        @media (min-width: 640px) {
-            .timers-grid {
-                grid-template-columns: repeat(2, 1fr);
-                max-width: 600px;
-                margin: 0 auto;
-            }
-        }
-
-        .timer-box {
-            background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 24px 16px;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
-        .timer-box.visible {
-            opacity: 1;
-            transform: translateY(0);
+        @supports (-webkit-touch-callout: none) {
+            .min-h-screen { min-height: -webkit-fill-available; }
+            .glass-panel { background: rgba(20, 10, 10, 0.9); border: 1px solid rgba(212, 175, 55, 0.2); }
         }
 
-        .timer-box.rose-border {
-            border: 1px solid rgba(244, 63, 94, 0.1);
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #B76E79; border-radius: 2px; }
+
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
         }
 
-        .timer-box.gold-border {
-            border: 1px solid rgba(251, 191, 36, 0.1);
-        }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 
-        .timer-icon-wrapper {
-            width: 56px;
-            height: 56px;
-            margin: 0 auto 16px;
-            border-radius: 16px;
+        .animate-bounce { animation: bounce 1s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        #sound-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #D4AF37;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
         }
 
-        .timer-icon-wrapper.rose {
-            background: rgba(244, 63, 94, 0.1);
-            border: 1px solid rgba(244, 63, 94, 0.2);
+        #sound-toggle:hover { background: rgba(212, 175, 55, 0.2); transform: scale(1.1); }
+        #sound-toggle.muted { color: #666; border-color: rgba(100, 100, 100, 0.3); }
+        #sound-toggle.muted::before { display: none; }
+        #sound-toggle::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            animation: pulse-ring 2s ease-out infinite;
+            pointer-events: none;
         }
 
-        .timer-icon-wrapper.gold {
-            background: rgba(251, 191, 36, 0.1);
-            border: 1px solid rgba(251, 191, 36, 0.2);
+        @keyframes pulse-ring { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.3); opacity: 0; } }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #D4AF37;
+            color: #050505;
+            padding: 8px 16px;
+            z-index: 9999;
+            transition: top 0.3s;
         }
 
-        .timer-label {
-            color: #9ca3af;
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .timer-values {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-
-        .timer-value-box {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
-            padding: 12px 4px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .timer-number {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.5rem, 5vw, 2rem);
-            font-weight: 700;
-        }
-
-        .timer-number.gold {
-            background: linear-gradient(135deg, #D4AF37 0%, #F4E8C1 50%, #D4AF37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .timer-number.rose {
-            color: #f43f5e;
-        }
-
-        .timer-unit {
-            color: #6b7280;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 6px;
-        }
-
-        .timer-date {
-            color: rgba(244, 63, 94, 0.4);
-            font-size: 0.7rem;
-            margin-top: 16px;
-        }
-
-        .timer-date.gold {
-            color: rgba(251, 191, 36, 0.4);
-        }
-
-        /* ============================================
-           JOKE SECTION
-           ============================================ */
-        .joke-wrapper {
-            max-width: 450px;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        .joke-card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 24px 20px;
-            border-left: 3px solid #fbbf24;
-        }
-
-        .joke-icon {
-            color: rgba(251, 191, 36, 0.4);
-            font-size: 1.5rem;
-            margin-bottom: 12px;
-        }
-
-        .joke-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.25rem, 5vw, 1.5rem);
-            margin-bottom: 12px;
-        }
-
-        .joke-text {
-            color: #d1d5db;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 12px;
-        }
-
-        .joke-subtext {
-            color: #fda4af;
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-        }
-
-        .joke-emojis {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            font-size: 1.5rem;
-        }
-
-        /* ============================================
-           SECRET SECTION
-           ============================================ */
-        .secret-wrapper {
-            max-width: 450px;
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .secret-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.5rem, 6vw, 2.5rem);
-            margin-bottom: 32px;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .secret-title.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .skip-link:focus { top: 0; }
 
         .secret-button {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto;
-            padding: 28px 24px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
-            border: none;
-            cursor: pointer;
             position: relative;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 24px 48px;
+            cursor: pointer;
             overflow: hidden;
-            transition: transform 0.3s ease;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(212, 175, 55, 0.1);
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 0 30px rgba(0, 0, 0, 0.5),
+                inset 0 0 30px rgba(212, 175, 55, 0.1);
         }
 
         .secret-button::before {
             content: '';
             position: absolute;
             inset: 0;
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 2px;
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.5), rgba(183, 110, 121, 0.5), rgba(212, 175, 55, 0.5));
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -1323,8 +814,10 @@
         }
 
         .secret-button:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3), inset 0 0 50px rgba(212, 175, 55, 0.2);
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 50px rgba(212, 175, 55, 0.3),
+                inset 0 0 50px rgba(212, 175, 55, 0.2);
         }
 
         .secret-button:active {
@@ -1332,7 +825,7 @@
         }
 
         .secret-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 12px;
             animation: secret-pulse 2s ease-in-out infinite;
         }
@@ -1342,132 +835,6 @@
             50% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8)); }
         }
 
-        .secret-text {
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .secret-subtext {
-            color: #9ca3af;
-            font-size: 0.85rem;
-        }
-
-        /* ============================================
-           REVIEW SECTION
-           ============================================ */
-        .review-wrapper {
-            max-width: 450px;
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .review-emoji {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .review-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.5rem, 6vw, 2.5rem);
-            color: white;
-            margin-bottom: 36px;
-        }
-
-        .stars-container {
-            display: flex;
-            justify-content: center;
-            gap: 4px;
-        }
-
-        @media (min-width: 640px) {
-            .stars-container {
-                gap: 8px;
-            }
-        }
-
-        .star-btn {
-            width: 52px;
-            height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #4b5563;
-            font-size: clamp(1.75rem, 6vw, 2.5rem);
-            transition: all 0.2s ease;
-            border-radius: 10px;
-            padding: 8px;
-        }
-
-        .star-btn:hover, .star-btn.hover-active { color: #F9A8D4; }
-        .star-btn.hover-active.rating-high, .star-btn.active.rating-high { color: #FBBF24; }
-        .star-btn.active { color: #F9A8D4; }
-        .star-btn:active { transform: scale(0.9); }
-
-        .star-animating { animation: star-bounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        
-        @keyframes star-bounce { 
-            0%, 100% { transform: scale(1) translateY(0); } 
-            50% { transform: scale(1.4) translateY(-5px); } 
-        }
-
-        .review-message {
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 24px;
-            padding: 0 16px;
-        }
-
-        .review-placeholder {
-            color: #6b7280;
-            font-style: italic;
-            font-size: 0.95rem;
-            text-align: center;
-        }
-
-        .review-response {
-            text-align: center;
-        }
-
-        .review-main-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-        }
-
-        .review-subtext {
-            color: rgba(251, 113, 133, 0.7);
-            font-size: 0.8rem;
-            margin-top: 12px;
-            font-style: italic;
-        }
-
-        /* ============================================
-           FOOTER
-           ============================================ */
-        footer .footer-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            color: #6b7280;
-            margin-bottom: 12px;
-        }
-
-        footer .footer-emojis {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            font-size: 1.5rem;
-        }
-
-        /* ============================================
-           WARNING MODAL
-           ============================================ */
         .warning-overlay {
             position: fixed;
             inset: 0;
@@ -1477,8 +844,6 @@
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            padding: 20px;
         }
 
         .warning-overlay.active {
@@ -1489,9 +854,9 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 20px;
-            padding: 32px 24px;
-            max-width: 380px;
-            width: 100%;
+            padding: 32px 40px;
+            max-width: 450px;
+            margin: 20px;
             text-align: center;
             position: relative;
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
@@ -1504,227 +869,63 @@
         }
 
         .warning-icon { font-size: 3rem; margin-bottom: 16px; }
-        .warning-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; margin-bottom: 12px; }
+        .warning-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #D4AF37; margin-bottom: 12px; }
         .warning-text { color: #b0b0b0; font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px; }
         .warning-text strong { color: #D4AF37; }
-        
-        .warning-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .warning-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn-warning { padding: 12px 28px; border-radius: 25px; font-weight: 500; cursor: pointer; transition: all 0.3s ease; border: none; font-size: 0.95rem; }
+        .btn-warning-open { background: linear-gradient(135deg, #D4AF37, #B8962E); color: #1a1a2e; }
+        .btn-warning-open:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+        .btn-warning-cancel { background: rgba(255, 255, 255, 0.05); color: #888; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-warning-cancel:hover { background: rgba(255, 255, 255, 0.1); color: #bbb; }
 
-        @media (min-width: 480px) {
-            .warning-buttons {
-                flex-direction: row;
-                justify-content: center;
-            }
-        }
-
-        .btn-warning {
-            padding: 14px 24px;
-            border-radius: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            font-size: 0.95rem;
-            min-height: 48px;
-        }
-
-        .btn-warning-open {
-            background: linear-gradient(135deg, #D4AF37, #B8962E);
-            color: #1a1a2e;
-        }
-
-        .btn-warning-open:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-        }
-
-        .btn-warning-cancel {
-            background: rgba(255, 255, 255, 0.05);
-            color: #888;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-warning-cancel:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #bbb;
-        }
-
-        /* ============================================
-           SECRET MESSAGE CONTAINER
-           ============================================ */
         .secret-message-container {
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.95);
             z-index: 10001;
             display: none;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
             padding: 20px;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
-        .secret-message-container.active {
-            display: flex;
-        }
+        .secret-message-container.active { display: flex; }
 
         .secret-message-content {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a0a2e 100%);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 24px;
-            padding: 28px 20px;
-            max-width: 100%;
+            padding: 40px;
+            max-width: 700px;
             width: 100%;
-            margin: auto;
+            max-height: 90vh;
+            overflow-y: auto;
             position: relative;
             box-shadow: 0 0 80px rgba(212, 175, 55, 0.15);
         }
 
-        @media (min-width: 640px) {
-            .secret-message-content {
-                padding: 40px;
-                max-width: 650px;
-            }
-        }
-
-        .secret-message-icon { font-size: 2.5rem; margin-bottom: 16px; text-align: center; }
-        .secret-message-body { color: #e0e0e0; font-size: clamp(0.95rem, 3vw, 1.05rem); line-height: 1.8; text-align: left; }
-        .secret-message-body p { margin-bottom: 16px; }
+        .secret-message-content::-webkit-scrollbar { width: 6px; }
+        .secret-message-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+        .secret-message-content::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
+        .secret-message-icon { font-size: 3rem; margin-bottom: 16px; text-align: center; }
+        .secret-message-body { color: #e0e0e0; font-size: 1.05rem; line-height: 1.9; text-align: left; }
+        .secret-message-body p { margin-bottom: 20px; }
         .secret-message-body .highlight { color: #D4AF37; font-weight: 500; }
-        .secret-message-body .emoji { font-size: 1.1em; vertical-align: middle; }
-        
-        .secret-message-footer {
-            text-align: center;
-            margin-top: 24px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+        .secret-message-body .emoji { font-size: 1.2em; vertical-align: middle; }
+        .secret-message-footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
         .secret-message-close {
             background: rgba(255, 255, 255, 0.1);
             color: #999;
-            padding: 14px 24px;
-            border-radius: 12px;
+            padding: 12px 24px;
+            border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 0.9rem;
-            min-height: 48px;
-            width: 100%;
         }
-
-        .secret-message-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        /* ============================================
-           SOUND TOGGLE
-           ============================================ */
-        #sound-toggle {
-            position: fixed;
-            bottom: max(20px, env(safe-area-inset-bottom));
-            right: 16px;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: #D4AF37;
-            font-size: 1.25rem;
-            cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        #sound-toggle:hover {
-            background: rgba(212, 175, 55, 0.2);
-            transform: scale(1.05);
-        }
-
-        #sound-toggle.muted {
-            color: #666;
-            border-color: rgba(100, 100, 100, 0.3);
-        }
-
-        #sound-toggle::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            border: 2px solid rgba(212, 175, 55, 0.5);
-            animation: pulse-ring 2s ease-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes pulse-ring {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.3); opacity: 0; }
-        }
-
-        /* ============================================
-           SKIP LINK
-           ============================================ */
-        .skip-link {
-            position: absolute;
-            top: -50px;
-            left: 0;
-            background: #D4AF37;
-            color: #050505;
-            padding: 12px 20px;
-            z-index: 9999;
-            transition: top 0.3s;
-            font-weight: 500;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        /* ============================================
-           UTILITIES
-           ============================================ */
-        .text-gold-gradient {
-            background: linear-gradient(135deg, #D4AF37 0%, #F4E8C1 50%, #D4AF37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .text-glow {
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.5);
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #B76E79; border-radius: 2px; }
-
-        /* iOS safe area */
-        @supports (padding: max(0px)) {
-            #sound-toggle {
-                bottom: max(20px, env(safe-area-inset-bottom));
-            }
-        }
-
-        /* Landscape mobile */
-        @media (max-height: 500px) and (orientation: landscape) {
-            section {
-                min-height: auto;
-                padding: 40px 16px;
-            }
-        }
+        .secret-message-close:hover { background: rgba(255, 255, 255, 0.2); color: white; }
     </style>
 </head>
 <body class="text-gray-100 antialiased">
@@ -1744,58 +945,70 @@
 
     <div class="ambient-glow" aria-hidden="true"></div>
 
-    <!-- CONTAINERE PARTICULE -->
     <div id="star-confetti-container" class="particle-container" aria-hidden="true"></div>
     <div id="celebrate-confetti-container" class="particle-container" aria-hidden="true"></div>
     <div id="particles-container" class="particle-container" aria-hidden="true"></div>
     <div id="touch-particles-container" class="particle-container" aria-hidden="true"></div>
     <div id="scroll-particles-container" class="particle-container" aria-hidden="true"></div>
 
-    <!-- BUTON SUNET -->
     <button id="sound-toggle" aria-label="Activează sau dezactivează sunetul" aria-pressed="false">
         <i class="fas fa-volume-up" aria-hidden="true"></i>
     </button>
 
     <!-- SECTION 1: INTRO -->
     <section id="intro" aria-labelledby="intro-title">
-        <div id="main-content" class="intro-wrapper">
-            <h1 id="intro-title" class="intro-text opacity-0">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-rose-900/20 via-black to-black" aria-hidden="true"></div>
+        <div id="main-content" class="relative z-10 max-w-2xl mx-auto px-6 text-center">
+            <h1 id="intro-title" class="intro-text font-serif text-2xl md:text-5xl text-gray-100 leading-relaxed mb-10 opacity-0 px-4">
                 Istoria este plină de momente mari...
             </h1>
-            <button onclick="smoothScrollTo('timeline')" class="intro-btn opacity-0">
-                Descoperă <i class="fas fa-arrow-down ml-2 text-rose-400"></i>
+            <button onclick="smoothScrollTo('timeline')" class="intro-text px-8 py-3 rounded-full bg-white/5 border border-white/20 text-white/80 hover:bg-white/10 hover:border-rose-400/50 transition-all opacity-0 backdrop-blur-sm cursor-pointer">
+                Descoperă <i class="fas fa-arrow-down ml-2 text-rose-400" aria-hidden="true"></i>
             </button>
         </div>
     </section>
 
     <!-- SECTION 2: TIMELINE -->
     <section id="timeline" aria-labelledby="timeline-title">
-        <div class="timeline-wrapper">
-            <h2 id="timeline-title" class="timers-title text-gold-gradient">3 Martie în Istorie</h2>
-            <p class="timeline-subtitle">Momente care au definit lumea</p>
-            
-            <div class="timeline-container">
-                <div class="timeline-line"></div>
-                
-                <div class="timeline-item" role="listitem">
-                    <div class="timeline-dot"></div>
-                    <span class="timeline-year">1847</span>
-                    <h3 class="timeline-item-title">Alexander Graham Bell</h3>
-                    <p class="timeline-desc">Inventatorul telefonului se naște, schimbând comunicația pentru totdeauna.</p>
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 id="timeline-title" class="font-serif text-4xl md:text-6xl text-gold-gradient mb-4">3 Martie în Istorie</h2>
+                <p class="text-rose-300/60 text-sm tracking-widest uppercase">Momente care au definit lumea</p>
+            </div>
+            <div class="relative space-y-20" role="list">
+                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-rose-400/50 to-transparent md:-translate-x-1/2 shadow-[0_0_10px_rgba(244,63,94,0.3)]" aria-hidden="true"></div>
+                <div class="timeline-item relative pl-12 md:pl-0 md:flex items-center opacity-0 group" role="listitem">
+                    <div class="md:w-1/2 md:text-right md:pr-12">
+                        <span class="text-5xl md:text-7xl font-serif text-rose-400/80 font-bold block mb-2">1847</span>
+                        <h3 class="text-xl text-white font-light">Alexander Graham Bell</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">Inventatorul telefonului se naște,<br>schimbând comunicația pentru totdeauna.</p>
+                    </div>
+                    <div class="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-3 h-3 bg-rose-400 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.8)] ring-4 ring-rose-900/50" aria-hidden="true"></div>
+                    <div class="hidden md:block md:w-1/2 md:pl-12 opacity-30 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-phone-alt text-4xl text-rose-400/30" aria-hidden="true"></i>
+                    </div>
                 </div>
-                
-                <div class="timeline-item" role="listitem">
-                    <div class="timeline-dot"></div>
-                    <span class="timeline-year">1923</span>
-                    <h3 class="timeline-item-title">Revista TIME</h3>
-                    <p class="timeline-desc">Primul număr al celei mai influente publicații de știri din lume.</p>
+                <div class="timeline-item relative pl-12 md:pl-0 md:flex items-center opacity-0 group" role="listitem">
+                    <div class="hidden md:block md:w-1/2 md:text-right md:pr-12 opacity-30 group-hover:opacity-100 transition-opacity">
+                        <i class="far fa-clock text-4xl text-rose-400/30" aria-hidden="true"></i>
+                    </div>
+                    <div class="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-3 h-3 bg-rose-400 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.8)] ring-4 ring-rose-900/50" aria-hidden="true"></div>
+                    <div class="md:w-1/2 md:pl-12">
+                        <span class="text-5xl md:text-7xl font-serif text-rose-400/80 font-bold block mb-2">1923</span>
+                        <h3 class="text-xl text-white font-light">Revista TIME</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">Primul număr al celei mai influente<br>publicații de știri din lume.</p>
+                    </div>
                 </div>
-                
-                <div class="timeline-item" role="listitem">
-                    <div class="timeline-dot"></div>
-                    <span class="timeline-year">1931</span>
-                    <h3 class="timeline-item-title">The Star-Spangled Banner</h3>
-                    <p class="timeline-desc">Devine imnul național al SUA, un simbol al rezistenței.</p>
+                <div class="timeline-item relative pl-12 md:pl-0 md:flex items-center opacity-0 group" role="listitem">
+                    <div class="md:w-1/2 md:text-right md:pr-12">
+                        <span class="text-5xl md:text-7xl font-serif text-rose-400/80 font-bold block mb-2">1931</span>
+                        <h3 class="text-xl text-white font-light">The Star-Spangled Banner</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">Devine imnul național al SUA,<br>un simbol al rezistenței.</p>
+                    </div>
+                    <div class="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-3 h-3 bg-rose-400 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.8)] ring-4 ring-rose-900/50" aria-hidden="true"></div>
+                    <div class="hidden md:block md:w-1/2 md:pl-12 opacity-30 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-music text-4xl text-rose-400/30" aria-hidden="true"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1803,93 +1016,99 @@
 
     <!-- SECTION 3: REVEAL -->
     <section id="reveal" aria-labelledby="reveal-title">
-        <div id="reveal-darkness"></div>
-        
-        <div class="gift-wrapper">
-            <!-- CUTIA DE CADOU -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,_rgba(183,110,121,0.15),_transparent_50%)]" aria-hidden="true"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,_rgba(212,175,55,0.1),_transparent_50%)]" aria-hidden="true"></div>
+        <div id="reveal-darkness" aria-hidden="true"></div>
+        <div id="gift-container">
             <div id="gift-box" role="button" aria-label="Deschide cadoul" tabindex="0">
-                <div id="gift-glow"></div>
-                
-                <span class="gift-sparkle sparkle-1"></span>
-                <span class="gift-sparkle sparkle-2"></span>
-                <span class="gift-sparkle sparkle-3"></span>
-                <span class="gift-sparkle sparkle-4"></span>
-                <span class="gift-sparkle sparkle-5"></span>
-                <span class="gift-sparkle sparkle-6"></span>
-                <span class="gift-sparkle sparkle-7"></span>
-                
-                <div class="gift-body">
-                    <div class="gift-body-main">
-                        <div class="gift-body-ribbon"></div>
+                <div id="gift-glow" aria-hidden="true"></div>
+                <div id="gift-box-body" class="absolute bottom-0 left-1/2 -translate-x-1/2 w-36 h-28">
+                    <div class="absolute bottom-0 w-full h-20 bg-gradient-to-br from-rose-500 to-rose-700 rounded-lg shadow-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-br from-rose-500 to-rose-700 rounded-lg">
+                            <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-4 bg-gradient-to-r from-transparent via-amber-400 to-transparent" aria-hidden="true"></div>
+                        </div>
                     </div>
-                </div>
-                
-                <div id="gift-lid">
-                    <div class="gift-lid-main">
-                        <div class="gift-lid-ribbon"></div>
+                    <div id="gift-lid" class="absolute -top-4 left-1/2 -translate-x-1/2 w-40 h-10 origin-bottom">
+                        <div class="w-full h-full bg-gradient-to-br from-rose-400 to-rose-600 rounded-lg shadow-xl">
+                            <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-4 bg-gradient-to-r from-transparent via-amber-400 to-transparent" aria-hidden="true"></div>
+                        </div>
                     </div>
+                    <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 w-5 h-24 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 rounded-sm shadow-lg z-10" aria-hidden="true">
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-10 bg-amber-400 rounded-b-full"></div>
+                    </div>
+                    <svg id="gift-ribbon" class="absolute -top-8 left-1/2 -translate-x-1/2 w-24 h-12" viewBox="0 0 80 40" aria-hidden="true">
+                        <path d="M10 35 Q20 5 40 15 Q60 5 70 35" stroke="#FBBF24" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    </svg>
                 </div>
-                
-                <div class="gift-bow">
-                    <div class="gift-bow-vertical"></div>
-                    <div class="gift-bow-knot"></div>
+                <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+                    <span class="gift-sparkle sparkle-1 absolute w-3 h-3 bg-amber-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-2 absolute w-2 h-2 bg-rose-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-3 absolute w-3 h-3 bg-amber-400 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-4 absolute w-2 h-2 bg-rose-400 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-5 absolute w-3 h-3 bg-amber-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-6 absolute w-2 h-2 bg-rose-300 rounded-full"></span>
+                    <span class="gift-sparkle sparkle-7 absolute w-2 h-2 bg-amber-400 rounded-full"></span>
                 </div>
-                
-                <p id="gift-hint">👆 Click pentru a deschide</p>
+                <p id="gift-hint" class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-amber-400/60 text-xs whitespace-nowrap opacity-0 transition-opacity">👆 Click pentru a deschide</p>
             </div>
-            
-            <!-- CONȚINUT REVELAT -->
-            <div id="reveal-content">
-                <div class="reveal-label">Dar adevărata minune...</div>
-                
-                <h2 id="reveal-title" class="reveal-main-text">
-                    Pe <span class="reveal-highlight">3 Martie 2006</span>,<br>
-                    Dumnezeu a decis că lumea<br>
-                    are nevoie de mai multă <span style="color: #fda4af; font-style: italic;">lumină</span>.
-                </h2>
-                
-                <p class="reveal-main-text" style="margin-top: 24px;">
-                    Așa că te-a creat pe tine,<br>
-                    <span class="reveal-name">Bianca</span>
-                </p>
-                
-                <button id="celebrate-btn" class="btn-celebrate">
-                    <span>🥳</span>
+            <div id="reveal-content" aria-live="polite">
+                <div class="mb-8">
+                    <span class="text-rose-400 text-xs tracking-[0.6em] uppercase font-light">Dar adevărata minune...</span>
+                </div>
+                <div class="mt-8">
+                    <h2 id="reveal-title" class="font-serif text-3xl md:text-6xl text-white leading-tight font-light">
+                        Pe <span class="text-gold-gradient font-semibold">3 Martie 2006</span>,<br>
+                        Dumnezeu a decis că lumea<br>
+                        are nevoie de mai multă <span class="italic text-rose-300">lumină</span>.
+                    </h2>
+                </div>
+                <div class="mt-12">
+                    <p class="font-serif text-3xl md:text-5xl text-gray-200 italic">
+                        Așa că te-a creat pe tine,<br>
+                        <span id="bianca-name" class="text-gold-gradient not-italic font-bold text-6xl md:text-8xl block mt-6">Bianca</span>
+                    </p>
+                </div>
+                <button id="celebrate-btn" class="btn-celebrate cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                    <span aria-hidden="true">🥳</span>
                     <span>Celebrează momentul</span>
-                    <i class="fas fa-sparkles"></i>
+                    <i class="fas fa-sparkles" aria-hidden="true"></i>
                 </button>
             </div>
+            <div id="confetti-container" aria-hidden="true"></div>
+            <div id="light-rays-container" aria-hidden="true"></div>
         </div>
-        
-        <div id="confetti-container"></div>
-        <div id="light-rays-container"></div>
+        <div id="gift-particles" aria-hidden="true"></div>
     </section>
 
     <!-- SECTION 4: MESSAGE -->
     <section id="message" aria-labelledby="message-title">
-        <div class="message-wrapper">
-            <div class="message-icon-wrapper">
-                <i class="fas fa-heart message-icon"></i>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,_rgba(212,175,55,0.1),_transparent_60%)]" aria-hidden="true"></div>
+        <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+            <div class="message-anim opacity-0 transform scale-95">
+                <div class="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-br from-rose-400/20 to-yellow-400/20 flex items-center justify-center border border-rose-400/30">
+                    <i class="fas fa-heart text-rose-300 text-3xl" aria-hidden="true"></i>
+                </div>
+                <blockquote class="font-serif text-3xl md:text-5xl text-white leading-relaxed mb-6 font-light">
+                    „Te laud că sunt o <span class="text-gold-gradient font-normal">făptură</span><br>
+                    atât de minunată!"
+                </blockquote>
+                <cite class="text-rose-300/80 text-sm tracking-[0.3em] uppercase not-italic">Psalmul 139:14</cite>
             </div>
-            
-            <blockquote class="message-quote">
-                „Te laud că sunt o <span class="text-gold-gradient">făptură</span><br>
-                atât de minunată!"
-            </blockquote>
-            
-            <cite class="message-cite">Psalmul 139:14</cite>
-            
-            <div class="glass-panel">
-                <p class="glass-panel-text">
-                    La <span class="highlight">20 de ani</span>, nu este doar o schimbare de prefix.<br>
-                    Este împlinirea unei <span class="rose">promisiuni divine</span> —<br><br>
-                    20 de ani de binecuvântări, de har, și de lumină pe care ai adus-o în lume.
-                </p>
-                
-                <div class="message-emojis">
-                    <span class="emoji-bounce" style="animation-delay: 0s;">✨</span>
-                    <span class="emoji-bounce" style="animation-delay: 0.2s;">🌹</span>
-                    <span class="emoji-bounce" style="animation-delay: 0.4s;">✨</span>
+            <div class="mt-16 message-anim opacity-0 transform translate-y-8">
+                <div class="glass-panel rounded-3xl p-10 md:p-16 relative overflow-hidden">
+                    <div class="absolute inset-0 shimmer opacity-20" aria-hidden="true"></div>
+                    <div class="relative z-10">
+                        <p class="text-gray-200 text-lg md:text-xl leading-relaxed font-light">
+                            La <span class="text-gold-gradient font-semibold text-2xl">20 de ani</span>, nu este doar o schimbare de prefix.<br>
+                            Este împlinirea unei <span class="text-rose-300">promisiuni divine</span> —<br>
+                            <span class="block mt-4 text-white/90">20 de ani de binecuvântări, de har, și de lumină<br>pe care ai adus-o în lume.</span>
+                        </p>
+                        <div class="mt-10 flex justify-center gap-6 text-4xl" aria-hidden="true">
+                            <span class="animate-bounce" style="animation-delay: 0s">✨</span>
+                            <span class="animate-bounce" style="animation-delay: 0.2s">🌹</span>
+                            <span class="animate-bounce" style="animation-delay: 0.4s">✨</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1897,65 +1116,59 @@
 
     <!-- SECTION 5: TIMERS -->
     <section id="timers" aria-labelledby="timers-title">
-        <div class="timers-wrapper">
-            <h2 id="timers-title" class="timers-title text-gold-gradient">Timpul și Minunea</h2>
-            <div class="timers-divider"></div>
-            
-            <div class="timers-grid">
-                <div class="timer-box rose-border" role="group" aria-label="Timer de când există Bianca">
-                    <div class="timer-icon-wrapper rose">
-                        <i class="fas fa-hourglass-half text-rose-400 text-xl"></i>
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 id="timers-title" class="text-center font-serif text-4xl text-gold-gradient mb-4">Timpul și Minunea</h2>
+            <div class="w-32 h-px bg-gradient-to-r from-transparent via-rose-400/50 to-transparent mx-auto mb-16" aria-hidden="true"></div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="timer-box glass-panel rounded-3xl p-8 text-center opacity-0 transform translate-y-8 border border-rose-400/10" role="group">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-rose-400/10 to-transparent flex items-center justify-center border border-rose-400/20">
+                        <i class="fas fa-hourglass-half text-rose-400 text-2xl" aria-hidden="true"></i>
                     </div>
-                    <h3 class="timer-label">De când există minunea</h3>
-                    
-                    <div class="timer-values">
-                        <div class="timer-value-box">
-                            <div class="timer-number gold" id="years">0</div>
-                            <div class="timer-unit">Ani</div>
+                    <h3 class="text-gray-400 text-xs uppercase tracking-[0.3em] mb-8">De când există minunea</h3>
+                    <div class="grid grid-cols-4 gap-3">
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-gold-gradient font-serif" id="years">0</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Ani</div>
                         </div>
-                        <div class="timer-value-box">
-                            <div class="timer-number gold" id="months">0</div>
-                            <div class="timer-unit">Luni</div>
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-gold-gradient font-serif" id="months">0</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Luni</div>
                         </div>
-                        <div class="timer-value-box">
-                            <div class="timer-number gold" id="days">0</div>
-                            <div class="timer-unit">Zile</div>
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-gold-gradient font-serif" id="days">0</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Zile</div>
                         </div>
-                        <div class="timer-value-box">
-                            <div class="timer-number rose" id="seconds">0</div>
-                            <div class="timer-unit">Sec</div>
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-rose-400 font-serif" id="seconds">0</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Sec</div>
                         </div>
                     </div>
-                    
-                    <div class="timer-date">03.03.2006</div>
+                    <div class="mt-6 text-rose-300/40 text-xs" aria-hidden="true">03.03.2006</div>
                 </div>
-                
-                <div class="timer-box gold-border" role="group" aria-label="Timer până la următoarea aniversare">
-                    <div class="timer-icon-wrapper gold">
-                        <i class="fas fa-gift text-yellow-400 text-xl"></i>
+                <div class="timer-box glass-panel rounded-3xl p-8 text-center opacity-0 transform translate-y-8 border border-yellow-400/10" role="group">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-yellow-400/10 to-transparent flex items-center justify-center border border-yellow-400/20">
+                        <i class="fas fa-gift text-gold text-2xl" aria-hidden="true"></i>
                     </div>
-                    <h3 class="timer-label">Până la următoarea aniversare</h3>
-                    
-                    <div class="timer-values">
-                        <div class="timer-value-box">
-                            <div class="timer-number gold" id="cd-days">00</div>
-                            <div class="timer-unit">Zile</div>
+                    <h3 class="text-gray-400 text-xs uppercase tracking-[0.3em] mb-8">Până la următoarea aniversare</h3>
+                    <div class="grid grid-cols-4 gap-3">
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-gold-gradient font-serif" id="cd-days">00</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Zile</div>
                         </div>
-                        <div class="timer-value-box">
-                            <div class="timer-number gold" id="cd-hours">00</div>
-                            <div class="timer-unit">Ore</div>
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-gold-gradient font-serif" id="cd-hours">00</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Ore</div>
                         </div>
-                        <div class="timer-value-box">
-                            <div class="timer-number gold" id="cd-minutes">00</div>
-                            <div class="timer-unit">Min</div>
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-gold-gradient font-serif" id="cd-minutes">00</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Min</div>
                         </div>
-                        <div class="timer-value-box">
-                            <div class="timer-number rose" id="cd-seconds">00</div>
-                            <div class="timer-unit">Sec</div>
+                        <div class="bg-black/40 rounded-2xl p-4 border border-white/5">
+                            <div class="text-3xl font-bold text-rose-400 font-serif" id="cd-seconds">00</div>
+                            <div class="text-[10px] text-gray-500 mt-2 uppercase tracking-wider">Sec</div>
                         </div>
                     </div>
-                    
-                    <div class="timer-date gold" id="next-date" aria-live="polite">Următoarea aniversare</div>
+                    <div class="mt-6 text-yellow-300/40 text-xs" id="next-date" aria-live="polite">Următoarea aniversare</div>
                 </div>
             </div>
         </div>
@@ -1963,16 +1176,15 @@
 
     <!-- SECTION 6: JOKE -->
     <section id="joke" aria-labelledby="joke-title">
-        <div class="joke-wrapper">
-            <div class="joke-card">
-                <i class="far fa-lightbulb joke-icon"></i>
-                <h3 id="joke-title" class="joke-title text-gold-gradient">O mică confesiune...</h3>
-                <p class="joke-text">Mi-a venit ideea cam târziu, dar am zis că merită...</p>
-                <p class="joke-subtext">Surprizele vin atunci când nu te aștepți 😂</p>
-                <div class="joke-emojis">
-                    <span>⏰</span>
-                    <span>💡</span>
-                    <span>🎁</span>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(212,175,55,0.05),_transparent_70%)]" aria-hidden="true"></div>
+        <div class="max-w-2xl mx-auto px-6 text-center relative z-10">
+            <div class="glass-panel rounded-2xl p-8 md:p-12 border-l-4 border-yellow-400">
+                <i class="far fa-lightbulb text-yellow-400/40 text-3xl mb-4 block" aria-hidden="true"></i>
+                <h3 id="joke-title" class="font-serif text-2xl text-gold-gradient mb-4">O mică confesiune...</h3>
+                <p class="text-gray-300 text-lg mb-4 leading-relaxed">Mi-a venit ideea cam târziu, dar am zis că merită...</p>
+                <p class="text-rose-300 text-base mb-6 font-light">Surprizele vin atunci când nu te aștepți 😂</p>
+                <div class="flex justify-center gap-3 text-3xl" aria-hidden="true">
+                    <span>⏰</span><span>💡</span><span>🎁</span>
                 </div>
             </div>
         </div>
@@ -1980,62 +1192,50 @@
 
     <!-- SECTION 7: SECRET -->
     <section id="secret" aria-labelledby="secret-title">
-        <div class="secret-wrapper">
-            <h2 id="secret-title" class="secret-title text-gold-gradient">Mai este ceva...</h2>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(138, 43, 226, 0.1),_transparent_70%)]" aria-hidden="true"></div>
+        <div class="max-w-2xl mx-auto px-6 text-center relative z-10">
+            <h2 id="secret-title" class="font-serif text-2xl md:text-4xl text-gold-gradient mb-8 opacity-0 transform translate-y-4">
+                Mai este ceva...
+            </h2>
             
-            <button id="secret-btn" class="secret-button" aria-label="Deschide mesajul secret">
+            <button id="secret-btn" class="secret-button cursor-pointer" aria-label="Deschide mesajul secret">
                 <div class="secret-icon">🔒</div>
-                <div class="secret-text">Mesaj Secret</div>
-                <div class="secret-subtext">Tap pentru a descoperi</div>
+                <div class="text-white font-semibold text-lg">Mesaj Secret</div>
+                <div class="text-gray-500 text-sm mt-2">Tap pentru a descoperi</div>
             </button>
         </div>
     </section>
 
     <!-- SECTION 8: REVIEW -->
     <section id="review" aria-labelledby="review-title">
-        <div class="review-wrapper">
-            <div class="review-emoji">🤔</div>
-            <h2 id="review-title" class="review-title">Cum ți s-a părut surpriza?</h2>
-            
-            <div class="stars-container" id="star-container" role="radiogroup" aria-label="Evaluare cu stele">
-                <button class="star-btn" data-rating="1" aria-label="1 stea" role="radio" aria-checked="false">
-                    <i class="fas fa-star"></i>
-                </button>
-                <button class="star-btn" data-rating="2" aria-label="2 stele" role="radio" aria-checked="false">
-                    <i class="fas fa-star"></i>
-                </button>
-                <button class="star-btn" data-rating="3" aria-label="3 stele" role="radio" aria-checked="false">
-                    <i class="fas fa-star"></i>
-                </button>
-                <button class="star-btn" data-rating="4" aria-label="4 stele" role="radio" aria-checked="false">
-                    <i class="fas fa-star"></i>
-                </button>
-                <button class="star-btn" data-rating="5" aria-label="5 stele" role="radio" aria-checked="false">
-                    <i class="fas fa-star"></i>
-                </button>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(183,110,121,0.05),_transparent_70%)]" aria-hidden="true"></div>
+        <div class="max-w-2xl mx-auto px-6 text-center relative z-10">
+            <span class="text-4xl mb-6 block" aria-label="thinking emoji">🤔</span>
+            <h2 id="review-title" class="font-serif text-3xl md:text-4xl text-white mb-12">Cum ți s-a părut surpriza?</h2>
+            <div class="flex justify-center gap-2" id="star-container" role="radiogroup" aria-label="Evaluare cu stele">
+                <button class="star-btn text-5xl md:text-6xl p-2" data-rating="1" aria-label="1 stea" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+                <button class="star-btn text-5xl md:text-6xl p-2" data-rating="2" aria-label="2 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+                <button class="star-btn text-5xl md:text-6xl p-2" data-rating="3" aria-label="3 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+                <button class="star-btn text-5xl md:text-6xl p-2" data-rating="4" aria-label="4 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
+                <button class="star-btn text-5xl md:text-6xl p-2" data-rating="5" aria-label="5 stele" role="radio" aria-checked="false"><i class="fas fa-star" aria-hidden="true"></i></button>
             </div>
-            
-            <div id="review-message" class="review-message" role="status" aria-live="polite">
-                <p class="review-placeholder">Apasă pe stele pentru a spune cum te-ai simțit...</p>
+            <div id="review-message" class="min-h-[120px] flex items-center justify-center px-4 mt-8" role="status" aria-live="polite">
+                <p class="text-gray-500 italic font-light">Apasă pe stele pentru a spune cum te-ai simțit...</p>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer>
-        <p class="footer-text">Cu drag, pentru tine</p>
-        <div class="footer-emojis">
-            <span>🤗</span>
-            <span>✨</span>
-            <span>🤗</span>
-        </div>
+    <footer class="text-center py-12 text-gray-600 text-sm border-t border-white/5 relative z-10">
+        <p class="font-serif text-lg text-gray-500 mb-2">Cu drag, pentru tine</p>
+        <div class="flex justify-center gap-2 text-2xl" aria-hidden="true"><span>🤗</span><span>✨</span><span>🤗</span></div>
     </footer>
 
-    <!-- WARNING OVERLAY -->
+    <!-- Warning Overlay -->
     <div id="warning-overlay" class="warning-overlay" role="dialog" aria-modal="true" aria-labelledby="warning-title">
         <div class="warning-modal">
             <div class="warning-icon">🤫</div>
-            <h3 id="warning-title" class="warning-title text-gold-gradient">Pst... vrei să vezi ceva?</h3>
+            <h3 id="warning-title" class="warning-title">Pst... vrei să vezi ceva?</h3>
             <p class="warning-text">
                 Dacă apeși pe <strong>Deschide</strong>, vei vedea un mesaj special.
             </p>
@@ -2046,20 +1246,18 @@
         </div>
     </div>
 
-    <!-- SECRET MESSAGE CONTAINER -->
+    <!-- Secret Message Container -->
     <div id="secret-message-container" class="secret-message-container" role="dialog" aria-modal="true">
         <div class="secret-message-content">
             <div class="secret-message-icon">🧐</div>
             <div class="secret-message-body">
                 <p>Acum aproape un an am venit <span class="highlight">prima dată la voi la biserică</span>, unde am fost surprins de atmosfera și de colectiv, și cum a "sarit" Alex pe mine să facem cunoștință <span class="emoji">😂</span>.</p>
                 <p>Contextul pentru care am venit nu a fost tocmai placut, dar chiar nu îmi pare rău, altfel nu cred că vă cunoșteam.</p>
-                <p>Una din primele activități pe care le-am făcut cu voi a fost să împărțim pliante cu <span class="highlight">Memo</span>, când am făcut amândoi echipă, tu mă împingeai să prezint oamenilor evenimentul și mie îmi era rușine să întreb cât e ceasul <span class="emoji">🤣</span>.</p>
+                <p>Una din primele activități pe care le-am făcut cu voi a fost să împărțim pliante cu <span class="highlight">Memo</span>, când am făcut amândoi echipă, tu mă împingeai să prezint oamenilor evenimentul și mie îmi era rușine să întreb cât e ceasul ,dar să le mai zic de eveniment <span class="emoji">🤣</span>.</p>
                 <p>Când mai lipseam mă "certai" dar din câte mi s-au spus putea să fie și mai rău <span class="emoji">👊🤕</span>, veneam de frica ta 🤣, sau faza cu capacul de presiune 🍲, de care s-a făcut mișto cam 2 săptămâni.</p>
                 <p>Mă bucur că ne-am cunoscut, altfel nu cred că aveam vreo șansă să îl văd pe <span class="highlight">Memo</span> live <span class="emoji">😂🤖</span>. Cu toate că nu ne-am mai văzut, tot ești pe listă în "camera de război"🍦.</p>
                 <p>Chiar ești o <span class="highlight">minune</span> și o <span class="highlight">binecuvântare</span> pentru cei din jurul tău timp de 2 decenii.</p>
-                <p style="text-align: center; font-size: 1.2rem; margin-top: 24px;">
-                    <strong class="text-gold-gradient">GBU Bianca!</strong> <span class="emoji">😇🤗</span>
-                </p>
+                <p class="text-center text-xl"><strong class="text-gold-gradient">GBU Bianca!</strong> <span class="emoji">😇🤗</span></p>
             </div>
             <div class="secret-message-footer">
                 <button id="btn-close-secret" class="secret-message-close">Închide mesajul</button>
@@ -2076,17 +1274,17 @@
             isMobile: window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768,
             isTouchDevice: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
             
-            // Particule - optimizate dar vizibile
+            // Particule optimizate - mai puține pe mobile dar la fel de frumoase
             starParticles: { 
                 desktop: { stars: 60, orbs: 5, clusters: 4, meteors: 3 },
                 mobile: { stars: 35, orbs: 3, clusters: 2, meteors: 2 }
             },
             
-            // FPS limitat pe mobile
+            // FPS limitat pe mobile pentru performanță
             targetFPS: window.matchMedia('(pointer: coarse)').matches ? 30 : 60,
             frameInterval: window.matchMedia('(pointer: coarse)').matches ? 1000 / 30 : 1000 / 60,
             
-            // Throttle
+            // Throttle mai agresiv pe mobile
             scrollThrottle: window.matchMedia('(pointer: coarse)').matches ? 32 : 16,
             resizeThrottle: 150,
             
@@ -2096,7 +1294,43 @@
         };
 
         // ============================================
-        // ANIMATION MANAGER
+        // HELPER: Repară containerele de particule
+        // ============================================
+        function fixParticleContainers() {
+            const containers = [
+                'particles-container',
+                'touch-particles-container', 
+                'scroll-particles-container',
+                'star-confetti-container',
+                'celebrate-confetti-container',
+                'star-trail-canvas'
+            ];
+            
+            containers.forEach(id => {
+                const container = document.getElementById(id);
+                if (container) {
+                    container.style.cssText += `
+                        position: fixed !important;
+                        top: 0 !important;
+                        left: 0 !important;
+                        width: 100vw !important;
+                        height: 100vh !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        pointer-events: none !important;
+                        background: transparent !important;
+                        border: none !important;
+                        outline: none !important;
+                        box-shadow: none !important;
+                        contain: layout style paint !important;
+                        transform: translateZ(0) !important;
+                    `;
+                }
+            });
+        }
+
+        // ============================================
+        // ANIMATION MANAGER - OPTIMIZAT
         // ============================================
         class AnimationManager {
             constructor() {
@@ -2132,6 +1366,7 @@
                     }, { passive: true });
                 });
                 
+                // Verificare idle mai rar pe mobile
                 const idleCheckInterval = CONFIG.isMobile ? 2000 : 500;
                 setInterval(() => {
                     const idleTime = Date.now() - this.lastUserInteraction;
@@ -2231,7 +1466,7 @@
         }
 
         // ============================================
-        // STELE ANIMATE
+        // STELE ANIMATE - OPTIMIZATE PENTRU GPU
         // ============================================
         function initAnimatedStars() {
             const container = document.getElementById('particles-container');
@@ -2239,7 +1474,7 @@
 
             const settings = CONFIG.isMobile ? CONFIG.starParticles.mobile : CONFIG.starParticles.desktop;
             
-            // Orbs
+            // Orbs - doar transform și opacity (GPU accelerated)
             const orbTypes = ['gold-orb', 'rose-orb', 'white-orb'];
             for (let i = 0; i < settings.orbs; i++) {
                 const orb = document.createElement('div');
@@ -2258,40 +1493,36 @@
             }
 
             // Clustere
-            if (settings.clusters) {
-                for (let i = 0; i < settings.clusters; i++) {
-                    const cluster = document.createElement('div');
-                    cluster.className = 'star-cluster';
-                    cluster.style.cssText = `
-                        left: ${Math.random() * 90}%;
-                        top: ${Math.random() * 90}%;
-                        width: 30px;
-                        height: 30px;
-                        animation-delay: ${Math.random() * 3}s;
-                        will-change: transform, opacity;
-                        transform: translateZ(0);
-                    `;
-                    container.appendChild(cluster);
-                }
+            for (let i = 0; i < settings.clusters; i++) {
+                const cluster = document.createElement('div');
+                cluster.className = 'star-cluster';
+                cluster.style.cssText = `
+                    left: ${Math.random() * 90}%;
+                    top: ${Math.random() * 90}%;
+                    width: 30px;
+                    height: 30px;
+                    animation-delay: ${Math.random() * 3}s;
+                    will-change: transform, opacity;
+                    transform: translateZ(0);
+                `;
+                container.appendChild(cluster);
             }
 
             // Meteori
-            if (settings.meteors) {
-                for (let i = 0; i < settings.meteors; i++) {
-                    const meteor = document.createElement('div');
-                    meteor.className = 'meteor';
-                    meteor.style.cssText = `
-                        left: ${20 + Math.random() * 60}%;
-                        top: ${Math.random() * 20}%;
-                        animation-duration: ${4 + Math.random() * 4}s;
-                        animation-delay: ${i * 8 + Math.random() * 10}s;
-                        will-change: transform, opacity;
-                    `;
-                    container.appendChild(meteor);
-                }
+            for (let i = 0; i < settings.meteors; i++) {
+                const meteor = document.createElement('div');
+                meteor.className = 'meteor';
+                meteor.style.cssText = `
+                    left: ${20 + Math.random() * 60}%;
+                    top: ${Math.random() * 20}%;
+                    animation-duration: ${4 + Math.random() * 4}s;
+                    animation-delay: ${i * 8 + Math.random() * 10}s;
+                    will-change: transform, opacity;
+                `;
+                container.appendChild(meteor);
             }
 
-            // Stele normale
+            // Stele normale cu animații simple (doar transform + opacity)
             const starTypes = ['gold', 'rose', 'white', 'dust'];
             const starWeights = [0.25, 0.2, 0.35, 0.2];
             const animations = ['star-twinkle', 'star-float', 'star-pulse', 'star-firefly'];
@@ -2331,7 +1562,7 @@
         }
 
         // ============================================
-        // TOUCH SPARKLE SYSTEM
+        // TOUCH SPARKLE SYSTEM - OPTIMIZAT
         // ============================================
         class TouchSparkleSystem {
             constructor() {
@@ -2664,6 +1895,7 @@
         const soundSystem = new SoundSystem();
         document.getElementById('sound-toggle').addEventListener('click', function() { soundSystem.init(); soundSystem.isMuted = !soundSystem.isMuted; soundSystem.setMuted(soundSystem.isMuted); this.classList.toggle('muted', soundSystem.isMuted); this.innerHTML = soundSystem.isMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>'; });
         document.addEventListener('click', () => soundSystem.init(), { once: true });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') soundSystem.init(); }, { once: true });
 
         // ============================================
         // INIT SISTEME
@@ -2692,12 +1924,14 @@
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
+                fixParticleContainers();
                 if (starTrailSystem) starTrailSystem.resizeCanvas();
+                ScrollTrigger.refresh();
             }, CONFIG.resizeThrottle);
         }, { passive: true });
 
         // ============================================
-        // SCROLL EVENTS
+        // SCROLL EVENTS - THROTTLED
         // ============================================
         let lastScrollY = window.scrollY;
         let scrollVelocity = 0;
@@ -2713,9 +1947,7 @@
             scrollParticles.onScroll(scrollVelocity);
         }, { passive: true });
 
-        // ============================================
         // SECRET MESSAGE
-        // ============================================
         const warningOverlay = document.getElementById('warning-overlay');
         const secretMessageContainer = document.getElementById('secret-message-container');
         document.getElementById('secret-btn').addEventListener('click', function() { soundSystem.init(); soundSystem.playClick(); warningOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
@@ -2723,9 +1955,7 @@
         document.getElementById('btn-cancel-warning').addEventListener('click', function() { soundSystem.playClick(); warningOverlay.classList.remove('active'); document.body.style.overflow = ''; });
         document.getElementById('btn-close-secret').addEventListener('click', function() { soundSystem.playClick(); secretMessageContainer.classList.remove('active'); document.body.style.overflow = ''; });
 
-        // ============================================
         // CONFETTI
-        // ============================================
         function createStarConfetti(rating) {
             const container = document.getElementById('star-confetti-container');
             if (!container || CONFIG.prefersReducedMotion) return;
@@ -2821,9 +2051,10 @@
             createBatch();
         }
 
-        // ============================================
         // CADOU REVEAL
-        // ============================================
+        gsap.registerPlugin(ScrollTrigger);
+        let giftAnimationTriggered = false, giftClicked = false;
+
         function startConfettiEffects() {
             const centerX = window.innerWidth / 2;
             const centerY = window.innerHeight / 2 - 50;
@@ -2881,8 +2112,10 @@
         function animateGiftOpen() {
             const giftBox = document.getElementById('gift-box');
             const giftLid = document.getElementById('gift-lid');
+            const giftRibbon = document.getElementById('gift-ribbon');
             const giftHint = document.getElementById('gift-hint');
             const giftGlow = document.getElementById('gift-glow');
+            const giftBoxBody = document.getElementById('gift-box-body');
             
             soundSystem.playClick();
             
@@ -2891,8 +2124,9 @@
                 giftBox.style.transform = 'scale(1)';
                 giftHint.style.opacity = '1';
                 giftGlow.style.opacity = '1';
-                giftLid.style.transform = 'translateX(-50%) translateY(-60px)';
+                giftLid.style.transform = 'translateY(-50px)';
                 giftLid.style.opacity = '0.5';
+                giftRibbon.style.opacity = '0';
                 setTimeout(() => { startConfettiEffects(); revealText(); }, 300);
                 return;
             }
@@ -2906,31 +2140,48 @@
             giftTimeline.to('.gift-sparkle', { opacity: 1, scale: 1.5, duration: 0.3, stagger: 0.1, ease: 'power2.out' }, '-=0.3');
             giftTimeline.to(giftGlow, { opacity: 1, duration: 0.4 }, '-=0.5');
             giftTimeline.to(giftBox, { y: -20, scale: 1.08, duration: 0.7, ease: 'bounce.out' }, '+=0.4');
-            giftTimeline.to(giftBox.querySelector('.gift-body'), { filter: 'brightness(1.5) drop-shadow(0 0 40px rgba(212,175,55,1))', duration: 0.5 }, '-=0.5');
-            giftTimeline.to(giftLid, { y: -100, opacity: 0.5, duration: 0.8, ease: 'back.out(2.5)' }, '+=0.1');
+            giftTimeline.to(giftBoxBody, { filter: 'brightness(1.5) drop-shadow(0 0 40px rgba(212,175,55,1))', duration: 0.5 }, '-=0.5');
+            giftTimeline.to(giftLid, { y: -100, rotationX: -180, opacity: 0.5, duration: 0.8, ease: 'back.out(2.5)' }, '+=0.1');
+            giftTimeline.to(giftRibbon, { scale: 2.5, opacity: 0, duration: 0.5 }, '-=0.6');
             giftTimeline.to(giftHint, { opacity: 0, duration: 0.3 }, '-=0.5');
             giftTimeline.add(() => startConfettiEffects(), '+=0.2');
             giftTimeline.add(() => revealText(), '+=1.5');
         }
 
         const giftBoxElement = document.getElementById('gift-box');
-        let giftClicked = false;
-
         giftBoxElement.addEventListener('click', function() {
             if (!giftClicked) {
                 giftClicked = true;
+                giftAnimationTriggered = true;
                 gsap.to('#gift-hint', { opacity: 0, duration: 0.3 });
                 animateGiftOpen();
             }
         });
-
         giftBoxElement.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 if (!giftClicked) {
                     giftClicked = true;
+                    giftAnimationTriggered = true;
                     gsap.to('#gift-hint', { opacity: 0, duration: 0.3 });
                     animateGiftOpen();
+                }
+            }
+        });
+
+        ScrollTrigger.create({
+            trigger: '#reveal',
+            start: 'top 80%',
+            onEnter: () => {
+                if (!giftAnimationTriggered && !giftClicked) {
+                    if (CONFIG.prefersReducedMotion) {
+                        giftBoxElement.style.opacity = '1';
+                        giftBoxElement.style.transform = 'scale(1)';
+                    } else {
+                        gsap.to('#gift-box', { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.7)' });
+                        gsap.to('#gift-hint', { opacity: 1, duration: 0.5, delay: 0.5 });
+                        gsap.to('.gift-sparkle', { opacity: 0.5, scale: 1, duration: 0.3, stagger: 0.1 });
+                    }
                 }
             }
         });
@@ -2942,9 +2193,7 @@
             setTimeout(() => this.style.transform = '', 150);
         });
 
-        // ============================================
         // RATING STARS
-        // ============================================
         const stars = document.querySelectorAll('.star-btn');
         let currentRating = 0;
         
@@ -2970,10 +2219,6 @@
             });
         }
         
-        function clearHighlights() {
-            stars.forEach(s => s.classList.remove('hover-active', 'rating-high'));
-        }
-        
         stars.forEach((star) => {
             star.addEventListener('click', function() {
                 const rating = parseInt(this.dataset.rating);
@@ -2983,10 +2228,10 @@
                 stars.forEach((s, i) => s.setAttribute('aria-checked', i < rating ? 'true' : 'false'));
                 const reviewMessage = document.getElementById('review-message');
                 if (rating >= 4) {
-                    reviewMessage.innerHTML = `<div class="review-response"><p class="review-main-text text-gold-gradient">${rating === 5 ? 'Wow,chiar atât de mult ți-a plăcut!' : 'Sunt atât de bucuros că ți-a plăcut!'}</p><p class="review-subtext">„La mulți ani, Bianca!"</p></div>`;
+                    reviewMessage.innerHTML = `<div class="text-center"><p class="text-gold-gradient text-xl font-serif">${rating === 5 ? 'Wow,chiar atât de mult ți-a plăcut!' : 'Sunt atât de bucuros că ți-a plăcut!'}</p><p class="text-rose-300/70 text-xs mt-3 italic">„La mulți ani, Bianca!"</p></div>`;
                 } else {
                     const msg = {1:{text:'Ok, e un început!',sub:'Măcar ai deschis!'},2:{text:'Hmm, sigur?',sub:'Poate mai ai nevoie de timp...'},3:{text:'E ok!',sub:'Feedback onest = apreciat!'}};
-                    reviewMessage.innerHTML = `<div class="review-response"><p class="review-main-text text-rose-400">${msg[rating].text}</p><p class="text-gray-500 text-sm mt-2">${msg[rating].sub}</p></div>`;
+                    reviewMessage.innerHTML = `<div class="text-center"><p class="text-rose-400 text-lg font-serif">${msg[rating].text}</p><p class="text-gray-400 text-sm">${msg[rating].sub}</p></div>`;
                 }
                 this.classList.add('star-animating');
                 setTimeout(() => this.classList.remove('star-animating'), 500);
@@ -2994,7 +2239,7 @@
             
             if (!CONFIG.isMobile) {
                 star.addEventListener('mouseenter', () => { if (currentRating === 0) highlightStars(parseInt(star.dataset.rating)); });
-                star.addEventListener('mouseleave', () => { if (currentRating === 0) clearHighlights(); });
+                star.addEventListener('mouseleave', () => { if (currentRating === 0) stars.forEach(s => s.classList.remove('hover-active')); });
             }
             
             star.addEventListener('keydown', function(e) {
@@ -3003,42 +2248,36 @@
             });
         });
 
-        // ============================================
         // ANIMATII SCROLL
-        // ============================================
         window.addEventListener('load', () => {
             if (CONFIG.prefersReducedMotion) {
-                document.querySelectorAll('.intro-text, .intro-btn').forEach(el => {
+                document.querySelectorAll('.intro-text').forEach(el => {
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
                 });
             } else {
-                gsap.to('.intro-text, .intro-btn', { opacity: 1, y: 0, duration: 1.2, stagger: 0.2, ease: 'power3.out' });
+                gsap.to('.intro-text', { opacity: 1, y: 0, duration: 1.2, stagger: 0.2, ease: 'power3.out' });
             }
         });
         
-        // Timeline animation
         gsap.utils.toArray('.timeline-item').forEach((item, i) => {
             if (CONFIG.prefersReducedMotion) item.style.opacity = '1';
-            else gsap.to(item, { opacity: 1, x: 0, duration: 1, delay: i * 0.2, ease: 'power3.out', scrollTrigger: { trigger: item, start: 'top 85%', once: true } });
+            else gsap.to(item, { opacity: 1, duration: 1, delay: i * 0.2, ease: 'power3.out', scrollTrigger: { trigger: item, start: 'top 85%', once: true } });
         });
         
-        // Timer boxes animation
+        gsap.utils.toArray('.message-anim').forEach((el, i) => {
+            if (CONFIG.prefersReducedMotion) el.style.opacity = '1';
+            else gsap.to(el, { opacity: 1, scale: 1, y: 0, duration: 1, delay: i * 0.2, ease: 'power3.out', scrollTrigger: { trigger: '#message', start: 'top 75%', once: true } });
+        });
+        
         gsap.utils.toArray('.timer-box').forEach((box, i) => {
-            if (CONFIG.prefersReducedMotion) box.classList.add('visible');
+            if (CONFIG.prefersReducedMotion) box.style.opacity = '1';
             else gsap.to(box, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.2, ease: 'power3.out', scrollTrigger: { trigger: '#timers', start: 'top 80%', once: true } });
         });
         
-        // Secret title
-        if (!CONFIG.prefersReducedMotion) {
-            gsap.to('#secret-title', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '#secret', start: 'top 80%', once: true } });
-        } else {
-            document.getElementById('secret-title').classList.add('visible');
-        }
+        gsap.to('#secret-title', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '#secret', start: 'top 80%', once: true } });
 
-        // ============================================
         // TIMERE
-        // ============================================
         const birthDate = new Date('2006-03-03T00:00:00');
         
         function updateTimers() {
@@ -3069,21 +2308,22 @@
         setInterval(updateTimers, 1000);
         updateTimers();
 
-        // ============================================
-        // SMOOTH SCROLL
-        // ============================================
         function smoothScrollTo(id) {
             document.getElementById(id).scrollIntoView({ behavior: CONFIG.prefersReducedMotion ? 'auto' : 'smooth' });
         }
         window.smoothScrollTo = smoothScrollTo;
 
-        // ============================================
+        // INIT
+        window.addEventListener('load', () => {
+            setTimeout(() => fixParticleContainers(), 100);
+        });
+
         // CLEANUP
-        // ============================================
         window.addEventListener('beforeunload', () => {
             animationManager.pause();
             animationManager.removeCallback('scrollParticles');
             animationManager.removeCallback('starTrail');
+            ScrollTrigger.getAll().forEach(t => t.kill());
             soundSystem.destroy();
             scrollParticles.clear();
             if (touchSparkleSystem) touchSparkleSystem.destroy();
